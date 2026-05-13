@@ -57,33 +57,35 @@
     </div>
 </nav>
 
-<header class="relative min-h-[80vh] md:h-screen w-full overflow-hidden flex flex-col justify-center items-center bg-slate-200">
-    <img src="./assets/campus-main.jpg" class="absolute inset-0 w-full h-full object-cover z-0" alt="TCS Campus">
-    <div class="absolute inset-0 bg-black/20 z-10"></div> <div class="relative z-30 text-center px-6 pb-32 md:pb-0"> 
-        <h1 class="text-white font-[900] text-4xl md:text-7xl leading-tight uppercase mb-2" 
-            style="text-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);">
-            I AM - <span class="text-[#ffed00]">TO LEARN</span>
+<header class="relative h-screen w-full overflow-hidden flex items-center justify-center">
+    <img src="./assets/campus-main.jpg" class="absolute inset-0 w-full h-full object-cover object-center z-0" alt="TCS Chakwal">
+    
+    <div class="absolute inset-0 bg-white/30 z-10"></div>
+
+    <div class="relative z-30 text-center px-4 mb-20"> <h1 class="text-[#1a4789] font-[900] text-4xl md:text-7xl leading-tight uppercase">
+            I AM - TO LEARN
         </h1>
-        <p class="text-white font-bold text-xs md:text-xl tracking-[0.3em] mb-10 uppercase drop-shadow-md">
+        <p class="text-[#1a4789] font-bold text-xs md:text-xl tracking-[0.3em] mt-2 mb-10">
             THE CITY SCHOOL CHAKWAL CAMPUS
         </p>
         
         <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
-            <a href="gallery.html" class="bg-[#ffed00] text-[#1a4789] font-black py-4 px-10 rounded-sm hover:bg-white transition-all w-64 md:w-auto uppercase tracking-widest text-xs shadow-xl">
+            <a href="gallery.html" class="bg-[#1a4789] text-white font-bold py-4 px-10 rounded-sm hover:bg-yellow-500 transition w-64 md:w-auto uppercase tracking-widest text-sm">
                 View Gallery
             </a>
-            <a href="#contact" class="border-2 border-white text-white font-black py-4 px-10 rounded-sm hover:bg-white hover:text-[#1a4789] transition-all w-64 md:w-auto uppercase tracking-widest text-xs backdrop-blur-sm">
+            <a href="contact.html" class="border-2 border-[#1a4789] text-[#1a4789] font-bold py-4 px-10 rounded-sm hover:bg-[#1a4789] hover:text-white transition w-64 md:w-auto uppercase tracking-widest text-sm">
                 Contact Us
             </a>
         </div>
     </div>
+    
+        <div class="absolute bottom-0 w-full">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#f9fafb" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+    </header>
 
-    <div class="absolute bottom-0 left-0 w-full z-20 pointer-events-none translate-y-1">
-        <svg class="w-full h-auto" viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill="#ffffff" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,250.7C960,235,1056,181,1152,165.3C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-        </svg>
-    </div>
-</header>
 
 <script>
     const btn = document.getElementById('mobile-menu-button');
