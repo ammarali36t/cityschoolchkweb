@@ -7,99 +7,50 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Custom school colors based on the logo */
-        .bg-school-blue { background-color: #1a4789; }
-        .text-school-blue { color: #1a4789; }
-        .bg-school-yellow { background-color: #ffed00; }
-        .border-school-yellow { border-color: #ffed00; }
+        /* Official TCS Colors based on your logo */
+        .bg-tcs-blue { background-color: #1a4789; }
+        .text-tcs-blue { color: #1a4789; }
+        .bg-tcs-yellow { background-color: #ffed00; }
+        .border-tcs-yellow { border-color: #ffed00; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="bg-gray-50 font-sans">
 
-    <div class="bg-school-yellow h-2 w-full"></div>
+    <div class="bg-tcs-yellow h-2 w-full"></div>
 
     <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="flex justify-between items-center py-3">
-                <div class="flex items-center space-x-3">
-                    <img src="assets/logo.png" alt="TCS Logo" class="h-16 w-auto">
-                    <div>
-                        <div class="text-xl font-bold text-school-blue leading-tight">THE CITY SCHOOL</div>
-                        <div class="text-sm font-semibold tracking-widest text-gray-500">CHAKWAL CAMPUS</div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-24 items-center">
+                
+                <div class="flex items-center">
+                    <img src="assets/logo.png" alt="TCS Logo" class="h-20 w-auto mr-4">
+                    <div class="flex flex-col">
+                        <span class="text-tcs-blue font-black text-2xl tracking-tighter leading-none uppercase">
+                            The City School
+                        </span>
+                        <span class="text-gray-500 text-xs font-bold tracking-[0.3em] uppercase mt-1">
+                            Chakwal Campus
+                        </span>
                     </div>
                 </div>
-                <div class="hidden md:flex space-x-8 font-bold text-school-blue">
-                    <a href="#" class="hover:text-yellow-500 transition">HOME</a>
-                    <a href="#gallery" class="hover:text-yellow-500 transition">GALLERY</a>
-                    <a href="#about" class="hover:text-yellow-500 transition">ABOUT</a>
-                    <a href="#contact" class="hover:text-yellow-500 transition">CONTACT</a>
+
+                <div class="hidden md:flex space-x-10">
+                    <a href="#" class="text-tcs-blue font-bold hover:text-yellow-500 transition uppercase text-sm">Home</a>
+                    <a href="#gallery" class="text-tcs-blue font-bold hover:text-yellow-500 transition uppercase text-sm">Gallery</a>
+                    <a href="#about" class="text-tcs-blue font-bold hover:text-yellow-500 transition uppercase text-sm">About</a>
+                    <a href="#contact" class="text-tcs-blue font-bold hover:text-yellow-500 transition uppercase text-sm">Contact</a>
+                </div>
+
+                <div class="md:hidden text-tcs-blue text-2xl">
+                    <i class="fas fa-bars"></i>
                 </div>
             </div>
         </div>
     </nav>
 
-    <header class="relative h-[60vh] bg-school-blue flex items-center justify-center text-center text-white overflow-hidden">
-        <div class="z-10 px-4">
-            <h1 class="text-5xl md:text-7xl font-black mb-2 drop-shadow-lg">I AM - <span class="text-school-yellow">TO LEARN</span></h1>
-            <p class="text-xl md:text-2xl font-light tracking-wide italic">Excellence in Education since 1978</p>
-            <div class="mt-8">
-                <a href="#gallery" class="bg-school-yellow text-school-blue px-10 py-4 rounded-md font-black uppercase tracking-widest hover:bg-white transition-all shadow-xl">
-                    View Gallery
-                </a>
-            </div>
-        </div>
-        <div class="absolute inset-0 opacity-30 bg-[url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=2071')] bg-cover bg-center"></div>
-    </header>
-
-    <section class="py-12 bg-white">
-        <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div class="p-6 border-b-4 border-school-yellow shadow-sm rounded-lg">
-                <i class="fas fa-graduation-cap text-4xl text-school-blue mb-4"></i>
-                <h3 class="font-bold text-xl mb-2">Quality Academics</h3>
-                <p class="text-gray-600 text-sm">Following a rigorous international curriculum to ensure global success.</p>
-            </div>
-            <div class="p-6 border-b-4 border-school-yellow shadow-sm rounded-lg">
-                <i class="fas fa-volleyball-ball text-4xl text-school-blue mb-4"></i>
-                <h3 class="font-bold text-xl mb-2">Extra-Curricular</h3>
-                <p class="text-gray-600 text-sm">Developing students beyond the classroom through sports and arts.</p>
-            </div>
-            <div class="p-6 border-b-4 border-school-yellow shadow-sm rounded-lg">
-                <i class="fas fa-users text-4xl text-school-blue mb-4"></i>
-                <h3 class="font-bold text-xl mb-2">Expert Faculty</h3>
-                <p class="text-gray-600 text-sm">Dedicated educators committed to the growth of every Cityzen.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="gallery" class="py-16 bg-gray-50">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="flex items-center justify-between mb-10">
-                <h2 class="text-3xl font-black text-school-blue uppercase tracking-tighter">Campus Gallery</h2>
-                <div class="h-1 bg-school-yellow flex-grow ml-6"></div>
-            </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <img src="https://images.unsplash.com/photo-1523050335392-9ae86774929f?w=400" class="rounded-lg shadow hover:opacity-75 transition cursor-pointer h-48 w-full object-cover">
-                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400" class="rounded-lg shadow hover:opacity-75 transition cursor-pointer h-48 w-full object-cover">
-                <img src="https://images.unsplash.com/photo-1577891772227-d263f6ee009f?w=400" class="rounded-lg shadow hover:opacity-75 transition cursor-pointer h-48 w-full object-cover">
-                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400" class="rounded-lg shadow hover:opacity-75 transition cursor-pointer h-48 w-full object-cover">
-            </div>
-        </div>
-    </section>
-
-    <footer id="contact" class="bg-school-blue text-white pt-12 pb-6">
-        <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 border-b border-blue-800 pb-8">
-            <div>
-                <h4 class="font-bold text-school-yellow mb-4 underline">VISIT US</h4>
-                <p class="text-sm leading-relaxed">The City School, Chakwal Campus<br>Near Bhoun Chowk, Chakwal, Punjab<br>Pakistan</p>
-            </div>
-            <div class="text-right">
-                <h4 class="font-bold text-school-yellow mb-4 underline">CONTACT</h4>
-                <p class="text-sm">Phone: +92 (0543) [Your Number]<br>Email: chakwal@tcs.edu.pk</p>
-            </div>
-        </div>
-        <p class="text-center mt-6 text-xs text-blue-300 italic uppercase tracking-widest">I AM - TO LEARN</p>
-    </footer>
+    <div class="py-20 text-center">
+        <p class="text-gray-400 italic">Navigation successful! Ready for the Hero section.</p>
+    </div>
 
 </body>
 </html>
