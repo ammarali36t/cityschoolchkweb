@@ -23,58 +23,74 @@
 
     <div class="bg-tcs-yellow h-2 w-full"></div>
 
-   <nav class="bg-white border-b-4 border-[#ffed00] sticky top-0 z-50 px-4 py-2">
+   <nav class="bg-white border-b-4 border-[#ffed00] sticky top-0 z-50 px-4 py-3">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
         <div class="flex items-center space-x-3">
             <img src="./assets/logo.png" alt="TCS Logo" class="h-10 md:h-16 w-auto">
             <div class="flex flex-col">
-                <span class="text-[#1a4789] font-serif text-lg md:text-2xl leading-none">The City School</span>
-                <span class="text-[#1a4789] text-[8px] md:text-xs tracking-[0.2em] font-bold uppercase">Chakwal Campus</span>
+                <span class="text-[#1a4789] font-bold text-base md:text-xl leading-none">The City School</span>
+                <span class="text-[#1a4789] text-[8px] md:text-[10px] tracking-[0.2em] font-black uppercase">Chakwal Campus</span>
             </div>
         </div>
 
         <div class="hidden lg:flex space-x-8 items-center">
-            <a href="index.html" class="text-[#1a4789] font-bold hover:text-yellow-500 transition text-xs uppercase tracking-widest">Home</a>
-            <a href="about.html" class="text-[#1a4789] font-bold hover:text-yellow-500 transition text-xs uppercase tracking-widest">About</a>
-            <a href="gallery.html" class="text-[#1a4789] font-bold hover:text-yellow-500 transition text-xs uppercase tracking-widest">Gallery</a>
-            <a href="achievers.html" class="text-[#1a4789] font-bold hover:text-yellow-500 transition text-xs uppercase tracking-widest border-2 border-[#1a4789] px-3 py-1 rounded">High Achievers</a>
+            <a href="index.html" class="text-[#1a4789] font-bold hover:text-[#ffed00] transition text-xs uppercase tracking-widest">Home</a>
+            <a href="about.html" class="text-[#1a4789] font-bold hover:text-[#ffed00] transition text-xs uppercase tracking-widest">About</a>
+            <a href="gallery.html" class="text-[#1a4789] font-bold hover:text-[#ffed00] transition text-xs uppercase tracking-widest">Gallery</a>
+            <a href="achievers.html" class="text-[#1a4789] font-bold hover:text-[#ffed00] transition text-xs uppercase tracking-widest">High Achievers</a>
+            <a href="contact.html" class="text-[#1a4789] font-bold hover:text-[#ffed00] transition text-xs uppercase tracking-widest">Contact</a>
         </div>
 
-        <div class="lg:hidden text-[#1a4789]">
-            <button id="mobile-menu-button" class="focus:outline-none">
-                <i class="fas fa-bars text-2xl"></i>
-            </button>
-        </div>
+        <button id="mobile-menu-button" class="lg:hidden text-[#1a4789] p-2">
+            <i class="fas fa-bars text-2xl"></i>
+        </button>
+    </div>
+
+    <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 flex flex-col space-y-4 p-6 shadow-xl">
+        <a href="index.html" class="text-[#1a4789] font-bold uppercase text-sm">Home</a>
+        <a href="about.html" class="text-[#1a4789] font-bold uppercase text-sm">About</a>
+        <a href="gallery.html" class="text-[#1a4789] font-bold uppercase text-sm">Gallery</a>
+        <a href="achievers.html" class="text-[#1a4789] font-bold uppercase text-sm">High Achievers</a>
     </div>
 </nav>
-<header class="relative h-screen w-full overflow-hidden flex items-center justify-center">
-    <img src="./assets/campus-main.jpg" class="absolute inset-0 w-full h-full object-cover object-center z-0" alt="TCS Chakwal">
-    
-    <div class="absolute inset-0 bg-white/30 z-10"></div>
 
-    <div class="relative z-30 text-center px-6 mt-[-10vh]"> <h1 class="text-[#1a4789] font-[900] text-3xl md:text-7xl leading-tight uppercase drop-shadow-sm">
-        I AM - TO LEARN
-    </h1>
-    <p class="text-[#1a4789] font-bold text-[10px] md:text-xl tracking-[0.2em] md:tracking-[0.4em] mt-2 mb-8 opacity-90">
-        THE CITY SCHOOL CHAKWAL CAMPUS
-    </p>
-    
-    <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
-        <a href="gallery.html" class="bg-[#1a4789] text-white font-black py-4 px-10 rounded-sm hover:bg-[#ffed00] hover:text-[#1a4789] transition-all w-full md:w-auto uppercase tracking-widest text-xs shadow-lg">
-            View Gallery
-        </a>
-        <a href="contact.html" class="border-2 border-[#1a4789] text-[#1a4789] font-black py-4 px-10 rounded-sm hover:bg-[#1a4789] hover:text-white transition-all w-full md:w-auto uppercase tracking-widest text-xs">
-            Contact Us
-        </a>
-    </div>
-</div>
-    
-        <div class="absolute bottom-0 w-full">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                <path fill="#f9fafb" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-            </svg>
+<header class="relative h-[70vh] md:h-screen w-full overflow-hidden flex items-center justify-center">
+    <img src="./assets/campus-main.jpg" class="absolute inset-0 w-full h-full object-cover z-0" alt="TCS Campus">
+    <div class="absolute inset-0 bg-white/40 z-10"></div>
+
+    <div class="relative z-30 text-center px-6 mt-[-5vh]">
+        <h1 class="text-[#1a4789] font-[900] text-3xl md:text-7xl leading-tight uppercase mb-2">
+            I AM - TO LEARN
+        </h1>
+        <p class="text-[#1a4789] font-bold text-[10px] md:text-xl tracking-[0.3em] mb-10 opacity-90 uppercase">
+            THE CITY SCHOOL CHAKWAL CAMPUS
+        </p>
+        
+        <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+            <a href="gallery.html" class="bg-[#1a4789] text-white font-black py-4 px-10 rounded-sm hover:bg-[#ffed00] hover:text-[#1a4789] transition-all w-full md:w-auto uppercase tracking-widest text-xs shadow-lg">
+                View Gallery
+            </a>
+            <a href="contact.html" class="border-2 border-[#1a4789] text-[#1a4789] font-black py-4 px-10 rounded-sm hover:bg-[#1a4789] hover:text-white transition-all w-full md:w-auto uppercase tracking-widest text-xs">
+                Contact Us
+            </a>
         </div>
-    </header>
+    </div>
+
+    <div class="absolute bottom-0 left-0 w-full z-20 pointer-events-none">
+        <svg class="w-full h-auto" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#ffffff" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,250.7C960,235,1056,181,1152,165.3C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </div>
+</header>
+
+<script>
+    const btn = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+
+    btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+    });
+</script>
     <section class="py-24 bg-white relative overflow-hidden">
     <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-blue-50 rounded-full blur-3xl opacity-50"></div>
 
