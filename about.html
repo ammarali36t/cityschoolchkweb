@@ -19,6 +19,44 @@
     <a href="contact.html" class="...">Contact</a>
 </div>
 
+<nav class="bg-white border-b-4 border-[#ffed00] sticky top-0 z-50 px-4 py-3">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <img src="./assets/logo.png" alt="TCS Logo" class="h-10 md:h-16 w-auto">
+            <div class="flex flex-col">
+                <span class="text-[#1a4789] font-bold text-base md:text-xl leading-none">The City School</span>
+                <span class="text-[#1a4789] text-[8px] md:text-[10px] tracking-[0.2em] font-black uppercase">Chakwal Campus</span>
+            </div>
+        </div>
+
+        <div class="hidden lg:flex space-x-8 items-center">
+            <a href="index.html" class="text-[#1a4789] font-bold hover:text-[#ffed00] transition text-xs uppercase tracking-widest">Home</a>
+            <a href="about.html" class="text-[#1a4789] font-bold hover:text-[#ffed00] transition text-xs uppercase tracking-widest">About</a>
+            <a href="gallery.html" class="text-[#1a4789] font-bold hover:text-[#ffed00] transition text-xs uppercase tracking-widest">Gallery</a>
+            <a href="achievers.html" class="text-[#1a4789] font-bold hover:text-[#ffed00] transition text-xs uppercase tracking-widest">High Achievers</a>
+        </div>
+
+        <button id="mobile-menu-button" class="lg:hidden text-[#1a4789] p-2 focus:outline-none">
+            <i class="fas fa-bars text-2xl"></i>
+        </button>
+    </div>
+
+    <div id="mobile-menu" class="hidden flex flex-col space-y-4 pt-4 pb-2 lg:hidden">
+        <a href="index.html" class="text-[#1a4789] font-bold uppercase text-sm border-b border-gray-100 pb-2">Home</a>
+        <a href="about.html" class="text-[#1a4789] font-bold uppercase text-sm border-b border-gray-100 pb-2">About</a>
+        <a href="gallery.html" class="text-[#1a4789] font-bold uppercase text-sm border-b border-gray-100 pb-2">Gallery</a>
+        <a href="achievers.html" class="text-[#1a4789] font-bold uppercase text-sm">High Achievers</a>
+    </div>
+</nav>
+
+<script>
+    const btn = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+    btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+    });
+</script>
+
 
 <section id="about" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
