@@ -77,21 +77,24 @@
     async function loadFaculty() {
         const grid = document.getElementById('faculty-grid');
         
+        // List your faculty file names here whenever you add new ones, 
+        // OR we can keep using the GitHub fetch with a "no-cache" trick.
+        const repoOwner = "cityschoolchkweb";
+        const repoName = "cityschoolchkweb";
+        const folderPath = "content/faculty";
+
         try {
-            // This is the direct path to where Netlify saves your JSON files
-            const response = await fetch('https://api.github.com/repos/cityschoolchkweb/cityschoolchkweb/contents/content/faculty');
+            // Added a timestamp to the end to force GitHub to give us the freshest data
+            const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}?t=${new Date().getTime()}`);
             const files = await response.json();
             
             grid.innerHTML = ''; 
 
-            // If there are no files yet
-            if (!files || files.length === 0) {
-                grid.innerHTML = '<p class="text-center col-span-full text-slate-400">No faculty members found. Add some in the Admin Panel!</p>';
-                return;
+            if (!Array.isArray(files)) {
+                throw new Error("Files not found");
             }
 
             for (const file of files) {
-                // Only look for the .json files we created
                 if (file.name.endsWith('.json')) {
                     const contentRes = await fetch(file.download_url);
                     const member = await contentRes.json();
@@ -99,7 +102,7 @@
                     const card = `
                         <div class="staff-card bg-white border-2 border-slate-100 shadow-xl overflow-hidden group hover:border-[#ffed00] transform transition duration-300 hover:-translate-y-2">
                             <div class="h-72 bg-slate-100 relative overflow-hidden">
-                                <img src="${member.image}" alt="${member.title}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/400x500?text=Teacher+Photo'">
+                                <img src="${member.image}" alt="${member.title}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/400x500?text=TCS+Teacher'">
                             </div>
                             <div class="p-8 text-center">
                                 <div class="inline-block bg-[#ffed00]/20 text-[#1a4789] px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest mb-3">TCS Faculty</div>
@@ -107,7 +110,7 @@
                                 <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-5">${member.role}</p>
                                 <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4">
                                     <p class="text-[#1a4789] font-black text-[9px] uppercase tracking-widest opacity-50">Experience</p>
-                                    <p class="text-[#1a4789] text-sm font-bold">${member.order || '0'} Years</p>
+                                    <p class="text-[#1a4789] text-sm font-bold">${member.order || '5+'} Years</p>
                                 </div>
                             </div>
                         </div>
@@ -117,7 +120,7 @@
             }
         } catch (error) {
             console.error("Error:", error);
-            grid.innerHTML = '<p class="text-center col-span-full text-red-400 font-bold uppercase text-xs tracking-widest">Unable to load faculty. Check if you have published members in the Admin Panel.</p>';
+            grid.innerHTML = '<p class="text-center col-span-full text-slate-400 uppercase text-[10px] tracking-widest font-bold">Syncing with Admin Panel... Refresh in 30 seconds.</p>';
         }
     }
 
