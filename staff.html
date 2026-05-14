@@ -10,10 +10,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
-        .staff-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-radius: 2.5rem; }
-        .staff-card:hover { transform: translateY(-10px); }
-        .animate-fade-up { animation: fadeUp 0.4s ease-out forwards; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* The Hover Animation Logic */
+        .staff-card { 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            border-radius: 2.5rem; 
+        }
+        .staff-card:hover { 
+            transform: translateY(-12px); 
+            box-shadow: 0 25px 50px -12px rgba(26, 71, 137, 0.15);
+        }
+
+        .animate-fade-up { animation: fadeUp 0.6s ease-out forwards; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="bg-slate-50">
@@ -47,15 +56,15 @@
     <main class="max-w-6xl mx-auto px-4 py-16">
         
         <div class="flex justify-center mb-24 animate-fade-up">
-            <div class="staff-card w-full max-w-sm bg-white border-4 border-[#ffed00] shadow-2xl overflow-hidden">
-                <div class="h-96 bg-slate-100 flex items-center justify-center relative overflow-hidden group">
-                    <i class="fas fa-user-tie text-slate-200 text-9xl"></i>
-                    </div>
-                <div class="p-8 text-center bg-white">
-                    <div class="inline-block bg-[#ffed00] text-[#1a4789] px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 shadow-sm">Leadership</div>
+            <div class="staff-card w-full max-w-sm bg-white border-4 border-[#ffed00] shadow-2xl overflow-hidden group">
+                <div class="h-96 bg-slate-100 flex items-center justify-center relative overflow-hidden">
+                    <i class="fas fa-user-tie text-slate-200 text-9xl transition-transform duration-500 group-hover:scale-110"></i>
+                </div>
+                <div class="p-8 text-center">
+                    <div class="inline-block bg-[#ffed00] text-[#1a4789] px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4">Leadership</div>
                     <h2 class="text-[#1a4789] font-black text-2xl uppercase tracking-tighter">Mrs. Eema Fatima</h2>
                     <p class="text-slate-500 font-bold text-xs uppercase tracking-widest mb-6">Head Mistress</p>
-                    <div class="bg-[#1a4789] rounded-2xl p-4 shadow-inner">
+                    <div class="bg-[#1a4789] rounded-2xl p-4">
                         <p class="text-blue-200 font-black text-[9px] uppercase tracking-widest">Total Experience</p>
                         <p class="text-white text-lg font-bold">** Years</p>
                     </div>
@@ -65,10 +74,10 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
             
-            <div class="staff-card bg-white border-2 border-slate-100 shadow-xl overflow-hidden animate-fade-up">
-                <div class="h-72 bg-slate-100 flex items-center justify-center relative group">
-                    <i class="fas fa-user text-slate-200 text-7xl"></i>
-                    </div>
+            <div class="staff-card bg-white border-2 border-slate-100 shadow-xl overflow-hidden animate-fade-up group">
+                <div class="h-72 bg-slate-100 flex items-center justify-center relative">
+                    <i class="fas fa-user text-slate-200 text-7xl transition-transform duration-500 group-hover:scale-110"></i>
+                </div>
                 <div class="p-8 text-center">
                     <h3 class="text-[#1a4789] font-black text-xl uppercase tracking-tighter">Sir Faisal</h3>
                     <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-5">Computer Science (O-Level)</p>
@@ -79,10 +88,10 @@
                 </div>
             </div>
 
-            <div class="staff-card bg-white border-2 border-slate-100 shadow-xl overflow-hidden animate-fade-up">
-                <div class="h-72 bg-slate-100 flex items-center justify-center relative group">
-                    <i class="fas fa-user text-slate-200 text-7xl"></i>
-                    </div>
+            <div class="staff-card bg-white border-2 border-slate-100 shadow-xl overflow-hidden animate-fade-up group">
+                <div class="h-72 bg-slate-100 flex items-center justify-center relative">
+                    <i class="fas fa-user text-slate-200 text-7xl transition-transform duration-500 group-hover:scale-110"></i>
+                </div>
                 <div class="p-8 text-center">
                     <h3 class="text-[#1a4789] font-black text-xl uppercase tracking-tighter">***</h3>
                     <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-5">***</p>
@@ -93,10 +102,10 @@
                 </div>
             </div>
 
-            <div class="staff-card bg-white border-2 border-slate-100 shadow-xl overflow-hidden animate-fade-up">
-                <div class="h-72 bg-slate-100 flex items-center justify-center relative group">
-                    <i class="fas fa-user text-slate-200 text-7xl"></i>
-                    </div>
+            <div class="staff-card bg-white border-2 border-slate-100 shadow-xl overflow-hidden animate-fade-up group">
+                <div class="h-72 bg-slate-100 flex items-center justify-center relative">
+                    <i class="fas fa-user text-slate-200 text-7xl transition-transform duration-500 group-hover:scale-110"></i>
+                </div>
                 <div class="p-8 text-center">
                     <h3 class="text-[#1a4789] font-black text-xl uppercase tracking-tighter">Ms. Nida</h3>
                     <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-5">Chemistry Specialist</p>
