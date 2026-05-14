@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .staff-card { transition: all 0.3s ease; }
     </style>
 </head>
 <body class="bg-slate-50">
@@ -26,107 +27,39 @@
 
             <div class="hidden lg:flex space-x-3 xl:space-x-5 items-center">
                 <a href="index.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Home</a>
-                <a href="achievers.html" class="text-[#ffed00] font-black transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">High Achievers</a>
+                <a href="achievers.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">High Achievers</a>
                 <a href="gallery.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Gallery</a>
                 <a href="events.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Events</a>
                 <a href="resources.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Resources</a>
-                <a href="calendar.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest text-nowrap">Calendar</a>
+                <a href="calendar.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Calendar</a>
                 <a href="buddy.html" class="text-blue-600 font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest flex items-center bg-blue-50 px-2 py-1 rounded-full">
                     <i class="fas fa-robot mr-1"></i>CampusBuddy
                 </a>
-                <a href="staff.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Staff</a>
+                <a href="staff.html" class="text-[#ffed00] font-black transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Staff</a>
                 <a href="about.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">About</a>
                 <a href="feedback.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Feedback</a>
             </div>
 
-            <button id="mobile-menu-button" class="lg:hidden flex items-center justify-center w-12 h-10 bg-[#1a4789] rounded-lg shadow-md focus:outline-none active:scale-95 transition-all">
+            <button id="mobile-menu-button" class="lg:hidden flex items-center justify-center w-12 h-10 bg-[#1a4789] rounded-lg shadow-md focus:outline-none">
                 <i class="fas fa-bars text-white text-xl"></i>
             </button>
         </div>
 
         <div id="mobile-menu" class="hidden flex flex-col space-y-3 pt-4 pb-2 lg:hidden bg-white px-4 shadow-inner">
             <a href="index.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Home</a>
-            <a href="achievers.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">High Achievers</a>
-            <a href="gallery.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Gallery</a>
-            <a href="events.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Events</a>
-            <a href="resources.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Resources</a>
-            <a href="calendar.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">School Calendar</a>
-            <a href="buddy.html" class="text-blue-600 font-bold uppercase text-xs border-b pb-2 flex items-center">
-                <i class="fas fa-robot mr-2"></i> CampusBuddy
-            </a>
             <a href="staff.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Staff</a>
-            <a href="about.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">About</a>
             <a href="feedback.html" class="text-[#1a4789] font-bold uppercase text-xs">Feedback</a>
         </div>
     </nav>
 
     <header class="py-20 bg-[#1a4789] text-center px-4">
-        <h1 class="text-[#ffed00] font-black text-5xl md:text-6xl uppercase italic mb-2 tracking-tighter animate-fade-up">Our Faculty</h1>
-        <p class="text-white opacity-80 uppercase tracking-[0.3em] text-[10px] font-bold animate-fade-up">The Mentors of TCS Chakwal Campus</p>
+        <h1 class="text-[#ffed00] font-black text-5xl md:text-6xl uppercase italic mb-2 tracking-tighter">Our Faculty</h1>
+        <p class="text-white opacity-80 uppercase tracking-[0.3em] text-[10px] font-bold">The Mentors of TCS Chakwal Campus</p>
     </header>
 
     <main class="max-w-6xl mx-auto px-4 py-16">
-        
-        <div class="flex justify-center mb-24 animate-fade-up">
-            <div class="staff-card w-full max-w-sm bg-white border-4 border-[#ffed00] shadow-2xl overflow-hidden group">
-                <div class="h-96 bg-slate-100 flex items-center justify-center relative overflow-hidden">
-                    <i class="fas fa-user-tie text-slate-200 text-9xl transition-transform duration-500 group-hover:scale-110"></i>
-                </div>
-                <div class="p-8 text-center">
-                    <div class="inline-block bg-[#ffed00] text-[#1a4789] px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4">Head Mistress</div>
-                    <h2 class="text-[#1a4789] font-black text-2xl uppercase tracking-tighter">Mrs. Eema Fatima</h2>
-                    <div class="bg-[#1a4789] rounded-2xl p-4">
-                        <p class="text-blue-200 font-black text-[9px] uppercase tracking-widest">Total Experience</p>
-                        <p class="text-white text-lg font-bold">** Years</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-            
-            <div class="staff-card bg-white border-2 border-slate-100 shadow-xl overflow-hidden animate-fade-up group">
-                <div class="h-72 bg-slate-100 flex items-center justify-center relative">
-                    <i class="fas fa-user text-slate-200 text-7xl transition-transform duration-500 group-hover:scale-110"></i>
-                </div>
-                <div class="p-8 text-center">
-                    <h3 class="text-[#1a4789] font-black text-xl uppercase tracking-tighter">Sir Faisal</h3>
-                    <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-5">Computer Science (O-Level)</p>
-                    <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4">
-                        <p class="text-[#1a4789] font-black text-[9px] uppercase tracking-widest opacity-50">Teaching Experience</p>
-                        <p class="text-[#1a4789] text-sm font-bold">100 Years</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="staff-card bg-white border-2 border-slate-100 shadow-xl overflow-hidden animate-fade-up group">
-                <div class="h-72 bg-slate-100 flex items-center justify-center relative">
-                    <i class="fas fa-user text-slate-200 text-7xl transition-transform duration-500 group-hover:scale-110"></i>
-                </div>
-                <div class="p-8 text-center">
-                    <h3 class="text-[#1a4789] font-black text-xl uppercase tracking-tighter">***</h3>
-                    <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-5">***</p>
-                    <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4">
-                        <p class="text-[#1a4789] font-black text-[9px] uppercase tracking-widest opacity-50">Teaching Experience</p>
-                        <p class="text-[#1a4789] text-sm font-bold">** Years</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="staff-card bg-white border-2 border-slate-100 shadow-xl overflow-hidden animate-fade-up group">
-                <div class="h-72 bg-slate-100 flex items-center justify-center relative">
-                    <i class="fas fa-user text-slate-200 text-7xl transition-transform duration-500 group-hover:scale-110"></i>
-                </div>
-                <div class="p-8 text-center">
-                    <h3 class="text-[#1a4789] font-black text-xl uppercase tracking-tighter">Ms. Nida</h3>
-                    <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-5">Chemistry Specialist</p>
-                    <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4">
-                        <p class="text-[#1a4789] font-black text-[9px] uppercase tracking-widest opacity-50">Teaching Experience</p>
-                        <p class="text-[#1a4789] text-sm font-bold">** Years</p>
-                    </div>
-                </div>
-            </div>
-
+        <div id="faculty-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <p class="text-center col-span-full text-slate-400 animate-pulse">Loading faculty members...</p>
         </div>
     </main>
 
@@ -135,12 +68,52 @@
     </footer>
 
     <script>
+        // Mobile Menu Toggle
         const btn = document.getElementById('mobile-menu-button');
         const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
-    </script>
+        btn.addEventListener('click', () => menu.classList.toggle('hidden'));
 
+        // Faculty Loader
+        async function loadFaculty() {
+            const grid = document.getElementById('faculty-grid');
+            
+            try {
+                // This fetches the list of files published via Netlify CMS
+                const response = await fetch('https://api.github.com/repos/cityschoolchkweb/cityschoolchkweb/contents/content/faculty');
+                const files = await response.json();
+                
+                grid.innerHTML = ''; // Clear loading text
+
+                for (const file of files) {
+                    if (file.name.endsWith('.json')) {
+                        const contentRes = await fetch(file.download_url);
+                        const member = await contentRes.json();
+
+                        const card = `
+                            <div class="staff-card bg-white border-2 border-slate-100 shadow-xl overflow-hidden group hover:border-[#ffed00]">
+                                <div class="h-72 bg-slate-100 relative overflow-hidden">
+                                    <img src="${member.image}" alt="${member.title}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                                </div>
+                                <div class="p-8 text-center">
+                                    <h3 class="text-[#1a4789] font-black text-xl uppercase tracking-tighter">${member.title}</h3>
+                                    <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-5">${member.role}</p>
+                                    <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4">
+                                        <p class="text-[#1a4789] font-black text-[9px] uppercase tracking-widest opacity-50">Experience</p>
+                                        <p class="text-[#1a4789] text-sm font-bold">${member.order || '**'} Years</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        grid.innerHTML += card;
+                    }
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                grid.innerHTML = '<p class="text-center col-span-full">Please add faculty members in the Admin Panel.</p>';
+            }
+        }
+
+        window.onload = loadFaculty;
+    </script>
 </body>
 </html>
