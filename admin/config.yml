@@ -1,0 +1,18 @@
+backend:
+  name: git-gateway
+  branch: main # Double check if your GitHub branch is 'main' or 'master'
+
+media_folder: "assets/uploads" # Images uploaded by staff go here
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "staff_members"
+    label: "Our Faculty"
+    folder: "content/faculty" # This is where the data files will live
+    create: true
+    slug: "{{title}}"
+    fields:
+      - {label: "Teacher Name", name: "title", widget: "string"}
+      - {label: "Designation/Role", name: "role", widget: "string"}
+      - {label: "Profile Picture", name: "image", widget: "image"}
+      - {label: "Display Order", name: "order", widget: "number", default: 1}
