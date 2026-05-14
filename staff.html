@@ -75,43 +75,47 @@
 
     async function loadFaculty() {
         const grid = document.getElementById('faculty-grid');
-        
-        // ADD YOUR TEACHER FILE NAMES HERE (from your content/faculty folder)
-        const facultyFiles = ['dummy-tr.json']; 
+        const repoOwner = "ammarali36t"; // Updated to match your GitHub username
+        const repoName = "cityschoolchkweb";
+        const folderPath = "content/faculty";
 
-        grid.innerHTML = ''; 
+        try {
+            // This fetches the list of ALL files in your faculty folder
+            const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}?t=${new Date().getTime()}`);
+            const files = await response.json();
+            
+            grid.innerHTML = ''; 
 
-        for (const fileName of facultyFiles) {
-            try {
-                // Fetch directly from your live site folder
-                const response = await fetch(`/content/faculty/${fileName}`);
-                if (!response.ok) continue;
-                
-                const member = await response.json();
+            if (!Array.isArray(files)) return;
 
-                const card = `
-                    <div class="staff-card bg-white border-2 border-slate-100 shadow-xl overflow-hidden group hover:border-[#ffed00] transform transition duration-300 hover:-translate-y-2">
-                        <div class="h-72 bg-slate-100 relative overflow-hidden">
-                            <img src="${member.image}" alt="${member.title}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/400x500?text=Teacher'">
-                        </div>
-                        <div class="p-8 text-center">
-                            <h3 class="text-[#1a4789] font-black text-xl uppercase tracking-tighter">${member.title}</h3>
-                            <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-5">${member.role}</p>
-                            <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4">
-                                <p class="text-[#1a4789] font-black text-[9px] uppercase tracking-widest opacity-50">Experience</p>
-                                <p class="text-[#1a4789] text-sm font-bold">${member.order || '5+'} Years</p>
+            // Loop through every file found in GitHub
+            for (const file of files) {
+                if (file.name.endsWith('.json')) {
+                    const contentRes = await fetch(file.download_url);
+                    const member = await contentRes.json();
+
+                    const card = `
+                        <div class="staff-card bg-white border-2 border-slate-100 shadow-xl overflow-hidden group hover:border-[#ffed00] transform transition duration-300 hover:-translate-y-2">
+                            <div class="h-72 bg-slate-100 relative overflow-hidden">
+                                <img src="${member.image}" alt="${member.title}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/400x500?text=TCS+Teacher'">
+                            </div>
+                            <div class="p-8 text-center">
+                                <div class="inline-block bg-[#ffed00]/20 text-[#1a4789] px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest mb-3">TCS Faculty</div>
+                                <h3 class="text-[#1a4789] font-black text-xl uppercase tracking-tighter">${member.title}</h3>
+                                <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-5">${member.role}</p>
+                                <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4">
+                                    <p class="text-[#1a4789] font-black text-[9px] uppercase tracking-widest opacity-50">Experience</p>
+                                    <p class="text-[#1a4789] text-sm font-bold">${member.order || '1'} Years</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                `;
-                grid.innerHTML += card;
-            } catch (e) {
-                console.log("Skipping file:", fileName);
+                    `;
+                    grid.innerHTML += card;
+                }
             }
-        }
-        
-        if (grid.innerHTML === '') {
-            grid.innerHTML = '<p class="text-center col-span-full text-slate-400">Add faculty members in the Admin Panel to see them here.</p>';
+        } catch (error) {
+            console.error("Error loading faculty:", error);
+            grid.innerHTML = '<p class="text-center col-span-full text-slate-400">Updating faculty list... please refresh.</p>';
         }
     }
 
