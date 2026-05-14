@@ -72,39 +72,36 @@
 </div>
 </nav>
 
-<header class="relative h-[85vh] md:h-[95vh] w-full overflow-hidden flex flex-col justify-center items-center bg-slate-200">
+<header class="relative h-screen w-full overflow-hidden flex items-center justify-center">
+    <img src="./assets/campus-main.jpg" class="absolute inset-0 w-full h-full object-cover object-center z-0" alt="TCS Chakwal">
     
-    <img src="./assets/campus-main.jpg" 
-     class="absolute inset-0 w-full h-full object-cover object-[center_20%] z-0" 
-     alt="TCS Campus">
+    <div class="absolute inset-0 bg-white/30 z-10"></div>
 
-<h1 class="text-white font-[950] text-6xl md:text-[7rem] leading-[0.9] uppercase mb-4 tracking-tighter" 
-    style="filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));">
-    I AM - <br class="md:hidden"> <span class="text-[#ffed00]">TO LEARN</span>
-</h1>
-
-<div class="inline-block bg-[#1a4789] px-8 py-3 mb-10 shadow-2xl mx-auto">
-    <p class="text-white font-bold text-xs md:text-xl tracking-[0.4em] uppercase">
+   <div class="relative z-30 text-center px-6 mt-[-5vh]">
+    <h1 class="text-white font-[900] text-4xl md:text-7xl leading-tight uppercase mb-2" 
+        style="text-shadow: 0px 4px 10px rgba(26, 71, 137, 0.8);">
+        I AM - <span class="text-[#ffed00]">TO LEARN</span>
+    </h1>
+    <p class="text-white font-bold text-[10px] md:text-xl tracking-[0.3em] mb-10 uppercase bg-[#1a4789]/60 px-4 py-1 inline-block">
         THE CITY SCHOOL CHAKWAL CAMPUS
     </p>
+    
+    <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+        <a href="gallery.html" class="bg-[#ffed00] text-[#1a4789] font-black py-4 px-10 rounded-sm hover:bg-white transition-all w-full md:w-auto uppercase tracking-widest text-xs shadow-xl">
+            View Gallery
+        </a>
+       <a href="#contact" class="border-2 border-white text-white font-black py-4 px-10 rounded-sm hover:bg-white hover:text-[#1a4789] transition-all w-64 md:w-auto uppercase tracking-widest text-xs backdrop-blur-sm">
+    Contact Us
+</a>
+    </div>
 </div>
-        
-        <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
-            <a href="gallery.html" class="bg-[#ffed00] text-[#1a4789] font-black py-5 px-12 rounded-sm hover:scale-105 transition-all w-72 md:w-80 uppercase tracking-widest text-sm shadow-lg">
-                View Gallery
-            </a>
-            <a href="#contact" class="border-2 border-white text-white font-black py-5 px-12 rounded-sm hover:bg-white hover:text-[#1a4789] transition-all w-72 md:w-80 uppercase tracking-widest text-sm backdrop-blur-md">
-                Contact Us
-            </a>
+    
+        <div class="absolute bottom-0 w-full">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#f9fafb" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
         </div>
-    </div>
-
-    <div class="absolute bottom-0 left-0 w-full z-20 pointer-events-none">
-        <svg class="w-full h-auto" viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill="#ffffff" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,250.7C960,235,1056,181,1152,165.3C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-        </svg>
-    </div>
-</header>
+    </header>
 
 <script>
     const btn = document.getElementById('mobile-menu-button');
