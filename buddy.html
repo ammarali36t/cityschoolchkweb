@@ -6,64 +6,131 @@
     <title>CampusBuddy | TCS Chakwal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/png" href="./assets/favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .chat-bubble { border-radius: 20px 20px 20px 5px; }
+        .user-bubble { border-radius: 20px 20px 5px 20px; }
+        #chat-window::-webkit-scrollbar { width: 6px; }
+        #chat-window::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    </style>
 </head>
-<body>
-    </body>
-</html>
+<body class="flex flex-col h-screen max-h-screen">
 
-<nav class="bg-white border-b-4 border-[#ffed00] sticky top-0 z-50 px-4 py-3">
-    <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <nav class="bg-white border-b-4 border-[#ffed00] p-4 flex justify-between items-center shadow-sm sticky top-0 z-50">
         <div class="flex items-center space-x-3">
-            <img src="./assets/logo.png" alt="TCS Logo" class="h-10 md:h-16 w-auto">
-            <div class="flex flex-col">
-                <span class="text-[#1a4789] font-bold text-base md:text-xl leading-none">The City School</span>
-                <span class="text-[#1a4789] text-[8px] md:text-[10px] tracking-[0.2em] font-black uppercase">Chakwal Campus</span>
+            <div class="w-10 h-10 bg-[#1a4789] rounded-xl flex items-center justify-center shadow-lg">
+                <i class="fas fa-robot text-[#ffed00] text-xl"></i>
+            </div>
+            <div>
+                <span class="block font-black text-[#1a4789] uppercase tracking-tighter leading-none">CampusBuddy</span>
+                <span class="text-[8px] font-bold text-green-500 uppercase tracking-widest">Online Assistant</span>
             </div>
         </div>
+        <a href="index.html" class="bg-slate-100 text-slate-500 px-4 py-2 rounded-full text-[10px] font-black uppercase hover:bg-red-50 hover:text-red-500 transition">
+            Exit <i class="fas fa-times ml-1"></i>
+        </a>
+    </nav>
 
-        <div class="hidden lg:flex space-x-3 xl:space-x-5 items-center">
-    <a href="index.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Home</a>
-    <a href="achievers.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">High Achievers</a>
-    <a href="gallery.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Gallery</a>
-    <a href="events.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Events</a>
-    <a href="resources.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Resources</a>
-    <a href="calendar.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest text-nowrap">Calendar</a>
-    <a href="buddy.html" class="text-blue-600 font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest flex items-center bg-blue-50 px-2 py-1 rounded-full">
-        <i class="fas fa-robot mr-1"></i>CampusBuddy
-    </a>
-    <a href="staff.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Staff</a>
-    <a href="about.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">About</a>
-    <a href="feedback.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Feedback</a>
-</div>
+    <main class="flex-1 overflow-y-auto p-4 md:p-8 space-y-6" id="chat-window">
+        <div class="flex items-start space-x-3">
+            <div class="w-8 h-8 bg-[#1a4789] rounded-lg flex-shrink-0 flex items-center justify-center mt-1">
+                <i class="fas fa-robot text-[#ffed00] text-xs"></i>
+            </div>
+            <div class="chat-bubble bg-white border-2 border-slate-100 p-5 max-w-[85%] md:max-w-[60%] text-[#1a4789] text-sm shadow-sm leading-relaxed">
+                Hello! I am your <strong>CampusBuddy</strong>. 🤖 <br><br>
+                I can help you navigate the portal. Try asking me about:
+                <div class="mt-4 grid grid-cols-1 gap-2">
+                    <button onclick="autoQuery('Past Papers')" class="text-left p-2 bg-slate-50 rounded-lg hover:bg-[#ffed00] transition text-[11px] font-bold uppercase tracking-tight">• Past Papers</button>
+                    <button onclick="autoQuery('School Events')" class="text-left p-2 bg-slate-50 rounded-lg hover:bg-[#ffed00] transition text-[11px] font-bold uppercase tracking-tight">• School Calendar</button>
+                    <button onclick="autoQuery('Senior III Subjects')" class="text-left p-2 bg-slate-50 rounded-lg hover:bg-[#ffed00] transition text-[11px] font-bold uppercase tracking-tight">• Senior III Subjects</button>
+                </div>
+            </div>
+        </div>
+    </main>
 
+    <footer class="p-4 bg-white border-t border-slate-100 shadow-[0_-10px_20px_rgba(0,0,0,0.02)]">
+        <div class="max-w-4xl mx-auto flex items-center space-x-3">
+            <input type="text" id="user-input" 
+                   onkeypress="if(event.key === 'Enter') sendMessage()"
+                   placeholder="Type a question (e.g. 'Show me Senior II')" 
+                   class="flex-1 p-4 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-[#1a4789] focus:bg-white outline-none transition font-medium text-sm">
+            <button onclick="sendMessage()" class="bg-[#1a4789] text-[#ffed00] w-14 h-14 rounded-2xl flex items-center justify-center hover:scale-105 active:scale-95 transition shadow-lg">
+                <i class="fas fa-paper-plane text-lg"></i>
+            </button>
+        </div>
+    </footer>
 
-       <button id="mobile-menu-button" class="lg:hidden flex items-center justify-center w-12 h-10 bg-[#1a4789] rounded-lg shadow-md focus:outline-none active:scale-95 transition-all">
-    <i class="fas fa-bars text-white text-xl"></i>
-</button>
-    </div>
+    <script>
+        const chatWindow = document.getElementById('chat-window');
+        const userInput = document.getElementById('user-input');
 
-    <div id="mobile-menu" class="hidden flex flex-col space-y-3 pt-4 pb-2 lg:hidden bg-white px-4 shadow-inner">
-    <a href="index.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Home</a>
-    <a href="achievers.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">High Achievers</a>
-    <a href="gallery.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Gallery</a>
-    <a href="events.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Events</a>
-    <a href="resources.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Resources</a>
-    <a href="calendar.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">School Calendar</a>
-    <a href="buddy.html" class="text-blue-600 font-bold uppercase text-xs border-b pb-2 flex items-center">
-    <i class="fas fa-robot mr-2 text-blue-600"></i> CampusBuddy
-</a>
-    <a href="staff.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Staff</a>
-    <a href="about.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">About</a>
-    <a href="feedback.html" class="text-[#1a4789] font-bold uppercase text-xs">Feedback</a>
-</div>
-</nav>
+        function autoQuery(q) {
+            userInput.value = q;
+            sendMessage();
+        }
 
-<script>
-    const btn = document.getElementById('mobile-menu-button');
-    const menu = document.getElementById('mobile-menu');
-    btn.addEventListener('click', () => {
-        menu.classList.toggle('hidden');
-    });
-</script>
+        function sendMessage() {
+            const text = userInput.value.trim();
+            if (text === "") return;
+
+            // User Bubble
+            addMessage(text, 'user');
+            userInput.value = "";
+
+            // Buddy Response Logic
+            setTimeout(() => {
+                const response = getBuddyResponse(text.toLowerCase());
+                addMessage(response, 'buddy');
+            }, 500);
+        }
+
+        function addMessage(content, sender) {
+            const wrapper = document.createElement('div');
+            wrapper.className = sender === 'user' ? 'flex justify-end' : 'flex items-start space-x-3';
+            
+            if (sender === 'user') {
+                wrapper.innerHTML = `
+                    <div class="user-bubble bg-[#1a4789] text-white p-4 max-w-[80%] text-sm font-medium shadow-md">
+                        ${content}
+                    </div>
+                `;
+            } else {
+                wrapper.innerHTML = `
+                    <div class="w-8 h-8 bg-[#1a4789] rounded-lg flex-shrink-0 flex items-center justify-center mt-1">
+                        <i class="fas fa-robot text-[#ffed00] text-xs"></i>
+                    </div>
+                    <div class="chat-bubble bg-white border-2 border-slate-100 p-4 max-w-[85%] text-[#1a4789] text-sm shadow-sm leading-relaxed">
+                        ${content}
+                    </div>
+                `;
+            }
+
+            chatWindow.appendChild(wrapper);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        function getBuddyResponse(input) {
+            if (input.includes("past paper") || input.includes("resource") || input.includes("book")) {
+                return "You can find all past papers and learning resources on the <a href='resources.html' class='text-blue-600 font-bold underline'>Resources Page</a>.";
+            }
+            if (input.includes("senior 3") || input.includes("senior iii")) {
+                return "Senior III focuses on core subjects: English, Comp Sci, Maths, Chemistry, and Physics. Check the <a href='resources.html' class='text-blue-600 font-bold underline'>Resources Page</a> for materials.";
+            }
+            if (input.includes("senior 1") || input.includes("senior i") || input.includes("senior 2") || input.includes("senior ii")) {
+                return "Senior I & II cover Islamiat, Pak Studies, Urdu, English, Maths, and Sciences. Visit <a href='resources.html' class='text-blue-600 font-bold underline'>Resources</a> to see more.";
+            }
+            if (input.includes("event") || input.includes("holiday") || input.includes("calendar") || input.includes("date")) {
+                return "Stay up to date with holidays and events via our <a href='calendar.html' class='text-blue-600 font-bold underline'>School Calendar</a>.";
+            }
+            if (input.includes("hello") || input.includes("hi") || input.includes("hey")) {
+                return "Hello! I'm ready to help. What are you looking for today?";
+            }
+            
+            return "I'm not sure about that yet! Try asking about <strong>'Resources'</strong>, <strong>'Calendar'</strong>, or <strong>'Senior Levels'</strong>.";
+        }
+    </script>
+
+</body>
+</html>
