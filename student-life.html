@@ -10,6 +10,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body class="bg-slate-50">
@@ -23,7 +30,7 @@
                     <span class="text-[#1a4789] text-[8px] md:text-[10px] tracking-[0.2em] font-black uppercase">Chakwal Campus</span>
                 </div>
             </div>
-            <a href="events.html" class="bg-[#1a4789] text-white px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest hover:bg-[#ffed00] hover:text-[#1a4789] transition">
+            <a href="events.html" class="bg-[#1a4789] text-white px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest hover:bg-[#ffed00] hover:text-[#1a4789] transition shadow-md">
                 <i class="fas fa-arrow-left mr-2"></i> Back to Events
             </a>
         </div>
@@ -37,22 +44,28 @@
     <main class="max-w-7xl mx-auto px-4 py-16">
         
         <div class="flex flex-wrap justify-center gap-4 mb-12">
-            <button class="bg-[#1a4789] text-white px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest">All Media</button>
-            <button class="bg-white text-[#1a4789] border border-blue-100 px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-blue-50">Photos</button>
-            <button class="bg-white text-[#1a4789] border border-blue-100 px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-blue-50">Videos</button>
+            <button onclick="filterMedia('all')" class="filter-btn bg-[#1a4789] text-white px-8 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all shadow-lg active:scale-95">
+                All Media
+            </button>
+            <button onclick="filterMedia('photos')" class="filter-btn bg-white text-[#1a4789] border border-blue-100 px-8 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all hover:bg-blue-50 active:scale-95">
+                Photos
+            </button>
+            <button onclick="filterMedia('videos')" class="filter-btn bg-white text-[#1a4789] border border-blue-100 px-8 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all hover:bg-blue-50 active:scale-95">
+                Videos
+            </button>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <div class="group relative aspect-video bg-gray-200 rounded-[2rem] overflow-hidden shadow-lg border-4 border-white">
+            <div class="gallery-item animate-fade-in group relative aspect-video bg-gray-200 rounded-[2rem] overflow-hidden shadow-lg border-4 border-white" data-category="photos">
                 <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                 <div class="absolute inset-0 bg-[#1a4789]/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-6 text-center">
                     <span class="text-[#ffed00] text-xs font-black uppercase tracking-widest mb-2">Sports Day</span>
-                    <p class="text-white text-sm font-bold">Annual Inter-Campus Athletics 2025</p>
+                    <p class="text-white text-sm font-bold">Annual Inter-Campus Athletics</p>
                 </div>
             </div>
 
-            <div class="group relative aspect-video bg-gray-200 rounded-[2rem] overflow-hidden shadow-lg border-4 border-white">
+            <div class="gallery-item animate-fade-in group relative aspect-video bg-gray-200 rounded-[2rem] overflow-hidden shadow-lg border-4 border-white" data-category="videos">
                 <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                 <div class="absolute inset-0 flex items-center justify-center">
                     <div class="w-16 h-16 bg-[#ffed00] rounded-full flex items-center justify-center shadow-2xl transition-transform group-hover:scale-125">
@@ -65,17 +78,12 @@
                 </div>
             </div>
 
-            <div class="group relative aspect-video bg-gray-200 rounded-[2rem] overflow-hidden shadow-lg border-4 border-white">
+            <div class="gallery-item animate-fade-in group relative aspect-video bg-gray-200 rounded-[2rem] overflow-hidden shadow-lg border-4 border-white" data-category="photos">
                 <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                 <div class="absolute inset-0 bg-[#1a4789]/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-6 text-center">
                     <span class="text-[#ffed00] text-xs font-black uppercase tracking-widest mb-2">Art Exhibition</span>
                     <p class="text-white text-sm font-bold">Creative Arts Week Gallery</p>
                 </div>
-            </div>
-
-            <div class="aspect-video border-4 border-dashed border-slate-200 rounded-[2rem] flex flex-col items-center justify-center text-slate-300">
-                <i class="fas fa-camera-retro text-4xl mb-3"></i>
-                <span class="text-[10px] font-black uppercase tracking-widest">New Memories Coming Soon</span>
             </div>
 
         </div>
@@ -87,6 +95,39 @@
             <p class="text-blue-200/50 text-[10px] uppercase tracking-widest">The City School Chakwal Campus Official Portal</p>
         </div>
     </footer>
+
+    <script>
+        function filterMedia(category) {
+            const items = document.querySelectorAll('.gallery-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // 1. Update Button Styles
+            buttons.forEach(btn => {
+                // Set all to "inactive" style
+                btn.classList.remove('bg-[#1a4789]', 'text-white', 'shadow-lg');
+                btn.classList.add('bg-white', 'text-[#1a4789]', 'border', 'border-blue-100');
+            });
+
+            // Set the clicked button to "active" style
+            const clickedBtn = event.currentTarget;
+            clickedBtn.classList.add('bg-[#1a4789]', 'text-white', 'shadow-lg');
+            clickedBtn.classList.remove('bg-white', 'text-[#1a4789]', 'border', 'border-blue-100');
+
+            // 2. Filter Grid Items
+            items.forEach(item => {
+                // Remove animation class to re-trigger it
+                item.classList.remove('animate-fade-in');
+                
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                    // Re-trigger animation
+                    setTimeout(() => item.classList.add('animate-fade-in'), 10);
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
