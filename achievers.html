@@ -6,99 +6,212 @@
     <title>High Achievers | TCS Chakwal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/png" href="./assets/favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+    </style>
 </head>
-<body>
-    </body>
+<body class="bg-slate-50">
+
+    <nav class="bg-white border-b-4 border-[#ffed00] sticky top-0 z-50 px-4 py-3">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img src="./assets/logo.png" alt="TCS Logo" class="h-10 md:h-16 w-auto">
+                <div class="flex flex-col">
+                    <span class="text-[#1a4789] font-bold text-base md:text-xl leading-none">The City School</span>
+                    <span class="text-[#1a4789] text-[8px] md:text-[10px] tracking-[0.2em] font-black uppercase">Chakwal Campus</span>
+                </div>
+            </div>
+
+            <div class="hidden lg:flex space-x-3 xl:space-x-5 items-center">
+                <a href="index.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Home</a>
+                <a href="achievers.html" class="text-[#ffed00] font-black transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">High Achievers</a>
+                <a href="gallery.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Gallery</a>
+                <a href="events.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Events</a>
+                <a href="academics.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Academics</a>
+                <a href="calendar.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest text-nowrap">Calendar</a>
+                <a href="buddy.html" class="text-blue-600 font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest flex items-center bg-blue-50 px-2 py-1 rounded-full">
+                    <i class="fas fa-robot mr-1"></i>CampusBuddy
+                </a>
+                <a href="staff.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Staff</a>
+                <a href="about.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">About</a>
+                <a href="feedback.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Feedback</a>
+            </div>
+
+            <button id="mobile-menu-button" class="lg:hidden flex items-center justify-center w-12 h-10 bg-[#1a4789] rounded-lg shadow-md focus:outline-none active:scale-95 transition-all">
+                <i class="fas fa-bars text-white text-xl"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden flex flex-col space-y-3 pt-4 pb-2 lg:hidden bg-white px-4 shadow-inner">
+            <a href="index.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Home</a>
+            <a href="achievers.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">High Achievers</a>
+            <a href="gallery.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Gallery</a>
+            <a href="events.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Events</a>
+            <a href="academics.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Academics</a>
+            <a href="calendar.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">School Calendar</a>
+            <a href="buddy.html" class="text-blue-600 font-bold uppercase text-xs border-b pb-2 flex items-center">
+                <i class="fas fa-robot mr-2"></i> CampusBuddy
+            </a>
+            <a href="staff.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Staff</a>
+            <a href="about.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">About</a>
+            <a href="feedback.html" class="text-[#1a4789] font-bold uppercase text-xs">Feedback</a>
+        </div>
+    </nav>
+
+    <main class="py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4">
+            
+            <div class="text-center mb-20">
+                <h1 class="text-[#1a4789] font-black text-4xl md:text-6xl uppercase tracking-tighter mb-2 italic">
+                    High Achievers
+                </h1>
+                <p class="text-gray-400 font-bold uppercase tracking-[0.4em] text-[10px] md:text-xs">
+                    Celebrating Academic Excellence
+                </p>
+                <div class="h-1.5 w-20 bg-[#ffed00] mx-auto mt-6"></div>
+            </div>
+
+            <section class="mb-24">
+                <div class="flex items-center mb-10">
+                    <div class="h-10 w-2 bg-[#ffed00] mr-4"></div>
+                    <h2 class="text-[#1a4789] text-2xl md:text-3xl font-black uppercase tracking-tight">Grade 11 - O Levels</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-2xl transition-all duration-300 border-t-8 border-[#1a4789] text-center transform hover:-translate-y-2">
+                        <div class="relative w-36 h-36 mx-auto mb-6">
+                            <div class="absolute inset-0 rounded-full border-4 border-[#ffed00]"></div>
+                            <img src="https://ui-avatars.com/api/?name=Ahmed+Ali&background=1a4789&color=fff&size=128" alt="Student" class="w-full h-full rounded-full object-cover p-1 bg-slate-100">
+                        </div>
+                        <h4 class="text-[#1a4789] font-black text-2xl mb-1 uppercase tracking-tighter">Ahmed Ali</h4>
+                        <div class="bg-blue-50 text-[#1a4789] text-[11px] font-black py-1.5 px-6 rounded-full inline-block mb-4 uppercase tracking-wider">Grade: A* (98%)</div>
+                        <p class="text-gray-400 font-bold text-[10px] uppercase tracking-[0.2em]">Class 11 - O Levels</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-24">
+                <div class="flex items-center mb-10">
+                    <div class="h-10 w-2 bg-[#ffed00] mr-4"></div>
+                    <h2 class="text-[#1a4789] text-2xl md:text-3xl font-black uppercase tracking-tight">Grade 10 - O Levels</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-2xl transition-all duration-300 border-t-8 border-[#1a4789] text-center transform hover:-translate-y-2">
+                        <div class="relative w-36 h-36 mx-auto mb-6">
+                            <div class="absolute inset-0 rounded-full border-4 border-[#ffed00]"></div>
+                            <img src="https://ui-avatars.com/api/?name=Student+Name&background=1a4789&color=fff&size=128" alt="Student" class="w-full h-full rounded-full object-cover p-1 bg-slate-100">
+                        </div>
+                        <h4 class="text-[#1a4789] font-black text-2xl mb-1 uppercase tracking-tighter">Student Name</h4>
+                        <div class="bg-blue-50 text-[#1a4789] text-[11px] font-black py-1.5 px-6 rounded-full inline-block mb-4 uppercase tracking-wider">Grade: A*</div>
+                        <p class="text-gray-400 font-bold text-[10px] uppercase tracking-[0.2em]">Class 10 - O Levels</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-24">
+                <div class="flex items-center mb-10"><div class="h-10 w-2 bg-[#ffed00] mr-4"></div><h2 class="text-[#1a4789] text-2xl md:text-3xl font-black uppercase tracking-tight">Grade 9</h2></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10"></div>
+            </section>
+
+            <section class="mb-24">
+                <div class="flex items-center mb-10"><div class="h-10 w-2 bg-[#ffed00] mr-4"></div><h2 class="text-[#1a4789] text-2xl md:text-3xl font-black uppercase tracking-tight">Grade 8</h2></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10"></div>
+            </section>
+
+            <section class="mb-24">
+                <div class="flex items-center mb-10"><div class="h-10 w-2 bg-[#ffed00] mr-4"></div><h2 class="text-[#1a4789] text-2xl md:text-3xl font-black uppercase tracking-tight">Grade 7</h2></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10"></div>
+            </section>
+
+            <section class="mb-24">
+                <div class="flex items-center mb-10"><div class="h-10 w-2 bg-[#ffed00] mr-4"></div><h2 class="text-[#1a4789] text-2xl md:text-3xl font-black uppercase tracking-tight">Grade 6</h2></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10"></div>
+            </section>
+
+            <section class="mb-24">
+                <div class="flex items-center mb-10"><div class="h-10 w-2 bg-[#ffed00] mr-4"></div><h2 class="text-[#1a4789] text-2xl md:text-3xl font-black uppercase tracking-tight">Grade 5</h2></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10"></div>
+            </section>
+
+            <section class="mb-24">
+                <div class="flex items-center mb-10"><div class="h-10 w-2 bg-[#ffed00] mr-4"></div><h2 class="text-[#1a4789] text-2xl md:text-3xl font-black uppercase tracking-tight">Grade 4</h2></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10"></div>
+            </section>
+
+            <section class="mb-24">
+                <div class="flex items-center mb-10"><div class="h-10 w-2 bg-[#ffed00] mr-4"></div><h2 class="text-[#1a4789] text-2xl md:text-3xl font-black uppercase tracking-tight">Grade 3</h2></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10"></div>
+            </section>
+
+            <section class="mb-24">
+                <div class="flex items-center mb-10"><div class="h-10 w-2 bg-[#ffed00] mr-4"></div><h2 class="text-[#1a4789] text-2xl md:text-3xl font-black uppercase tracking-tight">Grade 2</h2></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10"></div>
+            </section>
+
+            <section class="mb-24">
+                <div class="flex items-center mb-10"><div class="h-10 w-2 bg-[#ffed00] mr-4"></div><h2 class="text-[#1a4789] text-2xl md:text-3xl font-black uppercase tracking-tight">Grade 1</h2></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10"></div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="bg-[#1a4789] text-white pt-20 pb-10 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16 mb-16">
+            
+            <div>
+                <img src="./assets/logo.png" alt="TCS Logo" class="h-20 w-auto mb-6 brightness-0 invert">
+                <p class="text-blue-100 text-sm leading-relaxed mb-6">
+                    The City School Chakwal Campus is committed to providing a world-class education and fostering a spirit of lifelong learning.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="https://facebook.com/TheCitySchoolChakwal" target="_blank" class="text-[#ffed00] hover:text-white transition text-xl"><i class="fab fa-facebook"></i></a>
+                    <a href="https://instagram.com/TCSChakwal" target="_blank" class="text-[#ffed00] hover:text-white transition text-xl"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/923359579576" target="_blank" class="text-[#ffed00] hover:text-white transition text-xl"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-[#ffed00] font-black uppercase tracking-widest mb-8">Quick Links</h4>
+                <ul class="space-y-4 text-sm font-bold uppercase tracking-tighter">
+                    <li><a href="index.html" class="hover:text-[#ffed00] transition">Home</a></li>
+                    <li><a href="achievers.html" class="hover:text-[#ffed00] transition">High Achievers</a></li>
+                    <li><a href="gallery.html" class="hover:text-[#ffed00] transition">Gallery</a></li>
+                    <li><a href="events.html" class="hover:text-[#ffed00] transition">Events</a></li>
+                    <li><a href="academics.html" class="hover:text-[#ffed00] transition">Academics</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-[#ffed00] font-black uppercase tracking-widest mb-8">Find Us</h4>
+                <div class="space-y-6 text-sm">
+                    <div>
+                        <p class="font-black text-white uppercase text-xs mb-1">Chakwal Campus</p>
+                        <p class="text-blue-100 italic">Bhoun Road, Chakwal</p>
+                        <a href="https://maps.google.com/?cid=13668644420318753654&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ4" target="_blank" class="text-[#ffed00] text-[10px] font-black uppercase hover:underline mt-1 inline-block"><i class="fas fa-map-marker-alt mr-1"></i> Open in Maps</a>
+                    </div>
+                    <div class="pt-4 border-t border-white/10">
+                        <p class="font-black text-white uppercase text-xs mb-1">Lake Valley Campus</p>
+                        <p class="text-blue-100 italic">Chakwal, Punjab</p>
+                        <a href="https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sCIHM0ogKEICAgIDbm6OatAE!2e10!4m2!3m1!1s0x39205d0052be0f87:0x9f2771c54ded25e2" target="_blank" class="text-[#ffed00] text-[10px] font-black uppercase hover:underline mt-1 inline-block"><i class="fas fa-map-marker-alt mr-1"></i> Open in Maps</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-white/10 pt-10 text-center">
+            <p class="text-[#ffed00] font-black text-xl md:text-2xl tracking-[0.5em] uppercase mb-4 italic">I Am - To Learn</p>
+            <p class="text-xs text-blue-200 uppercase tracking-widest">© 2026 THE CITY SCHOOL CHAKWAL CAMPUS. DESIGNED WITH EXCELLENCE.</p>
+        </div>
+    </footer>
+
+    <script>
+        const btn = document.getElementById('mobile-menu-button');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
 </html>
-
-
-<nav class="bg-white border-b-4 border-[#ffed00] sticky top-0 z-50 px-4 py-3">
-    <div class="max-w-7xl mx-auto flex justify-between items-center">
-        <div class="flex items-center space-x-3">
-            <img src="./assets/logo.png" alt="TCS Logo" class="h-10 md:h-16 w-auto">
-            <div class="flex flex-col">
-                <span class="text-[#1a4789] font-bold text-base md:text-xl leading-none">The City School</span>
-                <span class="text-[#1a4789] text-[8px] md:text-[10px] tracking-[0.2em] font-black uppercase">Chakwal Campus</span>
-            </div>
-        </div>
-
-        <div class="hidden lg:flex space-x-3 xl:space-x-5 items-center">
-    <a href="index.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Home</a>
-    <a href="achievers.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">High Achievers</a>
-    <a href="gallery.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Gallery</a>
-    <a href="events.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Events</a>
-    <a href="academics.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Academics</a>
-    <a href="calendar.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest text-nowrap">Calendar</a>
-    <a href="buddy.html" class="text-blue-600 font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest flex items-center bg-blue-50 px-2 py-1 rounded-full">
-        <i class="fas fa-robot mr-1"></i>CampusBuddy
-    </a>
-    <a href="staff.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Staff</a>
-    <a href="about.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">About</a>
-    <a href="feedback.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Feedback</a>
-</div>
-
-        <button id="mobile-menu-button" class="lg:hidden flex items-center justify-center w-12 h-10 bg-[#1a4789] rounded-lg shadow-md focus:outline-none active:scale-95 transition-all">
-    <i class="fas fa-bars text-white text-xl"></i>
-</button>
-    </div>
-
-   <div id="mobile-menu" class="hidden flex flex-col space-y-3 pt-4 pb-2 lg:hidden bg-white px-4 shadow-inner">
-    <a href="index.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Home</a>
-    <a href="achievers.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">High Achievers</a>
-    <a href="gallery.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Gallery</a>
-    <a href="events.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Events</a>
-    <a href="academics.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Academics</a>
-    <a href="calendar.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">School Calendar</a>
-    <a href="buddy.html" class="text-blue-600 font-bold uppercase text-xs border-b pb-2 flex items-center">
-    <i class="fas fa-robot mr-2 text-blue-600"></i> CampusBuddy
-</a>
-    <a href="staff.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Staff</a>
-    <a href="about.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">About</a>
-    <a href="feedback.html" class="text-[#1a4789] font-bold uppercase text-xs">Feedback</a>
-</div>
-</nav>
-
-<script>
-    const btn = document.getElementById('mobile-menu-button');
-    const menu = document.getElementById('mobile-menu');
-    btn.addEventListener('click', () => {
-        menu.classList.toggle('hidden');
-    });
-</script>
-
-
-<section id="achievers" class="py-24 bg-slate-50">
-    <div class="max-w-7xl mx-auto px-4">
-        
-        <div class="text-center mb-16">
-            <h2 class="text-[#1a4789] font-black text-4xl md:text-5xl uppercase tracking-tight mb-2">
-                High Achievers
-            </h2>
-            <p class="text-gray-400 font-bold uppercase tracking-[0.3em] text-[10px]">
-                Celebrating Academic Excellence
-            </p>
-            <div class="h-1 w-16 bg-[#ffed00] mx-auto mt-4"></div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-            
-            <div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border-t-8 border-[#1a4789] text-center transform hover:-translate-y-2">
-                <div class="relative w-32 h-32 mx-auto mb-6">
-                    <div class="absolute inset-0 rounded-full border-4 border-[#ffed00]"></div>
-                    <img src="https://ui-avatars.com/api/?name=Ahmed+Ali&background=1a4789&color=fff&size=128" alt="Student" class="w-full h-full rounded-full object-cover p-1">
-                </div>
-                
-                <h4 class="text-[#1a4789] font-black text-xl mb-1 uppercase tracking-tighter">Ahmed Ali</h4>
-                
-                <div class="bg-blue-50 text-[#1a4789] text-[11px] font-black py-1.5 px-4 rounded-full inline-block mb-3 uppercase tracking-wider">
-                    Grade: A* (98%)
-                </div>
-                
-                <p class="text-gray-400 font-bold text-xs uppercase tracking-[0.2em]">Class 10 - O Levels</p>
-            </div>
-            
-            </div>
-    </div>
-</section>
