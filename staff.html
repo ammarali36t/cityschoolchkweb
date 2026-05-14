@@ -3,18 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Faculty | TCS Chakwal</title>
+    <title>Faculty | TCS Chakwal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/png" href="./assets/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
-        .staff-card { transition: all 0.4s ease; border-radius: 2.5rem; }
-        .staff-card:hover { transform: translateY(-10px); }
-        .hm-card { border-radius: 3rem; }
+        body { font-family: 'Inter', sans-serif; }
+        .animate-fade-up { animation: fadeUp 0.4s ease-out forwards; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .class-btn { -webkit-tap-highlight-color: transparent; outline: none; }
     </style>
 </head>
-<body>
+<body class="bg-slate-50">
+
+    <nav class="bg-white border-b-4 border-[#ffed00] sticky top-0 z-50 px-4 py-3">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img src="./assets/logo.png" alt="TCS Logo" class="h-10 md:h-16 w-auto">
+                <div class="flex flex-col">
+                    <span class="text-[#1a4789] font-bold text-base md:text-xl leading-none">The City School</span>
+                    <span class="text-[#1a4789] text-[8px] md:text-[10px] tracking-[0.2em] font-black uppercase">Chakwal Campus</span>
+                </div>
+            </div>
+            <a href="index.html" class="bg-[#1a4789] text-white px-5 py-2 rounded-full text-xs font-black uppercase tracking-widest hover:bg-[#ffed00] hover:text-[#1a4789] transition shadow-md">
+                <i class="fas fa-home mr-2"></i> Home
+            </a>
+        </div>
+    </nav>
 
     <header class="py-20 bg-[#1a4789] text-center">
         <h1 class="text-[#ffed00] font-black text-5xl md:text-6xl uppercase italic mb-2 tracking-tighter">Our Faculty</h1>
