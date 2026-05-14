@@ -56,8 +56,8 @@
     <a href="feedback.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Feedback</a>
 </div>
 
-        <button id="mobile-menu-button" class="lg:hidden flex items-center justify-center w-12 h-10 bg-[#1a4789] rounded-lg shadow-md focus:outline-none active:scale-95 transition-all">
-    <i class="fas fa-bars text-white text-xl"></i>
+        <button id="menu-btn" class="md:hidden bg-[#1a4789] text-white p-2 rounded-lg z-[110] relative focus:outline-none active:scale-90 transition">
+    <i class="fas fa-bars text-xl" id="menu-icon"></i>
 </button>
     </div>
 
@@ -237,21 +237,37 @@
 </footer>
 
     <script>
-        const menuBtn = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
+    document.addEventListener('DOMContentLoaded', function() {
+        const btn = document.getElementById('menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const icon = document.getElementById('menu-icon');
 
-        menuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            mobileMenu.classList.toggle('active');
-        });
+        if(btn && menu) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation(); 
+                const isActive = menu.classList.toggle('active');
+                
+                // Toggle between Hamburger and X icon
+                if (isActive) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
 
-        // Close menu if user clicks anywhere else on the screen
-        document.addEventListener('click', (e) => {
-            if (!mobileMenu.contains(e.target) && mobileMenu.classList.contains('active')) {
-                mobileMenu.classList.remove('active');
-            }
-        });
-    </script>
+            // Auto-close menu if clicking outside
+            document.addEventListener('click', function(event) {
+                if (!menu.contains(event.target) && !btn.contains(event.target)) {
+                    menu.classList.remove('active');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        }
+    });
+</script>
 
 </body>
 </html>
