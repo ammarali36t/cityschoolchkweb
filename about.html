@@ -6,114 +6,125 @@
     <title>About Us | TCS Chakwal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/png" href="./assets/favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .feature-card { transition: all 0.3s ease; }
+        .feature-card:hover { transform: translateY(-8px); border-color: #ffed00; }
+        .stat-card { border-left: 4px solid #ffed00; }
+    </style>
 </head>
-<body>
-    </body>
-</html>
+<body class="bg-white">
 
-<nav class="bg-white border-b-4 border-[#ffed00] sticky top-0 z-50 px-4 py-3">
-    <div class="max-w-7xl mx-auto flex justify-between items-center">
-        <div class="flex items-center space-x-3">
-            <img src="./assets/logo.png" alt="TCS Logo" class="h-10 md:h-16 w-auto">
-            <div class="flex flex-col">
-                <span class="text-[#1a4789] font-bold text-base md:text-xl leading-none">The City School</span>
-                <span class="text-[#1a4789] text-[8px] md:text-[10px] tracking-[0.2em] font-black uppercase">Chakwal Campus</span>
+    <nav class="bg-white border-b-4 border-[#ffed00] sticky top-0 z-[100] px-4 py-3 shadow-md">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition">
+                <img src="./assets/logo.png" alt="TCS Logo" class="h-10 md:h-14 w-auto">
+                <div class="flex flex-col text-[#1a4789]">
+                    <span class="font-black text-sm md:text-lg leading-none uppercase tracking-tighter">The City School</span>
+                    <span class="text-[8px] md:text-[10px] tracking-[0.2em] font-black uppercase opacity-70">Chakwal Campus</span>
+                </div>
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="text-[#1a4789] font-bold text-xs uppercase tracking-widest hover:text-blue-600">Home</a>
+                <a href="about.html" class="text-[#1a4789] font-bold text-xs uppercase tracking-widest border-b-2 border-[#1a4789]">About</a>
+                <a href="resources.html" class="text-[#1a4789] font-bold text-xs uppercase tracking-widest hover:text-blue-600">Resources</a>
+                <a href="staff.html" class="text-[#1a4789] font-bold text-xs uppercase tracking-widest hover:text-blue-600">Faculty</a>
+                <a href="buddy.html" class="bg-[#1a4789] text-[#ffed00] px-5 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg">
+                    <i class="fas fa-robot mr-2"></i> CampusBuddy
+                </a>
             </div>
         </div>
+    </nav>
 
-        <div class="hidden lg:flex space-x-3 xl:space-x-5 items-center">
-    <a href="index.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Home</a>
-    <a href="achievers.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">High Achievers</a>
-    <a href="gallery.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Gallery</a>
-    <a href="events.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Events</a>
-    <a href="resources.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Resources</a>
-    <a href="calendar.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest text-nowrap">Calendar</a>
-    <a href="buddy.html" class="text-blue-600 font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest flex items-center bg-blue-50 px-2 py-1 rounded-full">
-        <i class="fas fa-robot mr-1"></i>CampusBuddy
-    </a>
-    <a href="staff.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Staff</a>
-    <a href="about.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">About</a>
-    <a href="feedback.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Feedback</a>
-</div>
-
-
-       <button id="mobile-menu-button" class="lg:hidden flex items-center justify-center w-12 h-10 bg-[#1a4789] rounded-lg shadow-md focus:outline-none active:scale-95 transition-all">
-    <i class="fas fa-bars text-white text-xl"></i>
-</button>
-    </div>
-
-    <div id="mobile-menu" class="hidden flex flex-col space-y-3 pt-4 pb-2 lg:hidden bg-white px-4 shadow-inner">
-    <a href="index.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Home</a>
-    <a href="achievers.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">High Achievers</a>
-    <a href="gallery.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Gallery</a>
-    <a href="events.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Events</a>
-    <a href="resources.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Resources</a>
-    <a href="calendar.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">School Calendar</a>
-    <a href="buddy.html" class="text-blue-600 font-bold uppercase text-xs border-b pb-2 flex items-center">
-    <i class="fas fa-robot mr-2 text-blue-600"></i> CampusBuddy
-</a>
-    <a href="staff.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Staff</a>
-    <a href="about.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">About</a>
-    <a href="feedback.html" class="text-[#1a4789] font-bold uppercase text-xs">Feedback</a>
-</div>
-</nav>
-
-<script>
-    const btn = document.getElementById('mobile-menu-button');
-    const menu = document.getElementById('mobile-menu');
-    btn.addEventListener('click', () => {
-        menu.classList.toggle('hidden');
-    });
-</script>
-
-
-<section id="about" class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                
-                <div class="space-y-6">
-                    <div class="inline-block bg-tcs-yellow text-tcs-blue px-4 py-1 font-black text-sm tracking-widest uppercase mb-2">
-                        Welcome to Chakwal Campus
-                    </div>
-                    <h2 class="text-4xl font-black text-tcs-blue leading-tight uppercase">
-                        A Tradition of Excellence <br>in Education
-                    </h2>
-                    <p class="text-gray-600 leading-relaxed text-lg">
-                        The City School Chakwal Campus provides a high-quality educational experience that prepares students for global success. We focus on academic rigor, character building, and a wide array of extra-curricular activities.
-                    </p>
-                    <div class="border-l-4 border-tcs-yellow pl-6 py-2">
-                        <p class="italic text-gray-500">
-                            "Our mission is to nurture the leaders of tomorrow with the values of 'I AM - TO LEARN'."
-                        </p>
-                        <p class="font-bold text-tcs-blue mt-2">— Principal, TCS Chakwal</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="bg-white p-8 shadow-sm border-t-4 border-tcs-blue hover:shadow-xl transition-shadow">
-                        <i class="fas fa-microscope text-3xl text-tcs-yellow mb-4"></i>
-                        <h4 class="font-bold text-tcs-blue mb-2 uppercase">Modern Labs</h4>
-                        <p class="text-sm text-gray-500">Advanced facilities for science and technology.</p>
-                    </div>
-                    <div class="bg-white p-8 shadow-sm border-t-4 border-tcs-yellow hover:shadow-xl transition-shadow">
-                        <i class="fas fa-book text-3xl text-tcs-blue mb-4"></i>
-                        <h4 class="font-bold text-tcs-blue mb-2 uppercase">Library</h4>
-                        <p class="text-sm text-gray-500">A vast collection for young readers and researchers.</p>
-                    </div>
-                    <div class="bg-white p-8 shadow-sm border-t-4 border-tcs-yellow hover:shadow-xl transition-shadow">
-                        <i class="fas fa-trophy text-3xl text-tcs-blue mb-4"></i>
-                        <h4 class="font-bold text-tcs-blue mb-2 uppercase">Sports</h4>
-                        <p class="text-sm text-gray-500">Coaching for football, cricket, and athletics.</p>
-                    </div>
-                    <div class="bg-white p-8 shadow-sm border-t-4 border-tcs-blue hover:shadow-xl transition-shadow">
-                        <i class="fas fa-palette text-3xl text-tcs-yellow mb-4"></i>
-                        <h4 class="font-bold text-tcs-blue mb-2 uppercase">Arts & Music</h4>
-                        <p class="text-sm text-gray-500">Encouraging creativity through extracurriculars.</p>
-                    </div>
-                </div>
-
-            </div>
+    <section class="relative py-24 bg-[#1a4789] overflow-hidden text-center">
+        <div class="absolute inset-0 opacity-10">
+            <i class="fas fa-graduation-cap text-[20rem] absolute -bottom-20 -right-20 text-white rotate-12"></i>
+        </div>
+        <div class="relative z-10 px-4">
+            <h1 class="text-[#ffed00] font-black text-5xl md:text-7xl uppercase italic tracking-tighter mb-4">A Tradition of Excellence</h1>
+            <p class="text-white opacity-90 uppercase tracking-[0.4em] text-xs font-bold">The City School Chakwal Campus</p>
         </div>
     </section>
+
+    <main class="max-w-7xl mx-auto px-6 py-20">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+            <div class="space-y-8">
+                <div>
+                    <span class="text-[#1a4789] font-black uppercase tracking-widest text-xs">Welcome to Chakwal Campus</span>
+                    <h2 class="text-[#1a4789] font-black text-4xl md:text-5xl uppercase tracking-tighter mt-2 leading-none">Shaping the Leaders <br>of Tomorrow</h2>
+                </div>
+                
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    The City School Chakwal Campus provides a high-quality educational experience that prepares students for global success. We focus on academic rigor, character building, and a wide array of extra-curricular activities.
+                </p>
+
+                <div class="bg-slate-50 p-8 rounded-[2rem] border-l-8 border-[#1a4789] italic">
+                    <p class="text-[#1a4789] text-xl font-medium">"Our mission is to nurture the leaders of tomorrow with the values of 'I AM - TO LEARN'."</p>
+                    <p class="mt-4 text-[#1a4789] font-black uppercase text-xs tracking-widest">— Principal, TCS Chakwal</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="feature-card p-8 bg-white border-2 border-slate-100 rounded-[2.5rem] shadow-xl">
+                    <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 text-[#1a4789]">
+                        <i class="fas fa-microscope text-2xl"></i>
+                    </div>
+                    <h3 class="text-[#1a4789] font-black uppercase tracking-tighter text-xl mb-2">Modern Labs</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Advanced facilities for science and technology experiments.</p>
+                </div>
+
+                <div class="feature-card p-8 bg-white border-2 border-slate-100 rounded-[2.5rem] shadow-xl">
+                    <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 text-[#1a4789]">
+                        <i class="fas fa-book-open text-2xl"></i>
+                    </div>
+                    <h3 class="text-[#1a4789] font-black uppercase tracking-tighter text-xl mb-2">Library</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">A vast collection for young readers and researchers.</p>
+                </div>
+
+                <div class="feature-card p-8 bg-white border-2 border-slate-100 rounded-[2.5rem] shadow-xl">
+                    <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 text-[#1a4789]">
+                        <i class="fas fa-trophy text-2xl"></i>
+                    </div>
+                    <h3 class="text-[#1a4789] font-black uppercase tracking-tighter text-xl mb-2">Sports</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Coaching for football, cricket, and professional athletics.</p>
+                </div>
+
+                <div class="feature-card p-8 bg-white border-2 border-slate-100 rounded-[2.5rem] shadow-xl">
+                    <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 text-[#1a4789]">
+                        <i class="fas fa-palette text-2xl"></i>
+                    </div>
+                    <h3 class="text-[#1a4789] font-black uppercase tracking-tighter text-xl mb-2">Arts & Music</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Encouraging creativity through diverse extracurriculars.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-24 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="stat-card bg-slate-50 p-6 rounded-2xl">
+                <p class="text-[#1a4789] font-black text-3xl">500+</p>
+                <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Students</p>
+            </div>
+            <div class="stat-card bg-slate-50 p-6 rounded-2xl">
+                <p class="text-[#1a4789] font-black text-3xl">40+</p>
+                <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Expert Faculty</p>
+            </div>
+            <div class="stat-card bg-slate-50 p-6 rounded-2xl">
+                <p class="text-[#1a4789] font-black text-3xl">15+</p>
+                <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Labs & Studios</p>
+            </div>
+            <div class="stat-card bg-slate-50 p-6 rounded-2xl">
+                <p class="text-[#1a4789] font-black text-3xl">100%</p>
+                <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Result Record</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-[#1a4789] py-12 text-center border-t-4 border-[#ffed00]">
+        <p class="text-[#ffed00] font-black tracking-[0.4em] uppercase italic">I AM - TO LEARN</p>
+    </footer>
+
+</body>
+</html>
