@@ -10,14 +10,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .animate-slide-up {
-            animation: slideUp 0.5s ease-out forwards;
+        .animate-fade-up {
+            animation: fadeUp 0.5s ease-out forwards;
         }
-        @keyframes slideUp {
+        @keyframes fadeUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        /* Mobile tap fix */
         .class-btn { -webkit-tap-highlight-color: transparent; }
     </style>
 </head>
@@ -32,135 +31,98 @@
                     <span class="text-[#1a4789] text-[8px] md:text-[10px] tracking-[0.2em] font-black uppercase">Chakwal Campus</span>
                 </div>
             </div>
-            <div class="hidden lg:flex space-x-6 items-center">
-                <a href="index.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase tracking-widest">Home</a>
-                <a href="resources.html" class="text-[#ffed00] font-black transition text-xs uppercase tracking-widest">Resources</a>
-                <a href="index.html#contact" class="bg-[#1a4789] text-white px-5 py-2 rounded-full text-xs font-black uppercase tracking-widest hover:bg-[#ffed00] hover:text-[#1a4789] transition">Contact</a>
+            <div class="flex space-x-4">
+                <a href="index.html" class="bg-[#1a4789] text-white px-4 py-2 rounded-full text-[10px] md:text-xs font-black uppercase hover:bg-[#ffed00] hover:text-[#1a4789] transition shadow-md">
+                    <i class="fas fa-home mr-1"></i> Home
+                </a>
             </div>
         </div>
     </nav>
 
-    <header class="py-16 md:py-24 bg-[#1a4789] text-center px-4 relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full opacity-10">
-            <i class="fas fa-graduation-cap text-[300px] absolute -bottom-10 -right-10 text-white rotate-12"></i>
-        </div>
-        <div class="relative z-10">
-            <h1 class="text-[#ffed00] font-black text-4xl md:text-7xl uppercase tracking-tighter italic mb-4">Academic Resources</h1>
-            <p class="text-blue-100 uppercase tracking-[0.4em] text-[10px] md:text-xs font-bold">Past Papers • Syllabi • Study Material</p>
-        </div>
+    <header class="py-12 md:py-20 bg-[#1a4789] text-center px-4">
+        <h1 class="text-[#ffed00] font-black text-4xl md:text-7xl uppercase tracking-tighter italic mb-4">Academic Resources</h1>
+        <p class="text-blue-100 uppercase tracking-[0.3em] text-[10px] md:text-xs font-bold">Past Papers • Syllabi • Learning Material</p>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 py-12 md:py-20">
+    <main class="max-w-7xl mx-auto px-4 py-12 md:py-16">
         
-        <section class="mb-16">
-            <div class="flex items-center space-x-4 mb-10">
-                <div class="bg-[#ffed00] text-[#1a4789] w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-lg shadow-yellow-200/50">1</div>
-                <h2 class="text-[#1a4789] font-black text-2xl md:text-3xl uppercase tracking-tight">Select Your Grade</h2>
+        <section class="mb-12">
+            <div class="flex items-center space-x-4 mb-8">
+                <div class="bg-[#ffed00] text-[#1a4789] w-10 h-10 rounded-xl flex items-center justify-center font-black shadow-lg">1</div>
+                <h2 class="text-[#1a4789] font-black text-xl md:text-2xl uppercase tracking-tight">Select Grade</h2>
             </div>
             
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
-                <button onclick="loadResources('Class 9')" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2.5rem] hover:border-[#1a4789] hover:shadow-2xl transition-all duration-300 text-center">
-                    <i class="fas fa-user-graduate text-slate-200 group-hover:text-[#ffed00] mb-4 text-2xl transition-colors"></i>
-                    <span class="block text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-1">O Levels</span>
-                    <span class="block text-[#1a4789] font-black text-2xl">Class 9</span>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                <button onclick="showResources('Class 9')" class="class-btn group p-6 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all text-center">
+                    <span class="block text-slate-400 font-bold text-[10px] uppercase mb-1">O Levels</span>
+                    <span class="block text-[#1a4789] font-black text-xl">Class 9</span>
                 </button>
-
-                <button onclick="loadResources('Class 10')" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2.5rem] hover:border-[#1a4789] hover:shadow-2xl transition-all duration-300 text-center">
-                    <i class="fas fa-award text-slate-200 group-hover:text-[#ffed00] mb-4 text-2xl transition-colors"></i>
-                    <span class="block text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-1">O Levels</span>
-                    <span class="block text-[#1a4789] font-black text-2xl">Class 10</span>
+                <button onclick="showResources('Class 10')" class="class-btn group p-6 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all text-center">
+                    <span class="block text-slate-400 font-bold text-[10px] uppercase mb-1">O Levels</span>
+                    <span class="block text-[#1a4789] font-black text-xl">Class 10</span>
                 </button>
-
-                <button onclick="loadResources('Class 11')" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2.5rem] hover:border-[#1a4789] hover:shadow-2xl transition-all duration-300 text-center">
-                    <i class="fas fa-scroll text-slate-200 group-hover:text-[#ffed00] mb-4 text-2xl transition-colors"></i>
-                    <span class="block text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-1">O Levels</span>
-                    <span class="block text-[#1a4789] font-black text-2xl">Class 11</span>
+                <button onclick="showResources('Class 11')" class="class-btn group p-6 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all text-center">
+                    <span class="block text-slate-400 font-bold text-[10px] uppercase mb-1">O Levels</span>
+                    <span class="block text-[#1a4789] font-black text-xl">Class 11</span>
                 </button>
             </div>
         </section>
 
-        <section id="resource-display" class="hidden opacity-0 transform translate-y-10 transition-all duration-500">
-            <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 border-b-4 border-slate-100 pb-8 gap-4">
-                <div class="flex items-center space-x-4">
-                    <div class="bg-[#ffed00] text-[#1a4789] w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-lg shadow-yellow-200/50">2</div>
-                    <h2 id="display-title" class="text-[#1a4789] font-black text-2xl md:text-3xl uppercase tracking-tight italic"></h2>
-                </div>
+        <section id="resource-box" class="hidden opacity-0 translate-y-10 transition-all duration-500">
+            <div class="flex items-center space-x-4 mb-8 pt-8 border-t-2 border-slate-100">
+                <div class="bg-[#ffed00] text-[#1a4789] w-10 h-10 rounded-xl flex items-center justify-center font-black shadow-lg">2</div>
+                <h2 id="resource-title" class="text-[#1a4789] font-black text-xl md:text-2xl uppercase tracking-tight italic"></h2>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-                <div class="bg-[#1a4789] p-8 md:p-10 rounded-[3rem] shadow-2xl">
-                    <div class="flex items-center space-x-4 mb-8">
-                        <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
-                            <i class="fab fa-google-drive text-[#ffed00] text-2xl"></i>
-                        </div>
-                        <h3 class="text-white font-black uppercase tracking-widest text-sm">Past Papers Repository</h3>
-                    </div>
-                    <div class="space-y-4">
-                        <a href="#" target="_blank" class="flex items-center justify-between p-5 bg-white/5 border border-white/10 rounded-2xl hover:bg-[#ffed00] group transition-all duration-300">
-                            <span class="text-white group-hover:text-[#1a4789] font-bold uppercase tracking-tight">Computer Science (2210)</span>
-                            <i class="fas fa-external-link-alt text-white/30 group-hover:text-[#1a4789]"></i>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+                <div class="bg-[#1a4789] p-8 rounded-[2.5rem] shadow-2xl">
+                    <h3 class="text-white font-black uppercase tracking-widest text-xs mb-6 flex items-center">
+                        <i class="fab fa-google-drive text-[#ffed00] mr-3 text-lg"></i> Past Papers (Drive)
+                    </h3>
+                    <div class="space-y-3">
+                        <a href="#" class="flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-[#ffed00] group transition-all">
+                            <span class="text-white group-hover:text-[#1a4789] font-bold text-sm">Computer Science</span>
+                            <i class="fas fa-link text-white/20 group-hover:text-[#1a4789]"></i>
                         </a>
-                        <a href="#" target="_blank" class="flex items-center justify-between p-5 bg-white/5 border border-white/10 rounded-2xl hover:bg-[#ffed00] group transition-all duration-300">
-                            <span class="text-white group-hover:text-[#1a4789] font-bold uppercase tracking-tight">Mathematics (4024)</span>
-                            <i class="fas fa-external-link-alt text-white/30 group-hover:text-[#1a4789]"></i>
+                        <a href="#" class="flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-[#ffed00] group transition-all">
+                            <span class="text-white group-hover:text-[#1a4789] font-bold text-sm">Mathematics</span>
+                            <i class="fas fa-link text-white/20 group-hover:text-[#1a4789]"></i>
                         </a>
                     </div>
                 </div>
 
-                <div class="bg-white p-8 md:p-10 rounded-[3rem] border-2 border-slate-100 shadow-xl flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center space-x-4 mb-8">
-                            <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center">
-                                <i class="fas fa-file-invoice text-[#1a4789] text-2xl"></i>
-                            </div>
-                            <h3 class="text-[#1a4789] font-black uppercase tracking-widest text-sm">Course Syllabus</h3>
-                        </div>
-                        <p class="text-slate-500 font-medium mb-8 leading-relaxed">
-                            Download the official course outlines and syllabi provided by the academic faculty for your selected grade.
-                        </p>
-                    </div>
-                    <a href="#" class="w-full text-center bg-[#1a4789] text-[#ffed00] py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-xs hover:bg-[#ffed00] hover:text-[#1a4789] transition-all duration-300 shadow-lg">
-                        Download Full Syllabus <i class="fas fa-download ml-2"></i>
-                    </a>
+                <div class="bg-white p-8 rounded-[2.5rem] border-2 border-slate-100 shadow-xl">
+                    <h3 class="text-[#1a4789] font-black uppercase tracking-widest text-xs mb-6 flex items-center">
+                        <i class="fas fa-file-pdf text-red-500 mr-3 text-lg"></i> Course Syllabus
+                    </h3>
+                    <p class="text-slate-500 text-sm mb-8">Official syllabus documents uploaded by campus teachers.</p>
+                    <button class="w-full bg-slate-100 text-[#1a4789] py-4 rounded-xl font-black uppercase tracking-widest text-[10px] hover:bg-[#1a4789] hover:text-white transition-all">
+                        Download PDF <i class="fas fa-download ml-2"></i>
+                    </button>
                 </div>
             </div>
         </section>
-
     </main>
 
-    <footer class="bg-[#1a4789] py-12 border-t-8 border-[#ffed00] text-center">
-        <h4 class="text-[#ffed00] font-black text-xl tracking-[0.4em] uppercase mb-2 italic">I AM - TO LEARN</h4>
-        <p class="text-white/20 text-[10px] uppercase tracking-widest font-bold">Chakwal Campus • Resources Portal</p>
+    <footer class="bg-[#1a4789] py-10 border-t-8 border-[#ffed00] text-center">
+        <p class="text-[#ffed00] font-black tracking-[0.3em] uppercase italic">I Am - To Learn</p>
     </footer>
 
     <script>
-        function loadResources(className) {
-            const displayArea = document.getElementById('resource-display');
-            const title = document.getElementById('display-title');
+        function showResources(name) {
+            const box = document.getElementById('resource-box');
+            const title = document.getElementById('resource-title');
             
-            // 1. Reset Class Button Styles
-            document.querySelectorAll('.class-btn').forEach(btn => {
-                btn.classList.remove('border-[#1a4789]', 'bg-blue-50', 'shadow-xl');
-                btn.classList.add('border-slate-100', 'bg-white');
-            });
-
-            // 2. Highlight selected button
-            event.currentTarget.classList.add('border-[#1a4789]', 'bg-blue-50', 'shadow-xl');
-            event.currentTarget.classList.remove('border-slate-100', 'bg-white');
-
-            // 3. Update Text and Show with animation
-            title.innerText = className + " Resources";
-            displayArea.classList.remove('hidden');
+            title.innerText = name + " Resources";
+            box.classList.remove('hidden');
             
-            // Force browser to recognize the change before adding opacity
             setTimeout(() => {
-                displayArea.classList.remove('opacity-0', 'translate-y-10');
-                displayArea.classList.add('opacity-100', 'translate-y-0');
-                
-                // Smooth scroll to results
-                displayArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                box.classList.remove('opacity-0', 'translate-y-10');
+                box.classList.add('opacity-100', 'translate-y-0');
+                box.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 10);
         }
     </script>
+
 </body>
 </html>
