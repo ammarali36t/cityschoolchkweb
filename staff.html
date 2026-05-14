@@ -3,92 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faculty | TCS Chakwal</title>
+    <title>Our Faculty | TCS Chakwal</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" type="image/png" href="./assets/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .staff-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .staff-card { transition: all 0.4s ease; border-radius: 2.5rem; }
         .staff-card:hover { transform: translateY(-10px); }
+        .hm-card { border-radius: 3rem; }
     </style>
 </head>
-<body class="bg-slate-50">
+<body>
 
-    <nav class="bg-white border-b-4 border-[#ffed00] sticky top-0 z-50 px-4 py-3">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <img src="./assets/logo.png" alt="TCS Logo" class="h-10 md:h-14 w-auto">
-                <div class="flex flex-col">
-                    <span class="text-[#1a4789] font-bold text-base leading-none">The City School</span>
-                    <span class="text-[#1a4789] text-[8px] tracking-[0.2em] font-black uppercase">Chakwal Campus</span>
-                </div>
-            </div>
-            <a href="index.html" class="bg-[#1a4789] text-white px-6 py-2 rounded-full text-xs font-black uppercase tracking-widest hover:bg-[#ffed00] hover:text-[#1a4789] transition shadow-md">
-                <i class="fas fa-home mr-2"></i> Home
-            </a>
-        </div>
-    </nav>
-
-    <header class="py-16 bg-[#1a4789] text-center px-4">
-        <h1 class="text-[#ffed00] font-black text-4xl md:text-6xl uppercase tracking-tighter italic mb-2">Our Faculty</h1>
-        <p class="text-blue-100 uppercase tracking-[0.3em] text-[10px] font-bold">Leading Excellence through Education</p>
+    <header class="py-20 bg-[#1a4789] text-center">
+        <h1 class="text-[#ffed00] font-black text-5xl md:text-6xl uppercase italic mb-2 tracking-tighter">Our Faculty</h1>
+        <p class="text-white opacity-80 uppercase tracking-[0.3em] text-[10px] font-bold">The Mentors of TCS Chakwal Campus</p>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 py-16">
+    <main class="max-w-6xl mx-auto px-4 py-16">
         
-        <section class="flex justify-center mb-20">
-            <div class="staff-card w-full max-w-sm bg-white rounded-[3rem] overflow-hidden border-4 border-[#ffed00] shadow-2xl">
-                <div class="h-96 overflow-hidden">
-                    <img src="./assets/head_mistress.jpg" alt="Head Mistress" class="w-full h-full object-cover">
+        <div class="flex justify-center mb-24">
+            <div class="staff-card hm-card w-full max-w-sm bg-white border-4 border-[#ffed00] shadow-2xl overflow-hidden">
+                <div class="h-96 bg-slate-200">
+                    <img src="./assets/hm.jpg" alt="Head Mistress" class="w-full h-full object-cover">
                 </div>
-                <div class="p-8 text-center bg-[#1a4789]">
-                    <div class="inline-block bg-[#ffed00] text-[#1a4789] px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-3">Head Mistress</div>
-                    <h2 class="text-white font-black text-2xl uppercase tracking-tighter">Name of HM</h2>
-                    <p class="text-blue-200 font-bold text-xs uppercase tracking-widest mt-1">School Leadership</p>
-                    <div class="mt-4 pt-4 border-t border-white/10">
-                        <p class="text-[#ffed00] font-black text-[10px] uppercase">Experience</p>
-                        <p class="text-white text-sm">20+ Years in Education</p>
+                <div class="p-8 text-center">
+                    <div class="inline-block bg-[#ffed00] text-[#1a4789] px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4">Leadership</div>
+                    <h2 class="text-[#1a4789] font-black text-2xl uppercase tracking-tighter">Mrs. Farzana Ahmed</h2>
+                    <p class="text-slate-500 font-bold text-xs uppercase tracking-widest mb-6">Head Mistress</p>
+                    <div class="bg-[#1a4789] rounded-2xl p-4">
+                        <p class="text-blue-200 font-black text-[9px] uppercase tracking-widest">Total Experience</p>
+                        <p class="text-white text-lg font-bold">25 Years</p>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <div class="flex items-center justify-center space-x-4 mb-16 opacity-20">
-            <div class="h-[2px] w-24 bg-[#1a4789]"></div>
-            <i class="fas fa-graduation-cap text-[#1a4789]"></i>
-            <div class="h-[2px] w-24 bg-[#1a4789]"></div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
             
-            <div class="staff-card bg-white rounded-[2.5rem] overflow-hidden border-2 border-slate-100 shadow-xl">
-                <div class="h-72 overflow-hidden bg-slate-200">
-                    <img src="./assets/teacher1.jpg" alt="Teacher" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500">
+            <div class="staff-card bg-white border-2 border-slate-100 shadow-xl overflow-hidden">
+                <div class="h-72 bg-slate-200">
+                    <img src="./assets/staff1.jpg" alt="Teacher" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500">
                 </div>
-                <div class="p-6 text-center">
-                    <h3 class="text-[#1a4789] font-black text-lg uppercase tracking-tighter">Teacher Name</h3>
-                    <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mt-1 mb-4">Subject Specialist (Maths)</p>
+                <div class="p-8 text-center">
+                    <h3 class="text-[#1a4789] font-black text-xl uppercase tracking-tighter">Sir Ali Raza</h3>
+                    <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-5">Computer Science (O-Level)</p>
                     
-                    <div class="bg-slate-50 rounded-2xl p-4">
+                    <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4">
                         <p class="text-[#1a4789] font-black text-[9px] uppercase tracking-widest opacity-50">Teaching Experience</p>
-                        <p class="text-[#1a4789] text-xs font-bold">12 Years</p>
-                    </div>
-                    
-                    <div class="mt-4 flex justify-center space-x-2">
-                        <span class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-[#1a4789] text-xs hover:bg-[#ffed00] transition cursor-pointer">
-                            <i class="fas fa-envelope"></i>
-                        </span>
+                        <p class="text-[#1a4789] text-sm font-bold">12 Years</p>
                     </div>
                 </div>
             </div>
 
+            <div class="staff-card bg-white border-2 border-slate-100 shadow-xl overflow-hidden">
+                <div class="h-72 bg-slate-200">
+                    <img src="./assets/staff2.jpg" alt="Teacher" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500">
+                </div>
+                <div class="p-8 text-center">
+                    <h3 class="text-[#1a4789] font-black text-xl uppercase tracking-tighter">Ms. Hina Khan</h3>
+                    <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-5">Mathematics Specialist</p>
+                    
+                    <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4">
+                        <p class="text-[#1a4789] font-black text-[9px] uppercase tracking-widest opacity-50">Teaching Experience</p>
+                        <p class="text-[#1a4789] text-sm font-bold">8 Years</p>
+                    </div>
+                </div>
             </div>
+
+            <div class="staff-card bg-white border-2 border-slate-100 shadow-xl overflow-hidden">
+                <div class="h-72 bg-slate-200">
+                    <img src="./assets/staff3.jpg" alt="Teacher" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500">
+                </div>
+                <div class="p-8 text-center">
+                    <h3 class="text-[#1a4789] font-black text-xl uppercase tracking-tighter">Sir Usman Malik</h3>
+                    <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-5">Physics (IGCSE/O-Level)</p>
+                    
+                    <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4">
+                        <p class="text-[#1a4789] font-black text-[9px] uppercase tracking-widest opacity-50">Teaching Experience</p>
+                        <p class="text-[#1a4789] text-sm font-bold">15 Years</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </main>
 
-    <footer class="bg-[#1a4789] py-10 text-center">
-        <p class="text-[#ffed00] font-black tracking-widest italic uppercase">I Am - To Learn</p>
+    <footer class="bg-[#1a4789] py-12 text-center border-t-4 border-[#ffed00]">
+        <p class="text-[#ffed00] font-black tracking-[0.4em] uppercase italic">I AM - TO LEARN</p>
     </footer>
 
 </body>
