@@ -79,9 +79,9 @@
                             <i class="fas fa-file-invoice text-[#1a4789] text-2xl mr-4"></i>
                             <h3 class="text-[#1a4789] font-black uppercase tracking-widest text-sm">Course Syllabus</h3>
                         </div>
-                        <p class="text-slate-500 font-medium mb-8">Download the latest syllabus updates and course outlines for your selected grade.</p>
+                        <p class="text-slate-500 font-medium mb-8">Download official course outlines and syllabi.</p>
                     </div>
-                    <a id="syllabus-download" href="#" class="w-full text-center bg-[#1a4789] text-[#ffed00] py-5 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-[#ffed00] hover:text-[#1a4789] transition-all">
+                    <a id="syllabus-download" href="https://drive.google.com/your-syllabus-link" target="_blank" class="w-full text-center bg-[#1a4789] text-[#ffed00] py-5 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-[#ffed00] hover:text-[#1a4789] transition-all">
                         Download All Syllabi <i class="fas fa-download ml-2"></i>
                     </a>
                 </div>
@@ -94,23 +94,22 @@
     </footer>
 
     <script>
-        // Subject configuration for each grade
         const grades = {
             "Senior I": ["Islamiat", "Pak Studies", "Urdu", "English", "Computer Science", "Maths", "Chemistry", "Physics"],
             "Senior II": ["Islamiat", "Pak Studies", "Urdu", "English", "Computer Science", "Maths", "Chemistry", "Physics"],
             "Senior III": ["English", "Computer Science", "Maths", "Chemistry", "Physics"]
         };
 
-        // Placeholder for your actual Google Drive links
+        // PASTE YOUR GOOGLE DRIVE LINKS HERE
         const driveLinks = {
-            "Islamiat": "#",
-            "Pak Studies": "#",
-            "Urdu": "#",
-            "English": "#",
-            "Computer Science": "#",
-            "Maths": "#",
-            "Chemistry": "#",
-            "Physics": "#"
+            "Islamiat": "https://drive.google.com/link1",
+            "Pak Studies": "https://drive.google.com/link2",
+            "Urdu": "https://drive.google.com/link3",
+            "English": "https://drive.google.com/link4",
+            "Computer Science": "https://drive.google.com/link5",
+            "Maths": "https://drive.google.com/link6",
+            "Chemistry": "https://drive.google.com/link7",
+            "Physics": "https://drive.google.com/link8"
         };
 
         function updateResources(level) {
@@ -118,18 +117,18 @@
             const title = document.getElementById('display-title');
             const listContainer = document.getElementById('subject-list');
 
-            // Update UI
             title.innerText = level + " Resources";
             display.classList.remove('hidden');
-
-            // Clear previous list
             listContainer.innerHTML = '';
 
-            // Inject new subjects with icons and links
             grades[level].forEach(subject => {
                 const link = document.createElement('a');
-                link.href = driveLinks[subject] || "#";
-                link.target = "_blank";
+                
+                // IMPORTANT: If you haven't added a link yet, it stays as #
+                const finalLink = driveLinks[subject] || "#";
+                
+                link.href = finalLink;
+                link.target = "_blank"; // Opens in a new tab
                 link.className = "flex items-center justify-between p-5 bg-white/5 border border-white/10 rounded-2xl hover:bg-[#ffed00] group transition-all duration-300";
                 link.innerHTML = `
                     <span class="text-white group-hover:text-[#1a4789] font-bold uppercase text-sm tracking-tight">${subject}</span>
@@ -138,7 +137,6 @@
                 listContainer.appendChild(link);
             });
 
-            // Smooth Scroll
             display.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
