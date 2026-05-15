@@ -66,30 +66,35 @@
     async function sendMessage() {
         const input = document.getElementById('user-input');
         const text = input.value.trim();
+        
         if (!text) return;
 
-        // Display user message immediately
+        // 1. Add user message to UI immediately
         appendMessage('user', text);
         input.value = '';
 
         try {
-            // Talk to the bridge
+            // 2. Try to talk to the bridge
             const response = await fetch('/.netlify/functions/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt: text }),
+                body: JSON.stringify({ prompt: text })
             });
-            
+
             if (!response.ok) {
-                throw new Error("Function not ready");
+                // This tells us if Netlify actually found the function
+                const errorData = await response.text();
+                console.error("Function Error:", errorData);
+                appendMessage('bot', "I can't find my brain yet. Please ensure the 'netlify/functions' folders are set up correctly in GitHub.");
+                return;
             }
-            
+
             const data = await response.json();
             appendMessage('bot', data.reply);
+
         } catch (error) {
-            console.error("Chat Error:", error);
-            // This ensures the bot still says SOMETHING even if the bridge is down
-            appendMessage('bot', "I'm still connecting to my new AI brain. Try again in a few minutes once Netlify finishes deploying!");
+            console.error("System Error:", error);
+            appendMessage('bot', "System connection failed. Check the browser console (F12) for details.");
         }
     }
 
@@ -97,17 +102,15 @@
         const chatContainer = document.getElementById('chat-container');
         const msgDiv = document.createElement('div');
         msgDiv.className = sender === 'user' ? 'flex justify-end mb-4' : 'flex justify-start mb-4';
-        msgDiv.innerHTML = `<div class="${sender === 'user' ? 'bg-[#1a4789] text-white' : 'bg-white text-slate-700 border border-slate-100'} p-3 rounded-2xl max-w-[80%] shadow-sm">${text}</div>`;
+        msgDiv.innerHTML = `<div class="${sender === 'user' ? 'bg-[#1a4789] text-white' : 'bg-white text-slate-700'} p-3 rounded-2xl max-w-[80%] shadow-sm">${text}</div>`;
         chatContainer.appendChild(msgDiv);
         chatContainer.scrollTop = chatContainer.scrollHeight;
     }
 
-    // This makes sure the "Enter" key always works
-    document.getElementById('user-input').addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
-    });
+    // Add listener for Enter key
+    document.getElementById('user-input').onkeypress = function(e) {
+        if (e.keyCode == 13) sendMessage();
+    }
 </script>
 
 </body>
