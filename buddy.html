@@ -72,15 +72,17 @@
         input.value = '';
 
         try {
+            // This line connects to the secret brain we built
             const response = await fetch('/.netlify/functions/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ prompt: text }),
             });
+            
             const data = await response.json();
             appendMessage('bot', data.reply);
         } catch (error) {
-            appendMessage('bot', "Connection error.");
+            appendMessage('bot', "I'm having trouble connecting to my brain right now.");
         }
     }
 
