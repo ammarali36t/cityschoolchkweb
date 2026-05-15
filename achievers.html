@@ -241,11 +241,60 @@
 </footer>
 
     <script>
+    // Mobile Menu Toggle
+    document.addEventListener('DOMContentLoaded', () => {
         const btn = document.getElementById('mobile-menu-button');
         const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
-    </script>
+        if (btn && menu) { btn.addEventListener('click', () => menu.classList.toggle('hidden')); }
+    });
+
+    async function loadAchievers() {
+        const grid = document.getElementById('achievers-grid');
+        const repoOwner = "ammarali36t";
+        const repoName = "cityschoolchkweb";
+        const folderPath = "content/achievers";
+
+        try {
+            const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}?t=${new Date().getTime()}`);
+            const files = await response.json();
+            
+            grid.innerHTML = ''; 
+
+            if (!Array.isArray(files)) return;
+
+            for (const file of files) {
+                if (file.name.endsWith('.json')) {
+                    const contentRes = await fetch(file.download_url);
+                    const student = await contentRes.json();
+
+                    let cleanPath = student.image.replace(/^(\.\/|\/)/, ''); 
+                    const imgUrl = `https://raw.githubusercontent.com/${repoOwner}/${repoName}/main/${cleanPath}`;
+
+                    const card = `
+                        <div class="bg-white rounded-xl shadow-sm border border-blue-100 p-2 md:p-6 text-center relative overflow-hidden group">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-[#ffed00]"></div>
+                            <div class="relative mx-auto w-16 h-16 md:w-28 md:h-28 mb-2">
+                                <img src="${imgUrl}" class="rounded-full w-full h-full object-cover border-2 border-slate-100 group-hover:border-[#ffed00] transition" 
+                                     onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(student.title)}&background=1a4789&color=fff'">
+                            </div>
+                            <h3 class="text-[#1a4789] font-black text-[9px] md:text-lg uppercase leading-tight">${student.title}</h3>
+                            <p class="text-blue-600 font-bold text-[7px] md:text-xs mb-1">${student.student_grade}</p>
+                            
+                            <div class="mt-2 bg-blue-50 rounded-lg py-1">
+                                <span class="text-[#1a4789] font-black text-[10px] md:text-xl">${student.result}</span>
+                                ${student.percentage ? `<p class="text-[7px] md:text-[10px] font-bold text-slate-500">${student.percentage}%</p>` : ''}
+                            </div>
+                        </div>
+                    `;
+                    grid.innerHTML += card;
+                }
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            grid.innerHTML = '<p class="text-center col-span-full text-slate-400 text-xs">Syncing High Achievers...</p>';
+        }
+    }
+    window.onload = loadAchievers;
+</script>
 </body>
 </html>
