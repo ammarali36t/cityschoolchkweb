@@ -12,7 +12,16 @@
         body { font-family: 'Inter', sans-serif; }
         .animate-fade-up { animation: fadeUp 0.4s ease-out forwards; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .class-btn { -webkit-tap-highlight-color: transparent; outline: none; }
+        .class-btn { -webkit-tap-highlight-color: transparent; outline: none; transition: all 0.3s ease; }
+        
+        /* Active State Classes */
+        .active-card { 
+            background-color: #1a4789 !important; 
+            border-color: #1a4789 !important;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1) !important;
+        }
+        .active-card span:first-child { color: #ffed00 !important; }
+        .active-card span:last-child { color: rgba(255, 255, 255, 0.6) !important; }
     </style>
 </head>
 <body class="bg-slate-50">
@@ -46,27 +55,27 @@
             </h2>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                <button onclick="updateResources('Grade 6')" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
+                <button onclick="updateResources('Grade 6', this)" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
                     <span class="block text-[#1a4789] font-black text-2xl">Grade 6</span>
                     <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest text-center">Middle School</span>
                 </button>
-                <button onclick="updateResources('Grade 7')" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
+                <button onclick="updateResources('Grade 7', this)" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
                     <span class="block text-[#1a4789] font-black text-2xl">Grade 7</span>
                     <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Middle School</span>
                 </button>
-                <button onclick="updateResources('Grade 8')" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
+                <button onclick="updateResources('Grade 8', this)" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
                     <span class="block text-[#1a4789] font-black text-2xl">Grade 8</span>
                     <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Middle School</span>
                 </button>
-                <button onclick="updateResources('Senior I')" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
+                <button onclick="updateResources('Senior I', this)" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
                     <span class="block text-[#1a4789] font-black text-2xl">Senior I</span>
                     <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">O Levels Year 1</span>
                 </button>
-                <button onclick="updateResources('Senior II')" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
+                <button onclick="updateResources('Senior II', this)" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
                     <span class="block text-[#1a4789] font-black text-2xl">Senior II</span>
                     <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">O Levels Year 2</span>
                 </button>
-                <button onclick="updateResources('Senior III')" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
+                <button onclick="updateResources('Senior III', this)" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
                     <span class="block text-[#1a4789] font-black text-2xl">Senior III</span>
                     <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">O Levels Year 3</span>
                 </button>
@@ -75,7 +84,6 @@
 
         <section id="resource-display" class="hidden animate-fade-up">
             <h2 id="display-title" class="text-[#1a4789] font-black text-2xl uppercase mb-8 italic border-b-4 border-slate-100 pb-4"></h2>
-            
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div class="bg-[#1a4789] p-10 rounded-[3rem] shadow-2xl flex flex-col justify-between">
                     <div>
@@ -83,9 +91,8 @@
                             <i class="fab fa-google-drive text-[#ffed00] text-3xl mr-4"></i>
                             <h3 class="text-white font-black uppercase tracking-widest text-sm">Past Papers Repository</h3>
                         </div>
-                        <p id="drive-desc" class="text-blue-100 font-medium mb-10">Access the full archive of exam papers for this grade.</p>
+                        <p class="text-blue-100 font-medium mb-10">Access the full archive of exam papers for this grade.</p>
                     </div>
-                    
                     <a id="drive-button" href="#" target="_blank" class="flex items-center justify-center gap-4 bg-[#ffed00] text-[#1a4789] py-6 rounded-2xl font-black uppercase text-sm tracking-widest hover:scale-[1.02] transition-all shadow-lg">
                         Open Drive Folder <i class="fas fa-external-link-alt"></i>
                     </a>
@@ -97,7 +104,7 @@
                             <i class="fas fa-file-invoice text-[#1a4789] text-3xl mr-4"></i>
                             <h3 class="text-[#1a4789] font-black uppercase tracking-widest text-sm">Course Syllabus</h3>
                         </div>
-                        <p class="text-slate-500 font-medium mb-10">Download official course outlines and curriculum guides for this level.</p>
+                        <p class="text-slate-500 font-medium mb-10">Download official course outlines and curriculum guides.</p>
                     </div>
                     <a id="syllabus-download" href="#" target="_blank" class="w-full text-center bg-slate-100 text-[#1a4789] py-6 rounded-2xl font-black uppercase text-sm tracking-widest hover:bg-[#1a4789] hover:text-white transition-all">
                         Download Syllabi <i class="fas fa-download ml-2"></i>
@@ -112,41 +119,38 @@
     </footer>
 
     <script>
-        // PASTE YOUR GOOGLE DRIVE FOLDER LINKS HERE
         const driveLinks = {
-            "Grade 6": "https://drive.google.com/link_for_grade_6",
-            "Grade 7": "https://drive.google.com/link_for_grade_7",
-            "Grade 8": "https://drive.google.com/link_for_grade_8",
-            "Senior I": "https://drive.google.com/link_for_senior_1",
-            "Senior II": "https://drive.google.com/link_for_senior_2",
-            "Senior III": "https://drive.google.com/link_for_senior_3"
+            "Grade 6": "#", "Grade 7": "#", "Grade 8": "#",
+            "Senior I": "#", "Senior II": "#", "Senior III": "#"
         };
 
-        // PASTE YOUR SYLLABUS PDF LINKS HERE
         const syllabusLinks = {
-            "Grade 6": "https://drive.google.com/syllabus_6",
-            "Grade 7": "https://drive.google.com/syllabus_7",
-            "Grade 8": "https://drive.google.com/syllabus_8",
-            "Senior I": "https://drive.google.com/syllabus_s1",
-            "Senior II": "https://drive.google.com/syllabus_s2",
-            "Senior III": "https://drive.google.com/syllabus_s3"
+            "Grade 6": "#", "Grade 7": "#", "Grade 8": "#",
+            "Senior I": "#", "Senior II": "#", "Senior III": "#"
         };
 
-        function updateResources(level) {
+        function updateResources(level, clickedBtn) {
+            // 1. Reset all buttons first
+            const allBtns = document.querySelectorAll('.class-btn');
+            allBtns.forEach(btn => {
+                btn.classList.remove('active-card');
+            });
+
+            // 2. Highlight the clicked button
+            clickedBtn.classList.add('active-card');
+
+            // 3. Update the content below
             const display = document.getElementById('resource-display');
             const title = document.getElementById('display-title');
             const driveBtn = document.getElementById('drive-button');
             const syllabusBtn = document.getElementById('syllabus-download');
 
-            // Update UI Content
             title.innerText = level + " Resources";
             driveBtn.href = driveLinks[level] || "#";
             syllabusBtn.href = syllabusLinks[level] || "#";
 
-            // Reveal Section
             display.classList.remove('hidden');
             
-            // Smooth scroll to the result
             setTimeout(() => {
                 display.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 100);
