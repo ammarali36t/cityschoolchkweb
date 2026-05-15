@@ -81,9 +81,11 @@ collections:
     label: "Student's Life Media"
     folder: "content/student-life"
     create: true
+    format: "json"
+    extension: "json"
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     
-    # FIX: Remove "fields." prefix so the dashboard layout engine can map the asset path directly
+    # CMS List Grid Mappings
     summary: "{{title}}"
     image: "{{imageFile}}"
     
