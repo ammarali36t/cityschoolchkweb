@@ -44,7 +44,20 @@
                 <span class="bg-[#ffed00] w-8 h-8 rounded-lg flex items-center justify-center mr-3 text-sm">1</span>
                 Select Your Level
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <button onclick="updateResources('Grade 6')" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
+                    <span class="block text-[#1a4789] font-black text-2xl">Grade 6</span>
+                    <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest text-center">Middle School</span>
+                </button>
+                <button onclick="updateResources('Grade 7')" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
+                    <span class="block text-[#1a4789] font-black text-2xl">Grade 7</span>
+                    <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Middle School</span>
+                </button>
+                <button onclick="updateResources('Grade 8')" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
+                    <span class="block text-[#1a4789] font-black text-2xl">Grade 8</span>
+                    <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Middle School</span>
+                </button>
                 <button onclick="updateResources('Senior I')" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
                     <span class="block text-[#1a4789] font-black text-2xl">Senior I</span>
                     <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">O Levels Year 1</span>
@@ -70,7 +83,7 @@
                             <i class="fab fa-google-drive text-[#ffed00] text-3xl mr-4"></i>
                             <h3 class="text-white font-black uppercase tracking-widest text-sm">Past Papers Repository</h3>
                         </div>
-                        <p class="text-blue-100 font-medium mb-10">All subjects, past papers, and marking schemes are organized in a single dedicated folder for your convenience.</p>
+                        <p id="drive-desc" class="text-blue-100 font-medium mb-10">Access the full archive of exam papers for this grade.</p>
                     </div>
                     
                     <a id="drive-button" href="#" target="_blank" class="flex items-center justify-center gap-4 bg-[#ffed00] text-[#1a4789] py-6 rounded-2xl font-black uppercase text-sm tracking-widest hover:scale-[1.02] transition-all shadow-lg">
@@ -84,7 +97,7 @@
                             <i class="fas fa-file-invoice text-[#1a4789] text-3xl mr-4"></i>
                             <h3 class="text-[#1a4789] font-black uppercase tracking-widest text-sm">Course Syllabus</h3>
                         </div>
-                        <p class="text-slate-500 font-medium mb-10">Download official CAIE course outlines and school syllabi for this level.</p>
+                        <p class="text-slate-500 font-medium mb-10">Download official course outlines and curriculum guides for this level.</p>
                     </div>
                     <a id="syllabus-download" href="#" target="_blank" class="w-full text-center bg-slate-100 text-[#1a4789] py-6 rounded-2xl font-black uppercase text-sm tracking-widest hover:bg-[#1a4789] hover:text-white transition-all">
                         Download Syllabi <i class="fas fa-download ml-2"></i>
@@ -101,16 +114,22 @@
     <script>
         // PASTE YOUR GOOGLE DRIVE FOLDER LINKS HERE
         const driveLinks = {
-            "Senior I": "https://drive.google.com/drive/folders/YOUR_SENIOR_1_ID",
-            "Senior II": "https://drive.google.com/drive/folders/YOUR_SENIOR_2_ID",
-            "Senior III": "https://drive.google.com/drive/folders/YOUR_SENIOR_3_ID"
+            "Grade 6": "https://drive.google.com/link_for_grade_6",
+            "Grade 7": "https://drive.google.com/link_for_grade_7",
+            "Grade 8": "https://drive.google.com/link_for_grade_8",
+            "Senior I": "https://drive.google.com/link_for_senior_1",
+            "Senior II": "https://drive.google.com/link_for_senior_2",
+            "Senior III": "https://drive.google.com/link_for_senior_3"
         };
 
         // PASTE YOUR SYLLABUS PDF LINKS HERE
         const syllabusLinks = {
-            "Senior I": "https://drive.google.com/file/d/SENIOR_1_SYLLABUS",
-            "Senior II": "https://drive.google.com/file/d/SENIOR_2_SYLLABUS",
-            "Senior III": "https://drive.google.com/file/d/SENIOR_3_SYLLABUS"
+            "Grade 6": "https://drive.google.com/syllabus_6",
+            "Grade 7": "https://drive.google.com/syllabus_7",
+            "Grade 8": "https://drive.google.com/syllabus_8",
+            "Senior I": "https://drive.google.com/syllabus_s1",
+            "Senior II": "https://drive.google.com/syllabus_s2",
+            "Senior III": "https://drive.google.com/syllabus_s3"
         };
 
         function updateResources(level) {
@@ -126,7 +145,11 @@
 
             // Reveal Section
             display.classList.remove('hidden');
-            display.scrollIntoView({ behavior: 'smooth' });
+            
+            // Smooth scroll to the result
+            setTimeout(() => {
+                display.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
         }
     </script>
 </body>
