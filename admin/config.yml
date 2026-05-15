@@ -41,7 +41,7 @@ collections:
   - name: "syllabi"
     label: "Course Syllabi"
     folder: "content/syllabi"
-    extension: "json" # Stores the mapping data
+    extension: "json" 
     create: false 
     editor:
       preview: false
@@ -84,7 +84,13 @@ collections:
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { label: "Title", name: "title", widget: "string", required: true }
-      - { label: "Media Type", name: "mediaType", widget: "select", options: ["image", "video"], required: true }
+      - { label: "Media Type Selection", name: "mediaType", widget: "select", options: ["image", "video"], required: true, hint: "Match this with the correct upload field below!" }
       - { label: "Category/Activity", name: "category", widget: "string", hint: "e.g., Sports Day, Cultural Festival, Classroom", required: true }
-      - { label: "Upload Media (Image or Video Link)", name: "mediaFile", widget: "file", required: true }
+      - { label: "Upload Image File", name: "imageFile", widget: "image", required: false, hint: "Use this field ONLY if Media Type is set to 'image'." }
+      - label: "Upload Video File"
+        name: "videoFile"
+        widget: "file"
+        required: false
+        hint: "Use this field ONLY if Media Type is set to 'video'."
+        pattern: ['.*\.(mp4|webm|ogg)$', "ERROR: You can only upload video files (.mp4, .webm, .ogg) in this field! Please clear it and use the Image field if uploading a photo."]
       - { label: "Date Uploaded", name: "date", widget: "datetime", required: true }
