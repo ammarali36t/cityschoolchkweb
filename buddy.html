@@ -5,115 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CampusBuddy | TCS Chakwal</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" type="image/png" href="./assets/favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
-        .chat-bubble { border-radius: 20px 20px 20px 5px; }
-        .user-bubble { border-radius: 20px 20px 5px 20px; }
-        #chat-window::-webkit-scrollbar { width: 6px; }
-        #chat-window::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-    </style>
 </head>
-<body class="flex flex-col h-screen max-h-screen">
+<body class="bg-slate-50 flex flex-col h-screen max-h-screen">
 
-    <nav class="bg-white border-b-4 border-[#ffed00] p-4 flex justify-between items-center shadow-sm sticky top-0 z-50">
-        <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 bg-[#1a4789] rounded-xl flex items-center justify-center shadow-lg">
-                <i class="fas fa-robot text-[#ffed00] text-xl"></i>
-            </div>
-            <div>
-                <span class="block font-black text-[#1a4789] uppercase tracking-tighter leading-none">CampusBuddy</span>
-                <span class="text-[8px] font-bold text-green-500 uppercase tracking-widest">Online Assistant</span>
-            </div>
+    <nav class="bg-[#1a4789] text-white p-4 shadow-md flex justify-between items-center">
+        <div>
+            <h1 class="font-bold text-xl">CAMPUSBUDDY</h1>
+            <p class="text-xs text-blue-200">OFFICIAL AI ASSISTANT</p>
         </div>
-        <a href="index.html" class="bg-slate-100 text-slate-500 px-4 py-2 rounded-full text-[10px] font-black uppercase hover:bg-red-50 hover:text-red-500 transition">
-            Exit <i class="fas fa-times ml-1"></i>
-        </a>
+        <a href="/" class="text-sm bg-white/10 px-3 py-1 rounded hover:bg-white/20">EXIT</a>
     </nav>
 
-    <main class="flex-1 overflow-y-auto p-4 md:p-8 space-y-6" id="chat-window">
-        <div class="flex items-start space-x-3">
-            <div class="w-8 h-8 bg-[#1a4789] rounded-lg flex-shrink-0 flex items-center justify-center mt-1">
-                <i class="fas fa-robot text-[#ffed00] text-xs"></i>
-            </div>
-            <div class="chat-bubble bg-white border-2 border-slate-100 p-5 max-w-[85%] md:max-w-[60%] text-[#1a4789] text-sm shadow-sm leading-relaxed">
-                Hello! I am your <strong>CampusBuddy</strong>. 🤖 <br><br>
-                I can help you navigate the portal. Try asking me about:
-                <div class="mt-4 grid grid-cols-1 gap-2">
-                    <button onclick="autoQuery('Past Papers')" class="text-left p-2 bg-slate-50 rounded-lg hover:bg-[#ffed00] transition text-[11px] font-bold uppercase tracking-tight">• Past Papers</button>
-                    <button onclick="autoQuery('School Events')" class="text-left p-2 bg-slate-50 rounded-lg hover:bg-[#ffed00] transition text-[11px] font-bold uppercase tracking-tight">• School Calendar</button>
-                    <button onclick="autoQuery('Senior III Subjects')" class="text-left p-2 bg-slate-50 rounded-lg hover:bg-[#ffed00] transition text-[11px] font-bold uppercase tracking-tight">• Senior III Subjects</button>
-                </div>
+    <main class="flex-1 overflow-y-auto p-4 space-y-4" id="chat-window">
+        <div class="flex justify-start">
+            <div class="bg-white border border-slate-200 p-4 rounded-2xl rounded-tl-none shadow-sm max-w-[85%]">
+                <p class="text-slate-800 font-medium">Hello! I'm your AI CampusBuddy. 🤖</p>
+                <p class="text-slate-600 text-sm mt-1">Ask me about admissions, location, or school timings!</p>
             </div>
         </div>
     </main>
 
-    <footer class="p-4 bg-white border-t border-slate-100 shadow-[0_-10px_20px_rgba(0,0,0,0.02)]">
-        <div class="max-w-4xl mx-auto flex items-center space-x-3">
-            <input type="text" id="user-input" 
-                   onkeypress="if(event.key === 'Enter') sendMessage()"
-                   placeholder="Type a question (e.g. 'Show me Senior II')" 
-                   class="flex-1 p-4 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-[#1a4789] focus:bg-white outline-none transition font-medium text-sm">
-            <button onclick="sendMessage()" class="bg-[#1a4789] text-[#ffed00] w-14 h-14 rounded-2xl flex items-center justify-center hover:scale-105 active:scale-95 transition shadow-lg">
-                <i class="fas fa-paper-plane text-lg"></i>
+    <footer class="p-4 bg-white border-t border-slate-200">
+        <div class="max-w-4xl mx-auto flex gap-2">
+            <input type="text" id="user-input" placeholder="Type your question..." 
+                class="flex-1 bg-slate-100 border-none rounded-full px-5 py-3 focus:ring-2 focus:ring-[#1a4789] outline-none">
+            <button onclick="sendMessage()" class="bg-[#1a4789] text-white p-3 rounded-full hover:bg-blue-800 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
             </button>
         </div>
     </footer>
 
     <script>
-    async function sendMessage() {
-        const input = document.getElementById('user-input');
-        const text = input.value.trim();
-        if (!text) return;
-
-        // 1. Add user message to UI
-        appendMessage('user', text);
-        input.value = '';
-
-        try {
-            // 2. Call the Netlify Function
-            const response = await fetch('/.netlify/functions/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt: text }),
-            });
+        async function sendMessage() {
+            const input = document.getElementById('user-input');
+            const chatWindow = document.getElementById('chat-window');
+            const text = input.value.trim();
             
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+            if (!text) return;
+
+            // Add user message
+            appendMessage('user', text);
+            input.value = '';
+
+            try {
+                const response = await fetch('/.netlify/functions/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: text })
+                });
+
+                const data = await response.json();
+                appendMessage('bot', data.reply);
+            } catch (error) {
+                appendMessage('bot', "I'm having a connection issue. Please check if the Netlify Function is deployed correctly.");
             }
-
-            const data = await response.json();
-            appendMessage('bot', data.reply);
-        } catch (error) {
-            console.error('Chat Error:', error);
-            appendMessage('bot', "I'm having trouble reaching the server. Please check if your Netlify Function is deployed.");
         }
-    }
 
-    function appendMessage(sender, text) {
-        const chatContainer = document.getElementById('chat-container');
-        const msgDiv = document.createElement('div');
-        msgDiv.className = sender === 'user' ? 'flex justify-end mb-4' : 'flex justify-start mb-4';
-        
-        msgDiv.innerHTML = `
-            <div class="${sender === 'user' ? 'bg-[#1a4789] text-white' : 'bg-white text-slate-700 border border-slate-100'} p-3 rounded-2xl max-w-[80%] shadow-sm">
-                ${text}
-            </div>
-        `;
-        
-        chatContainer.appendChild(msgDiv);
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-    }
-
-    // Handle the "Enter" key
-    document.getElementById('user-input').addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            sendMessage();
+        function appendMessage(sender, text) {
+            const chatWindow = document.getElementById('chat-window');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = sender === 'user' ? 'flex justify-end' : 'flex justify-start';
+            
+            const innerDiv = document.createElement('div');
+            innerDiv.className = sender === 'user' 
+                ? 'bg-[#1a4789] text-white p-3 rounded-2xl rounded-tr-none shadow-sm max-w-[80%]' 
+                : 'bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-none shadow-sm max-w-[80%] text-slate-800';
+            
+            innerDiv.innerText = text;
+            msgDiv.appendChild(innerDiv);
+            chatWindow.appendChild(msgDiv);
+            
+            // Auto-scroll to bottom
+            chatWindow.scrollTop = chatWindow.scrollHeight;
         }
-    });
-</script>
 
+        // Listen for Enter key
+        document.getElementById('user-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+    </script>
 </body>
 </html>
