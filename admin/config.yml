@@ -82,12 +82,16 @@ collections:
     folder: "content/student-life"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    
+    # This line tells the CMS exactly what text and which image to use for the dashboard card preview
+    summary: "{{title}} | ({{mediaType}}) {{fields.imageFile}} {{fields.videoFile}}"
+    
     fields:
       - { label: "Title", name: "title", widget: "string", required: true }
       - { label: "Media Type Selection", name: "mediaType", widget: "select", options: ["image", "video"], required: true, hint: "Important: Choose the type first, then use the correct upload field below." }
       - { label: "Category/Activity", name: "category", widget: "string", hint: "e.g., Sports Day, Cultural Festival, Classroom", required: true }
       
-      # Image Field with Validation
+      # Image Field with Validation Guardrail
       - label: "Upload Image File"
         name: "imageFile"
         widget: "image"
@@ -95,7 +99,7 @@ collections:
         hint: "Use ONLY for Photos."
         pattern: ['.*\.(jpg|jpeg|png|webp|gif)$', "ERROR: You selected a video file. Please use the Video field below for .mp4 files."]
 
-      # Video Field with Validation
+      # Video Field with Validation Guardrail
       - label: "Upload Video File"
         name: "videoFile"
         widget: "file"
