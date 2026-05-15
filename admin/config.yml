@@ -1,11 +1,10 @@
 backend:
   name: git-gateway
-  branch: main # Double check if your GitHub branch is 'main' or 'master'
+  branch: main 
 
-media_folder: "assets/uploads" # Images uploaded by staff go here
+media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
-# ... keep your backend and folder settings the same ...
 collections:
   - name: "staff_members"
     label: "Our Faculty"
@@ -19,9 +18,9 @@ collections:
       - {label: "Designation/Role", name: "role", widget: "string"}
       - {label: "Profile Picture", name: "image", widget: "image"}
       - {label: "Experience", name: "order", widget: "number", default: 1}
-      - {label: "Is this Headmistress?", name: "is_head", widget: "boolean", default: false} # ADD THIS
+      - {label: "Is this Headmistress?", name: "is_head", widget: "boolean", default: false}
 
-      - name: "high_achievers"
+  - name: "high_achievers"
     label: "High Achievers"
     folder: "content/achievers"
     create: true
