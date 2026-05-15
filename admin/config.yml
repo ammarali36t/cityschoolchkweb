@@ -33,9 +33,9 @@ collections:
       - label: "Result/Grade"
         name: "result"
         widget: "string"
-        # The pattern below ensures the text starts with A or a (e.g., A, A*, A-star)
-        pattern: ['^[Aa].*', "ACCESS DENIED: For High Achievers, only A or A* grades can be entered."]
-        hint: "Strict Rule: Only A or A* allowed for Senior levels."
+        # Updated Pattern: Allows A and A*, but blocks B, C, D, E, U (case insensitive)
+        pattern: ['^[^b-zB-Z]*[Aa][^b-zB-Z]*$', "ERROR: You can only enter A or A* grades. Grades like B, C, or D are not allowed for Senior levels."]
+        hint: "Example: '2 A*/A' is allowed. '2 A/B' is NOT allowed."
       - {label: "Percentage", name: "percentage", widget: "string", required: false}
       - {label: "Student Photo", name: "image", widget: "image"}
-      - {label: "Display Order", name: "order", widget: "number", default: 1, hint: "Used for sorting. Higher numbers appear last."}
+      - {label: "Display Order", name: "order", widget: "number", default: 1, hint: "For Senior I: Only the 3 students with the lowest numbers here will show."}
