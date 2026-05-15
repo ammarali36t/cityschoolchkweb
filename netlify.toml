@@ -3,9 +3,9 @@
   publish = "."
 
 [functions]
+  # This tells Netlify where the code is
+  directory = "netlify/functions"
 
-    [functions.node_bundle]
-    external_node_modules = [
-      "module-one",
-      "module-two"
-    ]
+[functions.node_bundle]
+  # This forces the AI library to be included in the bundle
+  external_node_modules = ["@google/generative-ai"]
