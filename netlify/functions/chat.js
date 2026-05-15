@@ -1,7 +1,9 @@
-const { GoogleGenerativeAI } = require("@google-generativeai/generative-ai");
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-exports.handler = async (event) => {
-    if (event.httpMethod !== "POST") return { statusCode: 405, body: "Method Not Allowed" };
+export const handler = async (event) => {
+    if (event.httpMethod !== "POST") {
+        return { statusCode: 405, body: "Method Not Allowed" };
+    }
 
     try {
         const genAI = new GoogleGenerativeAI(process.env.AYAAN_API_KEY);
@@ -9,13 +11,12 @@ exports.handler = async (event) => {
 
         const { prompt, imageData } = JSON.parse(event.body);
         
-        // This ensures he knows he's CampusBuddy for text OR images
-        const systemIdentity = "You are CampusBuddy, the AI for TCS Chakwal. HM is the lead authority. School is on Bhoun Road. Answer queries about the school or analyze uploaded images helpfully.";
-        
-        let payload = [systemIdentity + " " + (prompt || "Explain this image.")];
+        // System prompt to handle both text and images
+        const systemId = "You are CampusBuddy for TCS Chakwal. HM is the lead authority. Be helpful with text or images.";
+        let parts = [{ text: systemId + " " + (prompt || "Explain this image.") }];
 
         if (imageData) {
-            payload.push({
+            parts.push({
                 inlineData: {
                     data: imageData,
                     mimeType: "image/jpeg"
@@ -23,7 +24,7 @@ exports.handler = async (event) => {
             });
         }
 
-        const result = await model.generateContent(payload);
+        const result = await model.generateContent(parts);
         const response = await result.response;
         
         return {
@@ -32,10 +33,10 @@ exports.handler = async (event) => {
             body: JSON.stringify({ reply: response.text() }),
         };
     } catch (error) {
-        console.error(error);
+        console.error("AI Error:", error);
         return { 
             statusCode: 500, 
-            body: JSON.stringify({ reply: "I'm connecting my vision sensors. Please try again in 30 seconds!" }) 
+            body: JSON.stringify({ reply: "Connection Error: Please ensure AYAAN_API_KEY is set in Netlify Environment Variables." }) 
         };
     }
 };
