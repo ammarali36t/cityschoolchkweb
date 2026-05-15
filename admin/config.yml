@@ -83,9 +83,9 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     
-    # FIX: This configuration tells the CMS to look directly inside your custom upload fields for the image preview asset while keeping the title text clear
+    # FIX: Remove "fields." prefix so the dashboard layout engine can map the asset path directly
     summary: "{{title}}"
-    image: "{{fields.imageFile}}"
+    image: "{{imageFile}}"
     
     fields:
       - { label: "Title", name: "title", widget: "string", required: true }
