@@ -72,17 +72,21 @@
         input.value = '';
 
         try {
-            // This line connects to the secret brain we built
+            // Attempt to talk to the AI Bridge
             const response = await fetch('/.netlify/functions/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ prompt: text }),
             });
             
+            if (!response.ok) throw new Error('Function not found');
+            
             const data = await response.json();
             appendMessage('bot', data.reply);
         } catch (error) {
-            appendMessage('bot', "I'm having trouble connecting to my brain right now.");
+            console.error("Chat Error:", error);
+            // Fallback message if the AI bridge isn't live yet
+            appendMessage('bot', "I'm currently connecting to my new brain. Try asking about 'Admissions' or 'Location' in a few minutes!");
         }
     }
 
@@ -90,10 +94,13 @@
         const chatContainer = document.getElementById('chat-container');
         const msgDiv = document.createElement('div');
         msgDiv.className = sender === 'user' ? 'flex justify-end mb-4' : 'flex justify-start mb-4';
-        msgDiv.innerHTML = `<div class="${sender === 'user' ? 'bg-[#1a4789] text-white' : 'bg-white text-slate-700'} p-3 rounded-2xl max-w-[80%] shadow-sm">${text}</div>`;
+        msgDiv.innerHTML = `<div class="${sender === 'user' ? 'bg-[#1a4789] text-white' : 'bg-white text-slate-700 border border-slate-100'} p-3 rounded-2xl max-w-[80%] shadow-sm">${text}</div>`;
         chatContainer.appendChild(msgDiv);
         chatContainer.scrollTop = chatContainer.scrollHeight;
     }
+
+    // Connect the click event manually to ensure it works
+    document.querySelector('button[onclick="sendMessage()"]')?.addEventListener('click', sendMessage);
 </script>
 
 </body>
