@@ -83,8 +83,9 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     
-    # This line tells the CMS exactly what text and which image to use for the dashboard card preview
-    summary: "{{title}} | ({{mediaType}}) {{fields.imageFile}} {{fields.videoFile}}"
+    # FIX: This configuration tells the CMS to look directly inside your custom upload fields for the image preview asset while keeping the title text clear
+    summary: "{{title}}"
+    image: "{{fields.imageFile}}"
     
     fields:
       - { label: "Title", name: "title", widget: "string", required: true }
