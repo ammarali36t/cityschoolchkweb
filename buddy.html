@@ -63,74 +63,52 @@
     </footer>
 
     <script>
-        const chatWindow = document.getElementById('chat-window');
-        const userInput = document.getElementById('user-input');
+    async function sendMessage() {
+        const input = document.getElementById('user-input');
+        const text = input.value.trim();
+        if (!text) return;
 
-        function autoQuery(q) {
-            userInput.value = q;
-            sendMessage();
-        }
+        // 1. Display user message
+        appendMessage('user', text);
+        input.value = '';
 
-        function sendMessage() {
-            const text = userInput.value.trim();
-            if (text === "") return;
-
-            // User Bubble
-            addMessage(text, 'user');
-            userInput.value = "";
-
-            // Buddy Response Logic
-            setTimeout(() => {
-                const response = getBuddyResponse(text.toLowerCase());
-                addMessage(response, 'buddy');
-            }, 500);
-        }
-
-        function addMessage(content, sender) {
-            const wrapper = document.createElement('div');
-            wrapper.className = sender === 'user' ? 'flex justify-end' : 'flex items-start space-x-3';
+        try {
+            // 2. Call your Netlify function
+            const response = await fetch('/.netlify/functions/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt: text }),
+            });
             
-            if (sender === 'user') {
-                wrapper.innerHTML = `
-                    <div class="user-bubble bg-[#1a4789] text-white p-4 max-w-[80%] text-sm font-medium shadow-md">
-                        ${content}
-                    </div>
-                `;
-            } else {
-                wrapper.innerHTML = `
-                    <div class="w-8 h-8 bg-[#1a4789] rounded-lg flex-shrink-0 flex items-center justify-center mt-1">
-                        <i class="fas fa-robot text-[#ffed00] text-xs"></i>
-                    </div>
-                    <div class="chat-bubble bg-white border-2 border-slate-100 p-4 max-w-[85%] text-[#1a4789] text-sm shadow-sm leading-relaxed">
-                        ${content}
-                    </div>
-                `;
-            }
-
-            chatWindow.appendChild(wrapper);
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-        }
-
-        function getBuddyResponse(input) {
-            if (input.includes("past paper") || input.includes("resource") || input.includes("book")) {
-                return "You can find all past papers and learning resources on the <a href='resources.html' class='text-blue-600 font-bold underline'>Resources Page</a>.";
-            }
-            if (input.includes("senior 3") || input.includes("senior iii")) {
-                return "Senior III focuses on core subjects: English, Comp Sci, Maths, Chemistry, and Physics. Check the <a href='resources.html' class='text-blue-600 font-bold underline'>Resources Page</a> for materials.";
-            }
-            if (input.includes("senior 1") || input.includes("senior i") || input.includes("senior 2") || input.includes("senior ii")) {
-                return "Senior I & II cover Islamiat, Pak Studies, Urdu, English, Maths, and Sciences. Visit <a href='resources.html' class='text-blue-600 font-bold underline'>Resources</a> to see more.";
-            }
-            if (input.includes("event") || input.includes("holiday") || input.includes("calendar") || input.includes("date")) {
-                return "Stay up to date with holidays and events via our <a href='calendar.html' class='text-blue-600 font-bold underline'>School Calendar</a>.";
-            }
-            if (input.includes("hello") || input.includes("hi") || input.includes("hey")) {
-                return "Hello! I'm ready to help. What are you looking for today?";
-            }
+            const data = await response.json();
             
-            return "I'm not sure about that yet! Try asking about <strong>'Resources'</strong>, <strong>'Calendar'</strong>, or <strong>'Senior Levels'</strong>.";
+            // 3. Display AI's personalized reply
+            appendMessage('bot', data.reply);
+        } catch (error) {
+            appendMessage('bot', "Connection error. Please try again later.");
         }
-    </script>
+    }
+
+    function appendMessage(sender, text) {
+        const chatContainer = document.getElementById('chat-container');
+        const msgDiv = document.createElement('div');
+        msgDiv.className = sender === 'user' ? 'flex justify-end mb-4' : 'flex justify-start mb-4';
+        
+        msgDiv.innerHTML = `
+            <div class="${sender === 'user' ? 'bg-[#1a4789] text-white' : 'bg-white text-slate-700 border border-slate-100'} p-3 rounded-2xl max-w-[80%] shadow-sm">
+                ${text}
+            </div>
+        `;
+        
+        chatContainer.appendChild(msgDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    // Handle Enter Key
+    document.getElementById('user-input').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+    });
+</script>
 
 </body>
 </html>
