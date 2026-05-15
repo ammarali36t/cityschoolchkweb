@@ -61,65 +61,67 @@
     </footer>
 
     <script>
-        let currentImageData = null;
+    let currentImageData = null;
 
-        function previewFile() {
-            const file = document.getElementById('file-input').files[0];
-            const reader = new FileReader();
-            reader.onloadend = function() {
-                document.getElementById('image-preview').src = reader.result;
-                document.getElementById('image-preview-container').classList.remove('hidden');
-                currentImageData = reader.result.split(',')[1]; 
-            }
-            if (file) reader.readAsDataURL(file);
+    function previewFile() {
+        const file = document.getElementById('file-input').files[0];
+        const reader = new FileReader();
+        reader.onloadend = function() {
+            document.getElementById('image-preview').src = reader.result;
+            document.getElementById('image-preview-container').classList.remove('hidden');
+            currentImageData = reader.result.split(',')[1]; 
         }
+        if (file) reader.readAsDataURL(file);
+    }
 
-        function clearImage() {
-            document.getElementById('image-preview-container').classList.add('hidden');
-            document.getElementById('file-input').value = "";
-            currentImageData = null;
+    function clearImage() {
+        document.getElementById('image-preview-container').classList.add('hidden');
+        document.getElementById('file-input').value = "";
+        currentImageData = null;
+    }
+
+    async function sendMessage() {
+        const inputField = document.getElementById('user-input');
+        const userText = inputField.value.trim();
+        if (!userText && !currentImageData) return;
+
+        addMessage(userText, 'user', currentImageData);
+        
+        const tempImageData = currentImageData; 
+        clearImage();
+        inputField.value = "";
+
+        try {
+            const response = await fetch('/.netlify/functions/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt: userText, imageData: tempImageData })
+            });
+
+            if (!response.ok) throw new Error();
+
+            const data = await response.json();
+            addMessage(data.reply, 'buddy');
+        } catch (error) {
+            addMessage("I'm having trouble connecting. Please wait for the Netlify deploy to finish!", 'buddy');
         }
+    }
 
-        async function sendMessage() {
-            const inputField = document.getElementById('user-input');
-            const userText = inputField.value.trim();
-            if (!userText && !currentImageData) return;
+    function addMessage(content, sender, imgData = null) {
+        const chatWindow = document.getElementById('chat-window');
+        const wrapper = document.createElement('div');
+        wrapper.className = sender === 'user' ? 'flex justify-end mb-4' : 'flex items-start space-x-3 mb-4';
+        
+        let imgHTML = imgData ? `<img src="data:image/jpeg;base64,${imgData}" class="max-w-[200px] rounded-lg mb-2 block border-2 border-white shadow-sm">` : '';
 
-            addMessage(userText, 'user', currentImageData);
-            
-            const tempImageData = currentImageData; 
-            clearImage();
-            inputField.value = "";
+        wrapper.innerHTML = sender === 'user' 
+            ? `<div class="user-bubble bg-[#1a4789] text-white p-4 max-w-[80%] text-sm shadow-md">${imgHTML}${content}</div>`
+            : `<div class="w-8 h-8 bg-[#1a4789] rounded-lg flex items-center justify-center mt-1 flex-shrink-0"><i class="fas fa-robot text-[#ffed00] text-xs"></i></div>
+               <div class="chat-bubble bg-white border-2 border-slate-100 p-4 max-w-[85%] text-[#1a4789] text-sm shadow-sm">${content}</div>`;
 
-            try {
-                const response = await fetch('/.netlify/functions/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt: userText, imageData: tempImageData })
-                });
-
-                const data = await response.json();
-                addMessage(data.reply, 'buddy');
-            } catch (error) {
-                addMessage("Connection error. Is the API key set in Netlify?", 'buddy');
-            }
-        }
-
-        function addMessage(content, sender, imgData = null) {
-            const chatWindow = document.getElementById('chat-window');
-            const wrapper = document.createElement('div');
-            wrapper.className = sender === 'user' ? 'flex justify-end mb-4' : 'flex items-start space-x-3 mb-4';
-            
-            let imgHTML = imgData ? `<img src="data:image/jpeg;base64,${imgData}" class="max-w-[200px] rounded-lg mb-2 block border-2 border-white shadow-sm">` : '';
-
-            wrapper.innerHTML = sender === 'user' 
-                ? `<div class="user-bubble bg-[#1a4789] text-white p-4 max-w-[80%] text-sm shadow-md">${imgHTML}${content}</div>`
-                : `<div class="w-8 h-8 bg-[#1a4789] rounded-lg flex items-center justify-center mt-1 flex-shrink-0"><i class="fas fa-robot text-[#ffed00] text-xs"></i></div>
-                   <div class="chat-bubble bg-white border-2 border-slate-100 p-4 max-w-[85%] text-[#1a4789] text-sm shadow-sm">${content}</div>`;
-
-            chatWindow.appendChild(wrapper);
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-        }
-    </script>
+        chatWindow.appendChild(wrapper);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+</script>
 </body>
 </html>
