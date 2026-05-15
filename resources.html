@@ -64,25 +64,30 @@
             <h2 id="display-title" class="text-[#1a4789] font-black text-2xl uppercase mb-8 italic border-b-4 border-slate-100 pb-4"></h2>
             
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div class="bg-[#1a4789] p-8 rounded-[3rem] shadow-2xl">
-                    <div class="flex items-center mb-8">
-                        <i class="fab fa-google-drive text-[#ffed00] text-2xl mr-4"></i>
-                        <h3 class="text-white font-black uppercase tracking-widest text-sm">Past Papers Repository</h3>
-                    </div>
-                    <div id="subject-list" class="grid grid-cols-1 gap-3">
-                        </div>
-                </div>
-
-                <div class="bg-white p-8 rounded-[3rem] border-2 border-slate-100 shadow-xl flex flex-col justify-between">
+                <div class="bg-[#1a4789] p-10 rounded-[3rem] shadow-2xl flex flex-col justify-between">
                     <div>
                         <div class="flex items-center mb-8">
-                            <i class="fas fa-file-invoice text-[#1a4789] text-2xl mr-4"></i>
+                            <i class="fab fa-google-drive text-[#ffed00] text-3xl mr-4"></i>
+                            <h3 class="text-white font-black uppercase tracking-widest text-sm">Past Papers Repository</h3>
+                        </div>
+                        <p class="text-blue-100 font-medium mb-10">All subjects, past papers, and marking schemes are organized in a single dedicated folder for your convenience.</p>
+                    </div>
+                    
+                    <a id="drive-button" href="#" target="_blank" class="flex items-center justify-center gap-4 bg-[#ffed00] text-[#1a4789] py-6 rounded-2xl font-black uppercase text-sm tracking-widest hover:scale-[1.02] transition-all shadow-lg">
+                        Open Drive Folder <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="bg-white p-10 rounded-[3rem] border-2 border-slate-100 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center mb-8">
+                            <i class="fas fa-file-invoice text-[#1a4789] text-3xl mr-4"></i>
                             <h3 class="text-[#1a4789] font-black uppercase tracking-widest text-sm">Course Syllabus</h3>
                         </div>
-                        <p class="text-slate-500 font-medium mb-8">Download official course outlines and syllabi.</p>
+                        <p class="text-slate-500 font-medium mb-10">Download official CAIE course outlines and school syllabi for this level.</p>
                     </div>
-                    <a id="syllabus-download" href="https://drive.google.com/your-syllabus-link" target="_blank" class="w-full text-center bg-[#1a4789] text-[#ffed00] py-5 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-[#ffed00] hover:text-[#1a4789] transition-all">
-                        Download All Syllabi <i class="fas fa-download ml-2"></i>
+                    <a id="syllabus-download" href="#" target="_blank" class="w-full text-center bg-slate-100 text-[#1a4789] py-6 rounded-2xl font-black uppercase text-sm tracking-widest hover:bg-[#1a4789] hover:text-white transition-all">
+                        Download Syllabi <i class="fas fa-download ml-2"></i>
                     </a>
                 </div>
             </div>
@@ -94,49 +99,33 @@
     </footer>
 
     <script>
-        const grades = {
-            "Senior I": ["Islamiat", "Pak Studies", "Urdu", "English", "Computer Science", "Maths", "Chemistry", "Physics"],
-            "Senior II": ["Islamiat", "Pak Studies", "Urdu", "English", "Computer Science", "Maths", "Chemistry", "Physics"],
-            "Senior III": ["English", "Computer Science", "Maths", "Chemistry", "Physics"]
+        // PASTE YOUR GOOGLE DRIVE FOLDER LINKS HERE
+        const driveLinks = {
+            "Senior I": "https://drive.google.com/drive/folders/YOUR_SENIOR_1_ID",
+            "Senior II": "https://drive.google.com/drive/folders/YOUR_SENIOR_2_ID",
+            "Senior III": "https://drive.google.com/drive/folders/YOUR_SENIOR_3_ID"
         };
 
-        // PASTE YOUR GOOGLE DRIVE LINKS HERE
-        const driveLinks = {
-            "Islamiat": "https://drive.google.com/drive/folders/1YVU0ufftPUF_a_0kKKwqkmVvbaRmhKwq?usp=drive_link",
-            "Pak Studies": "https://drive.google.com/drive/folders/12z7-HeieWn4FO3hhqVgQyFp_ePeriP-z?usp=drive_link",
-            "Urdu": "https://drive.google.com/link3",
-            "English": "https://drive.google.com/link4",
-            "Computer Science": "https://drive.google.com/link5",
-            "Maths": "https://drive.google.com/link6",
-            "Chemistry": "https://drive.google.com/link7",
-            "Physics": "https://drive.google.com/link8"
+        // PASTE YOUR SYLLABUS PDF LINKS HERE
+        const syllabusLinks = {
+            "Senior I": "https://drive.google.com/file/d/SENIOR_1_SYLLABUS",
+            "Senior II": "https://drive.google.com/file/d/SENIOR_2_SYLLABUS",
+            "Senior III": "https://drive.google.com/file/d/SENIOR_3_SYLLABUS"
         };
 
         function updateResources(level) {
             const display = document.getElementById('resource-display');
             const title = document.getElementById('display-title');
-            const listContainer = document.getElementById('subject-list');
+            const driveBtn = document.getElementById('drive-button');
+            const syllabusBtn = document.getElementById('syllabus-download');
 
+            // Update UI Content
             title.innerText = level + " Resources";
+            driveBtn.href = driveLinks[level] || "#";
+            syllabusBtn.href = syllabusLinks[level] || "#";
+
+            // Reveal Section
             display.classList.remove('hidden');
-            listContainer.innerHTML = '';
-
-            grades[level].forEach(subject => {
-                const link = document.createElement('a');
-                
-                // IMPORTANT: If you haven't added a link yet, it stays as #
-                const finalLink = driveLinks[subject] || "#";
-                
-                link.href = finalLink;
-                link.target = "_blank"; // Opens in a new tab
-                link.className = "flex items-center justify-between p-5 bg-white/5 border border-white/10 rounded-2xl hover:bg-[#ffed00] group transition-all duration-300";
-                link.innerHTML = `
-                    <span class="text-white group-hover:text-[#1a4789] font-bold uppercase text-sm tracking-tight">${subject}</span>
-                    <i class="fas fa-external-link-alt text-white/30 group-hover:text-[#1a4789] text-sm"></i>
-                `;
-                listContainer.appendChild(link);
-            });
-
             display.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
