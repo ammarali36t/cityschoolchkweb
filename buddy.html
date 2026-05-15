@@ -68,24 +68,19 @@
         const text = input.value.trim();
         if (!text) return;
 
-        // 1. Display user message
         appendMessage('user', text);
         input.value = '';
 
         try {
-            // 2. Call your Netlify function
             const response = await fetch('/.netlify/functions/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ prompt: text }),
             });
-            
             const data = await response.json();
-            
-            // 3. Display AI's personalized reply
             appendMessage('bot', data.reply);
         } catch (error) {
-            appendMessage('bot', "Connection error. Please try again later.");
+            appendMessage('bot', "Connection error.");
         }
     }
 
@@ -93,21 +88,10 @@
         const chatContainer = document.getElementById('chat-container');
         const msgDiv = document.createElement('div');
         msgDiv.className = sender === 'user' ? 'flex justify-end mb-4' : 'flex justify-start mb-4';
-        
-        msgDiv.innerHTML = `
-            <div class="${sender === 'user' ? 'bg-[#1a4789] text-white' : 'bg-white text-slate-700 border border-slate-100'} p-3 rounded-2xl max-w-[80%] shadow-sm">
-                ${text}
-            </div>
-        `;
-        
+        msgDiv.innerHTML = `<div class="${sender === 'user' ? 'bg-[#1a4789] text-white' : 'bg-white text-slate-700'} p-3 rounded-2xl max-w-[80%] shadow-sm">${text}</div>`;
         chatContainer.appendChild(msgDiv);
         chatContainer.scrollTop = chatContainer.scrollHeight;
     }
-
-    // Handle Enter Key
-    document.getElementById('user-input').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendMessage();
-    });
 </script>
 
 </body>
