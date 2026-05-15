@@ -37,3 +37,12 @@ collections:
       - {label: "Percentage", name: "percentage", widget: "string", required: false}
       - {label: "Student Photo", name: "image", widget: "image"}
       - {label: "Display Order", name: "order", widget: "number", default: 1}
+
+  - name: "syllabi"
+    label: "Course Syllabi"
+    folder: "content/syllabi" # This is where the data files will live
+    create: false # Set to false because we only have 6 specific grades
+    slug: "{{title}}"
+    fields:
+      - { label: "Grade Level", name: "title", widget: "string", readonly: true }
+      - { label: "Syllabus PDF", name: "file", widget: "file", media_folder: "/assets/syllabi" }
