@@ -87,7 +87,7 @@
 
         addMessage(userText, 'user', currentImageData);
         
-        const tempImageData = currentImageData; 
+        const payload = { prompt: userText, imageData: currentImageData };
         clearImage();
         inputField.value = "";
 
@@ -95,15 +95,13 @@
             const response = await fetch('/.netlify/functions/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt: userText, imageData: tempImageData })
+                body: JSON.stringify(payload)
             });
-
-            if (!response.ok) throw new Error();
 
             const data = await response.json();
             addMessage(data.reply, 'buddy');
         } catch (error) {
-            addMessage("I'm having trouble connecting. Please wait for the Netlify deploy to finish!", 'buddy');
+            addMessage("I'm still warming up my vision modules. Try again in 10 seconds!", 'buddy');
         }
     }
 
