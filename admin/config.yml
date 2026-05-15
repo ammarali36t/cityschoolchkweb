@@ -20,3 +20,18 @@ collections:
       - {label: "Profile Picture", name: "image", widget: "image"}
       - {label: "Experience", name: "order", widget: "number", default: 1}
       - {label: "Is this Headmistress?", name: "is_head", widget: "boolean", default: false} # ADD THIS
+
+      - name: "high_achievers"
+    label: "High Achievers"
+    folder: "content/achievers"
+    create: true
+    format: "json"
+    extension: "json"
+    slug: "{{title}}"
+    fields:
+      - {label: "Student Name", name: "title", widget: "string"}
+      - {label: "Grade/Class", name: "student_grade", widget: "string", hint: "e.g. Grade 10 or O-Levels"}
+      - {label: "Result/Grade", name: "result", widget: "string", hint: "e.g. A* or 3A* 2A"}
+      - {label: "Percentage", name: "percentage", widget: "string", required: false}
+      - {label: "Student Photo", name: "image", widget: "image"}
+      - {label: "Display Order", name: "order", widget: "number", default: 1}
