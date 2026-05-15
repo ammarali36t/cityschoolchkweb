@@ -5,3 +5,6 @@
 [functions]
   directory = "netlify/functions"
   node_bundle = true
+
+[functions.chat]
+  external_node_modules = ["@google/generative-ai"]
