@@ -29,8 +29,8 @@ collections:
     slug: "{{title}}"
     fields:
       - {label: "Student Name", name: "title", widget: "string"}
-      - {label: "Grade/Class", name: "student_grade", widget: "string", hint: "e.g. Grade 10 or O-Levels"}
-      - {label: "Result/Grade", name: "result", widget: "string", hint: "e.g. A* or 3A* 2A"}
+      - {label: "Grade/Class", name: "student_grade", widget: "select", options: ["Senior III", "Senior II", "Senior I", "Grade 8", "Grade 7", "Grade 6", "Grade 5", "Grade 4", "Grade 3", "Grade 2", "Grade 1"], hint: "Select the class level."}
+      - {label: "Result/Grade", name: "result", widget: "string", hint: "For Senior III & II, only A or A* are allowed."}
       - {label: "Percentage", name: "percentage", widget: "string", required: false}
       - {label: "Student Photo", name: "image", widget: "image"}
-      - {label: "Display Order", name: "order", widget: "number", default: 1}
+      - {label: "Display Order", name: "order", widget: "number", default: 1, hint: "Used for sorting students within the same class."}
