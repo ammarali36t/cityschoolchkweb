@@ -4,9 +4,4 @@
 
 [functions]
   directory = "netlify/functions"
-  # This line is the magic fix for "Module Not Found"
-  node_bundle = true 
-
-[functions.chat]
-  # This forces this specific function to grab the library
-  external_node_modules = ["@google-generativeai"]
+  node_bundle = true
