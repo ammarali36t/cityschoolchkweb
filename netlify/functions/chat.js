@@ -1,20 +1,26 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 exports.handler = async (event) => {
-    if (event.httpMethod !== "POST") return { statusCode: 405, body: "Method Not Allowed" };
+    // Only allow POST
+    if (event.httpMethod !== "POST") {
+        return { statusCode: 405, body: "Method Not Allowed" };
+    }
 
     try {
         const genAI = new GoogleGenerativeAI(process.env.AYAAN_API_KEY);
         const model = genAI.getGenerativeModel({ 
-            model: "gemini-1.5-flash",
-            systemInstruction: "You are CampusBuddy for TCS Chakwal. You can see images. Help students solve problems and answer school queries professionally."
+            model: "gemini-1.5-flash" 
         });
 
         const { prompt, imageData } = JSON.parse(event.body);
-        let payload = [prompt || "What is in this image?"];
+
+        // System instructions to keep it focused on TCS Chakwal
+        const systemPrompt = "You are CampusBuddy, the AI for TCS Chakwal. HM is the lead authority. School is on Bhoun Road. Help students with their questions or images.";
+        
+        let parts = [{ text: systemPrompt + " " + (prompt || "What is in this image?") }];
 
         if (imageData) {
-            payload.push({
+            parts.push({
                 inlineData: {
                     data: imageData,
                     mimeType: "image/jpeg"
@@ -22,7 +28,7 @@ exports.handler = async (event) => {
             });
         }
 
-        const result = await model.generateContent(payload);
+        const result = await model.generateContent(parts);
         const response = await result.response;
         
         return {
@@ -31,9 +37,10 @@ exports.handler = async (event) => {
             body: JSON.stringify({ reply: response.text() }),
         };
     } catch (error) {
+        console.error("Internal Error:", error);
         return { 
             statusCode: 500, 
-            body: JSON.stringify({ reply: "AI Error: Check if AYAAN_API_KEY is set in Netlify." }) 
+            body: JSON.stringify({ reply: "I'm having trouble accessing my vision modules. Please double-check your API key in Netlify!" }) 
         };
     }
 };
