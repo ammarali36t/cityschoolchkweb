@@ -63,6 +63,7 @@
     <script>
     let currentImageData = null;
 
+    // Your existing preview and clear functions
     function previewFile() {
         const file = document.getElementById('file-input').files[0];
         const reader = new FileReader();
@@ -83,11 +84,19 @@
     async function sendMessage() {
         const inputField = document.getElementById('user-input');
         const userText = inputField.value.trim();
+        
+        // Don't send if both are empty
         if (!userText && !currentImageData) return;
 
+        // Show the message in UI
         addMessage(userText, 'user', currentImageData);
         
-        const payload = { prompt: userText, imageData: currentImageData };
+        const payload = { 
+            prompt: userText, 
+            imageData: currentImageData 
+        };
+
+        // Reset inputs immediately for better feel
         clearImage();
         inputField.value = "";
 
@@ -101,7 +110,7 @@
             const data = await response.json();
             addMessage(data.reply, 'buddy');
         } catch (error) {
-            addMessage("I'm still warming up my vision modules. Try again in 10 seconds!", 'buddy');
+            addMessage("Connection error. Please wait for the Netlify deploy to turn green!", 'buddy');
         }
     }
 
