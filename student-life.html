@@ -176,8 +176,8 @@
                         title: parsedJson.title,
                         mediaType: parsedJson.mediaType,
                         category: parsedJson.category,
-                        // Compatibility check: maps old configuration path pattern or split setup seamlessly
-                        mediaFile: parsedJson.mediaType === 'video' ? (parsedJson.videoFile || parsedJson.mediaFile) : (parsedJson.imageFile || parsedJson.mediaFile),
+                        // MODIFIED: Maps the renamed dashboard preview image field seamlessly with full compatibility fallback layers
+                        mediaFile: parsedJson.mediaType === 'video' ? (parsedJson.videoFile || parsedJson.mediaFile) : (parsedJson.image || parsedJson.imageFile || parsedJson.mediaFile),
                         date: parsedJson.date
                     };
                 } else {
@@ -187,7 +187,7 @@
                         title: parseFrontmatter(textContent, 'title'),
                         mediaType: computedType,
                         category: parseFrontmatter(textContent, 'category'),
-                        mediaFile: computedType === 'video' ? (parseFrontmatter(textContent, 'videoFile') || parseFrontmatter(textContent, 'mediaFile')) : (parseFrontmatter(textContent, 'imageFile') || parseFrontmatter(textContent, 'mediaFile')),
+                        mediaFile: computedType === 'video' ? (parseFrontmatter(textContent, 'videoFile') || parseFrontmatter(textContent, 'mediaFile')) : (parseFrontmatter(textContent, 'image') || parseFrontmatter(textContent, 'imageFile') || parseFrontmatter(textContent, 'mediaFile')),
                         date: parseFrontmatter(textContent, 'date')
                     };
                 }
