@@ -57,68 +57,78 @@
         <p class="text-white opacity-80 uppercase tracking-[0.3em] text-[10px] font-bold">The Mentors of TCS Chakwal Campus</p>
     </header>
 
-    <main class="max-w-6xl mx-auto px-4 py-16">
-        <div id="faculty-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            <p class="text-center col-span-full text-slate-400 animate-pulse">Loading faculty members...</p>
+    <main class="max-w-7xl mx-auto px-4 py-12">
+    <div id="head-section" class="flex justify-center mb-16">
         </div>
-    </main>
+
+    <div id="faculty-grid" class="grid grid-cols-3 md:grid-cols-4 gap-4 md:gap-8">
+        </div>
+</main>
 
     <footer class="bg-[#1a4789] py-12 text-center border-t-4 border-[#ffed00]">
         <p class="text-[#ffed00] font-black tracking-[0.4em] uppercase italic">I AM - TO LEARN</p>
     </footer>
 
     <script>
-    // Mobile Menu Toggle
-    const btn = document.getElementById('mobile-menu-button');
-    const menu = document.getElementById('mobile-menu');
-    btn.addEventListener('click', () => menu.classList.toggle('hidden'));
-
     async function loadFaculty() {
+        const headSection = document.getElementById('head-section');
         const grid = document.getElementById('faculty-grid');
-        const repoOwner = "ammarali36t"; // Updated to match your GitHub username
+        const repoOwner = "ammarali36t";
         const repoName = "cityschoolchkweb";
         const folderPath = "content/faculty";
 
         try {
-            // This fetches the list of ALL files in your faculty folder
             const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}?t=${new Date().getTime()}`);
             const files = await response.json();
             
-            grid.innerHTML = ''; 
+            let facultyData = [];
 
-            if (!Array.isArray(files)) return;
-
-            // Loop through every file found in GitHub
+            // 1. Fetch all data first
             for (const file of files) {
                 if (file.name.endsWith('.json')) {
                     const contentRes = await fetch(file.download_url);
                     const member = await contentRes.json();
-
-                    const card = `
-                        <div class="staff-card bg-white border-2 border-slate-100 shadow-xl overflow-hidden group hover:border-[#ffed00] transform transition duration-300 hover:-translate-y-2">
-                            <div class="h-72 bg-slate-100 relative overflow-hidden">
-                                <img src="${member.image}" alt="${member.title}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/400x500?text=TCS+Teacher'">
-                            </div>
-                            <div class="p-8 text-center">
-                                <div class="inline-block bg-[#ffed00]/20 text-[#1a4789] px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest mb-3">TCS Faculty</div>
-                                <h3 class="text-[#1a4789] font-black text-xl uppercase tracking-tighter">${member.title}</h3>
-                                <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-5">${member.role}</p>
-                                <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4">
-                                    <p class="text-[#1a4789] font-black text-[9px] uppercase tracking-widest opacity-50">Experience</p>
-                                    <p class="text-[#1a4789] text-sm font-bold">${member.order || '1'} Years</p>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    grid.innerHTML += card;
+                    facultyData.push(member);
                 }
             }
+
+            // 2. Sort: Headmistress first
+            facultyData.sort((a, b) => (b.is_head === true) - (a.is_head === true));
+
+            grid.innerHTML = '';
+            headSection.innerHTML = '';
+
+            facultyData.forEach((member) => {
+                // Fix path for mobile/desktop images
+                const imgPath = member.image.startsWith('/') ? member.image : `/${member.image}`;
+                
+                const cardHtml = `
+                    <div class="staff-card bg-white rounded-2xl shadow-sm border border-slate-100 p-3 md:p-6 text-center hover:shadow-md transition">
+                        <div class="relative mx-auto w-20 h-20 md:w-32 md:h-32 mb-4">
+                            <img src="${imgPath}" alt="${member.title}" 
+                                 class="rounded-full w-full h-full object-cover border-4 border-[#ffed00]"
+                                 onerror="this.src='https://via.placeholder.com/150'">
+                        </div>
+                        <h3 class="text-[#1a4789] font-black text-[10px] md:text-lg uppercase leading-tight">${member.title}</h3>
+                        <p class="text-slate-400 font-bold text-[8px] md:text-xs uppercase mb-2">${member.role}</p>
+                        <div class="bg-slate-50 rounded-lg py-1 md:py-2">
+                            <p class="text-[#1a4789] text-[7px] md:text-[10px] font-bold">${member.order} Years Exp</p>
+                        </div>
+                    </div>
+                `;
+
+                if (member.is_head) {
+                    // Larger card for Headmistress
+                    headSection.innerHTML = cardHtml.replace('w-20 h-20 md:w-32 md:h-32', 'w-32 h-32 md:w-48 md:h-48');
+                } else {
+                    grid.innerHTML += cardHtml;
+                }
+            });
+
         } catch (error) {
-            console.error("Error loading faculty:", error);
-            grid.innerHTML = '<p class="text-center col-span-full text-slate-400">Updating faculty list... please refresh.</p>';
+            console.error("Error:", error);
         }
     }
-
     window.onload = loadFaculty;
 </script>
 
