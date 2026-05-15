@@ -104,9 +104,9 @@
                             <i class="fas fa-file-invoice text-[#1a4789] text-3xl mr-4"></i>
                             <h3 class="text-[#1a4789] font-black uppercase tracking-widest text-sm">Course Syllabus</h3>
                         </div>
-                        <p class="text-slate-500 font-medium mb-10">Download official course outlines and curriculum guides.</p>
+                        <p class="text-slate-500 font-medium mb-10">Download official course outlines and curriculum guides for this level.</p>
                     </div>
-                    <a id="syllabus-download" href="#" target="_blank" class="w-full text-center bg-slate-100 text-[#1a4789] py-6 rounded-2xl font-black uppercase text-sm tracking-widest hover:bg-[#1a4789] hover:text-white transition-all">
+                    <a id="syllabus-download" href="#" download class="w-full text-center bg-slate-100 text-[#1a4789] py-6 rounded-2xl font-black uppercase text-sm tracking-widest hover:bg-[#1a4789] hover:text-white transition-all">
                         Download Syllabi <i class="fas fa-download ml-2"></i>
                     </a>
                 </div>
@@ -119,27 +119,31 @@
     </footer>
 
     <script>
+        // Links to Google Drive folders
         const driveLinks = {
-            "Grade 6": "#", "Grade 7": "#", "Grade 8": "#",
-            "Senior I": "#", "Senior II": "#", "Senior III": "#"
+            "Grade 6": "YOUR_LINK_HERE",
+            "Grade 7": "YOUR_LINK_HERE",
+            "Grade 8": "YOUR_LINK_HERE",
+            "Senior I": "YOUR_LINK_HERE",
+            "Senior II": "YOUR_LINK_HERE",
+            "Senior III": "YOUR_LINK_HERE"
         };
 
-        const syllabusLinks = {
-            "Grade 6": "#", "Grade 7": "#", "Grade 8": "#",
-            "Senior I": "#", "Senior II": "#", "Senior III": "#"
+        // File names for local syllabi (IT team just uploads these to /syllabi/ folder)
+        const syllabusFiles = {
+            "Grade 6": "./syllabi/grade6.pdf",
+            "Grade 7": "./syllabi/grade7.pdf",
+            "Grade 8": "./syllabi/grade8.pdf",
+            "Senior I": "./syllabi/senior1.pdf",
+            "Senior II": "./syllabi/senior2.pdf",
+            "Senior III": "./syllabi/senior3.pdf"
         };
 
         function updateResources(level, clickedBtn) {
-            // 1. Reset all buttons first
             const allBtns = document.querySelectorAll('.class-btn');
-            allBtns.forEach(btn => {
-                btn.classList.remove('active-card');
-            });
-
-            // 2. Highlight the clicked button
+            allBtns.forEach(btn => btn.classList.remove('active-card'));
             clickedBtn.classList.add('active-card');
 
-            // 3. Update the content below
             const display = document.getElementById('resource-display');
             const title = document.getElementById('display-title');
             const driveBtn = document.getElementById('drive-button');
@@ -147,10 +151,11 @@
 
             title.innerText = level + " Resources";
             driveBtn.href = driveLinks[level] || "#";
-            syllabusBtn.href = syllabusLinks[level] || "#";
+            
+            // This now points to the file path and uses the 'download' attribute
+            syllabusBtn.href = syllabusFiles[level] || "#";
 
             display.classList.remove('hidden');
-            
             setTimeout(() => {
                 display.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 100);
