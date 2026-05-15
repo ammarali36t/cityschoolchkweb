@@ -76,3 +76,15 @@ collections:
     fields:
       - { label: "Upload Image", name: "image", widget: "image", media_folder: "/assets/images/gallery/lakevalley" }
       - { label: "Upload Date", name: "date", widget: "datetime", default: "", required: false }
+
+  - name: "student_life"
+    label: "Student's Life Media"
+    folder: "content/student-life"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - { label: "Media Type", name: "mediaType", widget: "select", options: ["image", "video"], required: true }
+      - { label: "Category/Activity", name: "category", widget: "string", hint: "e.g., Sports Day, Cultural Festival, Classroom", required: true }
+      - { label: "Upload Media (Image or Video Link)", name: "mediaFile", widget: "file", required: true }
+      - { label: "Date Uploaded", name: "date", widget: "datetime", required: true }
