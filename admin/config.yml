@@ -33,7 +33,7 @@ collections:
       - label: "Result/Grade"
         name: "result"
         widget: "string"
-        pattern: ['^[^b-zB-Z]*[Aa][^b-zB-Z]*$', "Only A or A* allowed."]
+        pattern: ['^[^b-zB-Z]*[Aa][^b-zB-Z]*$', "Only A or A* allowed for Senior levels."]
       - {label: "Percentage", name: "percentage", widget: "string", required: false}
       - {label: "Student Photo", name: "image", widget: "image"}
       - {label: "Display Order", name: "order", widget: "number", default: 1}
