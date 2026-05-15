@@ -7,32 +7,25 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 flex flex-col h-screen max-h-screen">
-
     <nav class="bg-[#1a4789] text-white p-4 shadow-md flex justify-between items-center">
-        <div>
-            <h1 class="font-bold text-xl">CAMPUSBUDDY</h1>
-            <p class="text-xs text-blue-200">OFFICIAL AI ASSISTANT</p>
-        </div>
+        <h1 class="font-bold text-xl">CAMPUSBUDDY</h1>
         <a href="/" class="text-sm bg-white/10 px-3 py-1 rounded hover:bg-white/20">EXIT</a>
     </nav>
 
-    <main class="flex-1 overflow-y-auto p-4 space-y-4" id="chat-window">
+    <main class="flex-1 overflow-y-auto p-4 space-y-4" id="chat-container">
         <div class="flex justify-start">
-            <div class="bg-white border border-slate-200 p-4 rounded-2xl rounded-tl-none shadow-sm max-w-[85%]">
-                <p class="text-slate-800 font-medium">Hello! I'm your AI CampusBuddy. 🤖</p>
-                <p class="text-slate-600 text-sm mt-1">Ask me about admissions, location, or school timings!</p>
+            <div class="bg-white border border-slate-200 p-4 rounded-2xl shadow-sm max-w-[85%] text-slate-800">
+                Hello! I'm your AI CampusBuddy. 🤖 Ask me anything about TCS Chakwal!
             </div>
         </div>
     </main>
 
     <footer class="p-4 bg-white border-t border-slate-200">
         <div class="max-w-4xl mx-auto flex gap-2">
-            <input type="text" id="user-input" placeholder="Type your question..." 
-                class="flex-1 bg-slate-100 border-none rounded-full px-5 py-3 focus:ring-2 focus:ring-[#1a4789] outline-none">
-            <button onclick="sendMessage()" class="bg-[#1a4789] text-white p-3 rounded-full hover:bg-blue-800 transition-all">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                </svg>
+            <input type="text" id="user-input" placeholder="Type here..." 
+                class="flex-1 bg-slate-100 rounded-full px-5 py-3 outline-none focus:ring-2 focus:ring-[#1a4789]">
+            <button onclick="sendMessage()" class="bg-[#1a4789] text-white p-3 rounded-full hover:bg-blue-800">
+                Send
             </button>
         </div>
     </footer>
@@ -40,12 +33,9 @@
     <script>
         async function sendMessage() {
             const input = document.getElementById('user-input');
-            const chatWindow = document.getElementById('chat-window');
             const text = input.value.trim();
-            
             if (!text) return;
 
-            // Add user message
             appendMessage('user', text);
             input.value = '';
 
@@ -59,29 +49,26 @@
                 const data = await response.json();
                 appendMessage('bot', data.reply);
             } catch (error) {
-                appendMessage('bot', "I'm having a connection issue. Please check if the Netlify Function is deployed correctly.");
+                appendMessage('bot', "My brain is still deploying. Give me one minute!");
             }
         }
 
         function appendMessage(sender, text) {
-            const chatWindow = document.getElementById('chat-window');
+            const container = document.getElementById('chat-container');
             const msgDiv = document.createElement('div');
             msgDiv.className = sender === 'user' ? 'flex justify-end' : 'flex justify-start';
             
-            const innerDiv = document.createElement('div');
-            innerDiv.className = sender === 'user' 
-                ? 'bg-[#1a4789] text-white p-3 rounded-2xl rounded-tr-none shadow-sm max-w-[80%]' 
-                : 'bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-none shadow-sm max-w-[80%] text-slate-800';
+            const bubble = document.createElement('div');
+            bubble.className = sender === 'user' 
+                ? 'bg-[#1a4789] text-white p-3 rounded-2xl shadow-sm max-w-[80%]' 
+                : 'bg-white border border-slate-200 p-3 rounded-2xl shadow-sm max-w-[80%] text-slate-800';
             
-            innerDiv.innerText = text;
-            msgDiv.appendChild(innerDiv);
-            chatWindow.appendChild(msgDiv);
-            
-            // Auto-scroll to bottom
-            chatWindow.scrollTop = chatWindow.scrollHeight;
+            bubble.innerText = text;
+            msgDiv.appendChild(bubble);
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
         }
 
-        // Listen for Enter key
         document.getElementById('user-input').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') sendMessage();
         });
