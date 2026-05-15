@@ -58,3 +58,23 @@ collections:
         media_folder: "/syllabi"
         choose_url: false
         hint: "Upload PDF here. Ensure filename is lowercase and matches the grade (e.g., grade7.pdf)"
+
+  - name: "gallery_chakwal"
+    label: "Gallery: Chakwal Campus"
+    folder: "content/gallery/chakwal"
+    create: true
+    slug: "{{title}}"
+    fields:
+      - { label: "Image Title", name: "title", widget: "string" }
+      - { label: "Upload Image", name: "image", widget: "image", media_folder: "/assets/images/gallery/chakwal" }
+      - { label: "Date Uploaded", name: "date", widget: "datetime" }
+
+  - name: "gallery_lakevalley"
+    label: "Gallery: Lake Valley Campus"
+    folder: "content/gallery/lakevalley"
+    create: true
+    slug: "{{title}}"
+    fields:
+      - { label: "Image Title", name: "title", widget: "string" }
+      - { label: "Upload Image", name: "image", widget: "image", media_folder: "/assets/images/gallery/lakevalley" }
+      - { label: "Date Uploaded", name: "date", widget: "datetime" }
