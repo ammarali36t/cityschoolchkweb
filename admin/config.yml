@@ -5,16 +5,18 @@ backend:
 media_folder: "assets/uploads" # Images uploaded by staff go here
 public_folder: "/assets/uploads"
 
+# ... keep your backend and folder settings the same ...
 collections:
   - name: "staff_members"
     label: "Our Faculty"
-    folder: "content/faculty" # This is where the data files will live
+    folder: "content/faculty"
     create: true
-    format: "json"        # ADDED: Saves data as JSON
-    extension: "json"     # ADDED: Uses .json file extension
+    format: "json"
+    extension: "json"
     slug: "{{title}}"
     fields:
       - {label: "Teacher Name", name: "title", widget: "string"}
       - {label: "Designation/Role", name: "role", widget: "string"}
       - {label: "Profile Picture", name: "image", widget: "image"}
-      - {label: "Experience (Years)", name: "order", widget: "number", default: 1}
+      - {label: "Experience", name: "order", widget: "number", default: 1}
+      - {label: "Is this Headmistress?", name: "is_head", widget: "boolean", default: false} # ADD THIS
