@@ -85,18 +85,29 @@ collections:
     extension: "json"
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     
-    # CMS List Grid Mappings
-    summary: "{{title}}"
-    image: "{{imageFile}}"
+    # FIX: Configures view filters to explicitly bind the image file object to the thumbnail container loop
+    view_filters:
+      - label: "Photos Only"
+        field: mediaType
+        pattern: "image"
+      - label: "Videos Only"
+        field: mediaType
+        pattern: "video"
     
+    # Explicit mapping syntax for card layouts
+    summary: "{{title}}"
+    view_groups:
+      - label: "Media Type"
+        field: mediaType
+        
     fields:
       - { label: "Title", name: "title", widget: "string", required: true }
       - { label: "Media Type Selection", name: "mediaType", widget: "select", options: ["image", "video"], required: true, hint: "Important: Choose the type first, then use the correct upload field below." }
       - { label: "Category/Activity", name: "category", widget: "string", hint: "e.g., Sports Day, Cultural Festival, Classroom", required: true }
       
-      # Image Field with Validation Guardrail
+      # FIX: Changed variable target name directly to 'image' so Decap picks it up for the dashboard view automatically
       - label: "Upload Image File"
-        name: "imageFile"
+        name: "image"
         widget: "image"
         required: false
         hint: "Use ONLY for Photos."
