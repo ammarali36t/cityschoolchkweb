@@ -5,10 +5,9 @@ exports.handler = async (event) => {
 
     try {
         const genAI = new GoogleGenerativeAI(process.env.AYAAN_API_KEY);
-        // Use gemini-1.5-flash because it's the best for Vision + Speed
         const model = genAI.getGenerativeModel({ 
             model: "gemini-1.5-flash",
-            systemInstruction: "You are CampusBuddy for TCS Chakwal. You can see images. Help students solve problems, explain diagrams, and answer school queries professionally."
+            systemInstruction: "You are CampusBuddy for TCS Chakwal. You can see images. Help students solve problems and answer school queries professionally."
         });
 
         const { prompt, imageData } = JSON.parse(event.body);
@@ -28,10 +27,13 @@ exports.handler = async (event) => {
         
         return {
             statusCode: 200,
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ reply: response.text() }),
         };
     } catch (error) {
-        console.error(error);
-        return { statusCode: 500, body: JSON.stringify({ reply: "AI Error: " + error.message }) };
+        return { 
+            statusCode: 500, 
+            body: JSON.stringify({ reply: "AI Error: Check if AYAAN_API_KEY is set in Netlify." }) 
+        };
     }
 };
