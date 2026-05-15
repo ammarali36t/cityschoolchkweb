@@ -15,7 +15,7 @@
     <main class="flex-1 overflow-y-auto p-4 space-y-4" id="chat-container">
         <div class="flex justify-start">
             <div class="bg-white border border-slate-200 p-4 rounded-2xl shadow-sm max-w-[85%] text-slate-800">
-                Hello! I'm your AI CampusBuddy. 🤖 Ask me anything about TCS Chakwal!
+                Hello! I'm your AI CampusBuddy. 🤖 Ask me about admissions or school timings!
             </div>
         </div>
     </main>
@@ -24,7 +24,7 @@
         <div class="max-w-4xl mx-auto flex gap-2">
             <input type="text" id="user-input" placeholder="Type here..." 
                 class="flex-1 bg-slate-100 rounded-full px-5 py-3 outline-none focus:ring-2 focus:ring-[#1a4789]">
-            <button onclick="sendMessage()" class="bg-[#1a4789] text-white p-3 rounded-full hover:bg-blue-800">
+            <button onclick="sendMessage()" class="bg-[#1a4789] text-white p-3 rounded-full hover:bg-blue-800 transition-all">
                 Send
             </button>
         </div>
@@ -46,10 +46,12 @@
                     body: JSON.stringify({ prompt: text })
                 });
 
+                if (!response.ok) throw new Error('AI offline');
+
                 const data = await response.json();
                 appendMessage('bot', data.reply);
             } catch (error) {
-                appendMessage('bot', "My brain is still deploying. Give me one minute!");
+                appendMessage('bot', "My brain is still connecting to the server. Try again in 30 seconds!");
             }
         }
 
