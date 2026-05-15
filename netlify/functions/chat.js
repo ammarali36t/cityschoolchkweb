@@ -1,41 +1,18 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-export const handler = async (event) => {
-    if (event.httpMethod !== "POST") return { statusCode: 405, body: "Method Not Allowed" };
-
+exports.handler = async (event) => {
     try {
         const genAI = new GoogleGenerativeAI(process.env.AYAAN_API_KEY);
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-        const { prompt, imageData } = JSON.parse(event.body);
-        
-        // System instructions to ensure it's helpful for school and vision
-        const systemId = "You are CampusBuddy for TCS Chakwal. HM is the lead authority. Be professional. Answer school questions and analyze images.";
-        
-        let parts = [{ text: systemId + " " + (prompt || "Explain this image.") }];
-
-        if (imageData) {
-            parts.push({
-                inlineData: {
-                    data: imageData,
-                    mimeType: "image/jpeg"
-                }
-            });
-        }
-
-        const result = await model.generateContent(parts);
-        const response = await result.response;
+        const { prompt } = JSON.parse(event.body);
+        const result = await model.generateContent(prompt || "Hello");
         
         return {
             statusCode: 200,
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ reply: response.text() }),
+            body: JSON.stringify({ reply: result.response.text() })
         };
     } catch (error) {
-        console.error("AI Error:", error);
-        return { 
-            statusCode: 500, 
-            body: JSON.stringify({ reply: "Connection Error: Check Netlify Environment Variables." }) 
-        };
+        return { statusCode: 500, body: JSON.stringify({ reply: error.message }) };
     }
 };
