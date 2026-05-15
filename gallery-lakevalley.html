@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery Chakwal Campus | TCS Chakwal</title>
+    <title>Gallery Lake Valley Campus | TCS Chakwal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/png" href="./assets/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
@@ -70,31 +70,15 @@
                 <div class="h-1 w-20 bg-[#ffed00] mt-4"></div>
             </div>
             <div class="bg-white px-8 py-4 rounded-2xl shadow-sm border-l-4 border-[#1a4789]">
-                <p class="text-[#1a4789] font-black text-xs uppercase tracking-widest">Total Memories: <span class="text-gray-400">08</span></p>
+                <p class="text-[#1a4789] font-black text-xs uppercase tracking-widest">Total Memories: <span id="memory-counter" class="text-gray-400">00</span></p>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            
-            <div class="group relative aspect-square overflow-hidden rounded-3xl bg-slate-200 shadow-md">
-                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                <div class="absolute inset-0 bg-[#1a4789]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <i class="fas fa-search-plus text-white text-2xl"></i>
-                </div>
-            </div>
-
-            <div class="group relative aspect-square overflow-hidden rounded-3xl bg-slate-200 shadow-md">
-                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                <div class="absolute inset-0 bg-[#1a4789]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <i class="fas fa-search-plus text-white text-2xl"></i>
-                </div>
-            </div>
-
-            <div class="aspect-square border-4 border-dashed border-slate-200 rounded-3xl flex flex-col items-center justify-center text-slate-300">
-                <i class="fas fa-cloud-upload-alt text-4xl mb-2"></i>
-                <span class="text-[10px] font-bold uppercase tracking-widest">Awaiting Uploads</span>
-            </div>
-
+        <div id="gallery-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div class="animate-pulse aspect-square bg-slate-200 rounded-3xl shadow-md"></div>
+            <div class="animate-pulse aspect-square bg-slate-200 rounded-3xl shadow-md"></div>
+            <div class="animate-pulse aspect-square bg-slate-200 rounded-3xl shadow-md"></div>
+            <div class="animate-pulse aspect-square bg-slate-200 rounded-3xl shadow-md"></div>
         </div>
     </div>
 </main>
@@ -139,11 +123,87 @@
 </footer>
 
 <script>
+    // Navigation Logic
     const btn = document.getElementById('mobile-menu-button');
     const menu = document.getElementById('mobile-menu');
     btn.addEventListener('click', () => {
         menu.classList.toggle('hidden');
     });
+
+    // Dynamic Gallery Fetch for Lake Valley
+    async function fetchLakeValleyGallery() {
+        const container = document.getElementById('gallery-container');
+        const counter = document.getElementById('memory-counter');
+        
+        const repoOwner = "ammarali36t";
+        const repoName = "cityschoolchkweb";
+        const folderPath = "content/gallery/lakevalley"; // Points specifically to Lake Valley JSON files
+
+        try {
+            const apiURL = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`;
+            const response = await fetch(apiURL);
+            
+            if (!response.ok) throw new Error("Folder not found or repo is private.");
+            
+            const entries = await response.json();
+            const jsonFiles = entries.filter(file => file.name.endsWith('.json'));
+            
+            if (jsonFiles.length === 0) {
+                renderEmptyGallery(container, counter);
+                return;
+            }
+
+            // Update Counter
+            counter.innerText = jsonFiles.length < 10 ? `0${jsonFiles.length}` : jsonFiles.length;
+            container.innerHTML = ''; // Clear loading state
+
+            // Fetch and render each image
+            for (const file of jsonFiles) {
+                try {
+                    const dataResponse = await fetch(file.download_url);
+                    const contents = await dataResponse.json();
+                    
+                    if (contents.image) {
+                        const card = document.createElement('div');
+                        card.className = "group relative aspect-square overflow-hidden rounded-3xl bg-slate-200 shadow-md";
+                        card.innerHTML = `
+                            <img src="${contents.image}" alt="Lake Valley Memory" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-[#1a4789]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer" onclick="window.open('${contents.image}', '_blank')">
+                                <i class="fas fa-search-plus text-white text-2xl"></i>
+                            </div>
+                        `;
+                        container.appendChild(card);
+                    }
+                } catch (err) {
+                    console.error("Error parsing file:", err);
+                }
+            }
+
+            appendAwaitingUploadCard(container);
+
+        } catch (err) {
+            console.error("Gallery failed to load:", err);
+            renderEmptyGallery(container, counter);
+        }
+    }
+
+    function renderEmptyGallery(container, counter) {
+        counter.innerText = "00";
+        container.innerHTML = '';
+        appendAwaitingUploadCard(container);
+    }
+
+    function appendAwaitingUploadCard(target) {
+        const slotsCard = document.createElement('div');
+        slotsCard.className = "aspect-square border-4 border-dashed border-slate-200 rounded-3xl flex flex-col items-center justify-center text-slate-300";
+        slotsCard.innerHTML = `
+            <i class="fas fa-cloud-upload-alt text-4xl mb-2"></i>
+            <span class="text-[10px] font-bold uppercase tracking-widest">Awaiting Memories</span>
+        `;
+        target.appendChild(slotsCard);
+    }
+
+    document.addEventListener("DOMContentLoaded", fetchLakeValleyGallery);
 </script>
 </body>
 </html>
