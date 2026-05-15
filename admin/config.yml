@@ -40,9 +40,21 @@ collections:
 
   - name: "syllabi"
     label: "Course Syllabi"
-    folder: "content/syllabi" # This is where the data files will live
-    create: false # Set to false because we only have 6 specific grades
-    slug: "{{title}}"
+    folder: "content/syllabi"
+    extension: "json" # Stores the mapping data
+    create: false 
+    editor:
+      preview: false
+    description: >
+      INSTRUCTIONS FOR IT TEAM: 
+      1. Select the Grade Level you want to update.
+      2. Upload the PDF file.
+      3. IMPORTANT: The file MUST be named exactly like the grade (e.g., 'grade6.pdf', 'senior1.pdf') for the download button to work.
     fields:
       - { label: "Grade Level", name: "title", widget: "string", readonly: true }
-      - { label: "Syllabus PDF", name: "file", widget: "file", media_folder: "/assets/syllabi" }
+      - label: "Syllabus PDF"
+        name: "file"
+        widget: "file"
+        media_folder: "/syllabi"
+        choose_url: false
+        hint: "Upload PDF here. Ensure filename is lowercase and matches the grade (e.g., grade7.pdf)"
