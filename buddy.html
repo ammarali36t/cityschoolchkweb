@@ -3,86 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CampusBuddy | TCS Chakwal</title>
+    <title>CampusBuddy AI | TCS Chakwal</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="./assets/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .chat-bubble { border-radius: 20px 20px 20px 5px; }
+        .user-bubble { border-radius: 20px 20px 5px 20px; }
+        #image-preview-container img { max-height: 80px; border-radius: 10px; }
+    </style>
 </head>
-<body class="bg-slate-50 flex flex-col h-screen max-h-screen">
+<body class="flex flex-col h-screen max-h-screen">
+
     <nav class="bg-white border-b-4 border-[#ffed00] p-4 flex justify-between items-center shadow-sm sticky top-0 z-50">
-        <div class="flex items-center gap-3">
-            <div class="bg-[#1a4789] p-2 rounded-lg">
-                <span class="text-white font-bold">CB</span>
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-[#1a4789] rounded-xl flex items-center justify-center shadow-lg">
+                <i class="fas fa-robot text-[#ffed00] text-xl"></i>
             </div>
             <div>
-                <h1 class="text-[#1a4789] font-bold text-xl tracking-tight">CAMPUSBUDDY</h1>
-                <p class="text-green-600 text-[10px] font-bold uppercase tracking-widest">Online Assistant</p>
+                <span class="block font-black text-[#1a4789] uppercase tracking-tighter leading-none">CampusBuddy AI</span>
+                <span class="text-[8px] font-bold text-green-500 uppercase tracking-widest">Vision System Active</span>
             </div>
         </div>
-        <a href="/" class="text-slate-500 hover:text-red-600 text-xs font-bold border-2 border-slate-200 px-3 py-1 rounded-full transition-all">EXIT ×</a>
+        <a href="index.html" class="bg-slate-100 text-slate-500 px-4 py-2 rounded-full text-[10px] font-black uppercase hover:bg-red-50 hover:text-red-500 transition">Exit</a>
     </nav>
 
     <main class="flex-1 overflow-y-auto p-4 md:p-8 space-y-6" id="chat-window">
-        <div class="flex justify-start">
-            <div class="bg-white border border-slate-100 p-4 rounded-2xl rounded-tl-none shadow-sm max-w-[85%]">
-                <p class="text-slate-700 leading-relaxed">Hello! I am your <b>CampusBuddy</b>. 🤖</p>
-                <p class="text-slate-500 text-sm mt-2">I can help you navigate the portal. Try asking me about admissions or school timings!</p>
+        <div class="flex items-start space-x-3">
+            <div class="w-8 h-8 bg-[#1a4789] rounded-lg flex items-center justify-center mt-1"><i class="fas fa-robot text-[#ffed00] text-xs"></i></div>
+            <div class="chat-bubble bg-white border-2 border-slate-100 p-5 max-w-[85%] text-[#1a4789] text-sm shadow-sm">
+                Hello! I can now **see** your images! Upload a photo of a question or a diagram, and I'll help you.
             </div>
         </div>
     </main>
 
-    <footer class="p-4 bg-white border-t border-slate-100 shadow-[0_-10px_20px_rgba(0,0,0,0.02)]">
-        <div class="max-w-4xl mx-auto flex gap-3">
-            <input type="text" id="user-input" placeholder="Type a question..." 
-                class="flex-1 bg-slate-50 border-2 border-slate-100 rounded-2xl px-6 py-4 outline-none focus:border-[#1a4789] transition-all">
-            <button onclick="sendMessage()" class="bg-[#1a4789] text-white p-4 rounded-2xl shadow-lg hover:bg-blue-800 transition-all">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                </svg>
+    <div id="image-preview-container" class="hidden px-6 py-2 bg-slate-50 border-t flex items-center space-x-4">
+        <div class="relative">
+            <img id="image-preview" src="#" alt="Preview">
+            <button onclick="clearImage()" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 text-[10px]">X</button>
+        </div>
+        <span class="text-xs font-bold text-slate-400 uppercase">Image attached</span>
+    </div>
+
+    <footer class="p-4 bg-white border-t border-slate-100 shadow-lg">
+        <div class="max-w-4xl mx-auto flex items-center space-x-2">
+            <input type="file" id="file-input" accept="image/*" class="hidden" onchange="previewFile()">
+            <button onclick="document.getElementById('file-input').click()" class="bg-slate-100 text-[#1a4789] w-12 h-12 rounded-2xl flex items-center justify-center hover:bg-blue-100 transition">
+                <i class="fas fa-camera"></i>
+            </button>
+            <input type="text" id="user-input" onkeypress="if(event.key === 'Enter') sendMessage()" placeholder="Describe the image or ask a question..." class="flex-1 p-4 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-[#1a4789] outline-none text-sm">
+            <button onclick="sendMessage()" id="send-btn" class="bg-[#1a4789] text-[#ffed00] w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg">
+                <i class="fas fa-paper-plane"></i>
             </button>
         </div>
     </footer>
 
     <script>
-        async function sendMessage() {
-            const input = document.getElementById('user-input');
-            const text = input.value.trim();
-            if (!text) return;
+        let currentImageData = null;
 
-            appendMessage('user', text);
-            input.value = '';
+        function previewFile() {
+            const file = document.getElementById('file-input').files[0];
+            const reader = new FileReader();
+            reader.onloadend = function() {
+                document.getElementById('image-preview').src = reader.result;
+                document.getElementById('image-preview-container').classList.remove('hidden');
+                currentImageData = reader.result.split(',')[1]; 
+            }
+            if (file) reader.readAsDataURL(file);
+        }
+
+        function clearImage() {
+            document.getElementById('image-preview-container').classList.add('hidden');
+            document.getElementById('file-input').value = "";
+            currentImageData = null;
+        }
+
+        async function sendMessage() {
+            const inputField = document.getElementById('user-input');
+            const userText = inputField.value.trim();
+            if (!userText && !currentImageData) return;
+
+            addMessage(userText, 'user', currentImageData);
+            
+            const tempImageData = currentImageData; 
+            clearImage();
+            inputField.value = "";
 
             try {
                 const response = await fetch('/.netlify/functions/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt: text })
+                    body: JSON.stringify({ prompt: userText, imageData: tempImageData })
                 });
-                
+
                 const data = await response.json();
-                appendMessage('bot', data.reply);
+                addMessage(data.reply, 'buddy');
             } catch (error) {
-                appendMessage('bot', "I'm having trouble connecting. Please ensure your Netlify deploy is successful!");
+                addMessage("Connection error. Is the API key set in Netlify?", 'buddy');
             }
         }
 
-        function appendMessage(sender, text) {
-            const window = document.getElementById('chat-window');
-            const msgDiv = document.createElement('div');
-            msgDiv.className = sender === 'user' ? 'flex justify-end' : 'flex justify-start';
+        function addMessage(content, sender, imgData = null) {
+            const chatWindow = document.getElementById('chat-window');
+            const wrapper = document.createElement('div');
+            wrapper.className = sender === 'user' ? 'flex justify-end mb-4' : 'flex items-start space-x-3 mb-4';
             
-            const inner = document.createElement('div');
-            inner.className = sender === 'user' 
-                ? 'bg-[#1a4789] text-white p-4 rounded-2xl rounded-tr-none shadow-md max-w-[80%]' 
-                : 'bg-white border border-slate-100 p-4 rounded-2xl rounded-tl-none shadow-sm max-w-[80%] text-slate-700';
-            
-            inner.innerText = text;
-            msgDiv.appendChild(inner);
-            window.appendChild(msgDiv);
-            window.scrollTop = window.scrollHeight;
-        }
+            let imgHTML = imgData ? `<img src="data:image/jpeg;base64,${imgData}" class="max-w-[200px] rounded-lg mb-2 block border-2 border-white shadow-sm">` : '';
 
-        document.getElementById('user-input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendMessage();
-        });
+            wrapper.innerHTML = sender === 'user' 
+                ? `<div class="user-bubble bg-[#1a4789] text-white p-4 max-w-[80%] text-sm shadow-md">${imgHTML}${content}</div>`
+                : `<div class="w-8 h-8 bg-[#1a4789] rounded-lg flex items-center justify-center mt-1 flex-shrink-0"><i class="fas fa-robot text-[#ffed00] text-xs"></i></div>
+                   <div class="chat-bubble bg-white border-2 border-slate-100 p-4 max-w-[85%] text-[#1a4789] text-sm shadow-sm">${content}</div>`;
+
+            chatWindow.appendChild(wrapper);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
     </script>
 </body>
 </html>
