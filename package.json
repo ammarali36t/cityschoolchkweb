@@ -1,7 +1,9 @@
 {
-  "name": "tcs-chakwal-ai",
+  "name": "tcs-chakwal-vision",
   "version": "1.0.0",
+  "description": "CampusBuddy AI with Vision",
+  "main": "index.html",
   "dependencies": {
-    "@google/generative-ai": "^0.11.0"
+    "@google/generative-ai": "^0.11.4"
   }
 }
