@@ -5,6 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TCS Chakwal | Content Manager</title>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+  <style>
+    @media (max-width: 768px) {
+      /* 1. Stops the sidebar from floating rigidly over the input fields */
+      div[class*="AppHeaderContainer"] + div {
+        flex-direction: column !important;
+        display: flex !important;
+      }
+      
+      /* 2. Flattens the collection layout box smoothly across the top of the mobile screen */
+      aside[class*="SidebarContainer"] {
+        width: 100% !important;
+        position: relative !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 16px !important;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+      }
+
+      /* 3. Forces the menu items to flow responsively rather than cutting off */
+      aside[class*="SidebarContainer"] nav {
+        width: 100% !important;
+      }
+    }
+  </style>
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
