@@ -45,7 +45,7 @@
             <a href="resources.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">Resources</a>
             <a href="calendar.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">Calendar</a>
             <a href="buddy.html" class="text-blue-600 font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest flex items-center bg-blue-50 px-2 py-1 rounded-full">
-               <i class="fas fa-robot mr-1"></i>CampusBuddy
+               <i class="fas fa-robot mr-1"></i>CampusBuddy</a>
             <a href="staff.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">Staff</a>
             <a href="about.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">About</a>
             <a href="feedback.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">Feedback</a>
@@ -192,23 +192,33 @@
                         }
                     }
 
-                    const rawType = parsedJson.media_type || parsedJson.mediaType || 'image';
+                    const rawType = parsedJson.media_type || parsedJson.mediaType || '';
+                    let finalType = 'image';
+                    
+                    if (rawType.toLowerCase().includes('video') || foundMedia.toLowerCase().endsWith('.mp4') || foundMedia.toLowerCase().endsWith('.webm') || foundMedia.toLowerCase().endsWith('.mov')) {
+                        finalType = 'video';
+                    }
 
                     itemData = {
                         title: parsedJson.title || 'Untitled Update',
-                        mediaType: rawType.toLowerCase().includes('video') ? 'video' : 'image',
+                        mediaType: finalType,
                         category: parsedJson.category || parsedJson.category_activity || parsedJson['category/activity'] || 'Activity',
                         mediaFile: foundMedia,
                         date: parsedJson.date || parsedJson.date_uploaded || ''
                     };
                 } else {
                     const textContent = await dataResponse.text();
-                    const computedType = parseFrontmatter(textContent, ['media_type', 'mediaType']) || 'image';
+                    const computedType = parseFrontmatter(textContent, ['media_type', 'mediaType']) || '';
                     const foundMedia = parseFrontmatter(textContent, targetFields);
 
+                    let finalType = 'image';
+                    if (computedType.toLowerCase().includes('video') || foundMedia.toLowerCase().endsWith('.mp4') || foundMedia.toLowerCase().endsWith('.webm') || foundMedia.toLowerCase().endsWith('.mov')) {
+                        finalType = 'video';
+                    }
+
                     itemData = {
-                        title: parseFrontmatter(textContent, ['title']),
-                        mediaType: computedType.toLowerCase().includes('video') ? 'video' : 'image',
+                        title: parseFrontmatter(textContent, ['title']) || 'Untitled Update',
+                        mediaType: finalType,
                         category: parseFrontmatter(textContent, ['category', 'category_activity', 'category/activity']) || 'Activity',
                         mediaFile: foundMedia,
                         date: parseFrontmatter(textContent, ['date', 'date_uploaded'])
