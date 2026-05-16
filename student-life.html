@@ -99,14 +99,14 @@
 </footer>
 
 <script>
-    // Mobile Navigation Toggle
+    // Hamburger Handler
     const mobileBtn = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
     if(mobileBtn && mobileMenu) {
         mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
     }
 
-    // Lightbox Selectors
+    // Modal Variables
     const lightbox = document.getElementById('media-lightbox');
     const lbImg = document.getElementById('lightbox-img');
     const lbVideo = document.getElementById('lightbox-video');
@@ -135,7 +135,7 @@
         setTimeout(() => {
             lightbox.classList.add('opacity-100');
             if(mediaType === 'image') lbImg.classList.replace('scale-95', 'scale-100');
-            if(mediaType === 'video') lbVideo.classList.replace('scale-95', 'scale-100');
+            if(mediaType === 'video') lbVideo.classList.replace('scale-100', 'scale-95');
         }, 10);
         document.body.style.overflow = 'hidden';
     }
@@ -155,14 +155,17 @@
         if (e.target === lightbox || e.target.parentElement === lightbox) closeLightbox();
     });
 
-    // Helper to pull clean field values from markdown strings
-    function parseFrontmatter(text, key) {
-        const regex = new RegExp(`${key}:\\s*["']?([^"'\n\r]+)["']?`);
-        const match = text.match(regex);
-        return match ? match[1].trim() : '';
+    // Flexible extraction function for Markdown Frontmatter
+    function parseFrontmatter(text, keysArray) {
+        for (let key of keysArray) {
+            const regex = new RegExp(`${key}:\\s*["']?([^"'\n\r]+)["']?`);
+            const match = text.match(regex);
+            if (match && match[1]) return match[1].trim();
+        }
+        return '';
     }
 
-    // Dynamic File Downloader & Aggregator
+    // Main Engine
     async function fetchStudentLifeMedia() {
         const container = document.getElementById('media-container');
         const repoOwner = "ammarali36t";
@@ -171,7 +174,7 @@
 
         try {
             const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`);
-            if (!response.ok) throw new Error("Media folder execution error");
+            if (!response.ok) throw new Error("Folder structural read failed");
             
             const entries = await response.json();
             const validFiles = entries.filter(file => file.name.endsWith('.json') || file.name.endsWith('.md'));
@@ -184,27 +187,40 @@
 
                 if (file.name.endsWith('.json')) {
                     const parsedJson = await dataResponse.json();
+                    
+                    // Fallbacks for variable names stored by the Decap CMS form fields
+                    const rawType = parsedJson.mediaType || parsedJson.media_type || 'image';
+                    const rawMedia = parsedJson.image || parsedJson.imageFile || parsedJson.image_file || 
+                                     parsedJson.upload_image_file_optional || parsedJson.videoFile || 
+                                     parsedJson.video_file || parsedJson.upload_video_file_optional || parsedJson.mediaFile;
+
                     itemData = {
-                        title: parsedJson.title,
-                        mediaType: parsedJson.mediaType,
-                        category: parsedJson.category,
-                        mediaFile: parsedJson.mediaType === 'video' ? (parsedJson.videoFile || parsedJson.mediaFile) : (parsedJson.image || parsedJson.imageFile || parsedJson.mediaFile),
+                        title: parsedJson.title || 'Untitled Activity',
+                        mediaType: rawType.toLowerCase().includes('video') ? 'video' : 'image',
+                        category: parsedJson.category || parsedJson.category_activity || 'Activity',
+                        mediaFile: rawMedia,
                         date: parsedJson.date
                     };
                 } else {
                     const textContent = await dataResponse.text();
-                    const computedType = parseFrontmatter(textContent, 'mediaType');
+                    const computedType = parseFrontmatter(textContent, ['mediaType', 'media_type']) || 'image';
+                    
+                    const rawMedia = parseFrontmatter(textContent, [
+                        'image', 'imageFile', 'image_file', 'upload_image_file_optional',
+                        'videoFile', 'video_file', 'upload_video_file_optional', 'mediaFile'
+                    ]);
+
                     itemData = {
-                        title: parseFrontmatter(textContent, 'title'),
-                        mediaType: computedType,
-                        category: parseFrontmatter(textContent, 'category'),
-                        mediaFile: computedType === 'video' ? (parseFrontmatter(textContent, 'videoFile') || parseFrontmatter(textContent, 'mediaFile')) : (parseFrontmatter(textContent, 'image') || parseFrontmatter(textContent, 'imageFile') || parseFrontmatter(textContent, 'mediaFile')),
-                        date: parseFrontmatter(textContent, 'date')
+                        title: parseFrontmatter(textContent, ['title']),
+                        mediaType: computedType.toLowerCase().includes('video') ? 'video' : 'image',
+                        category: parseFrontmatter(textContent, ['category', 'category_activity']),
+                        mediaFile: rawMedia,
+                        date: parseFrontmatter(textContent, ['date'])
                     };
                 }
 
+                // If media path string exists, sanitise for GitHub Pages routing structure
                 if (itemData.mediaFile) {
-                    // FIXED: Properly cleanses the dynamic absolute paths saved from Decap/Netlify CMS (/assets/uploads/...)
                     let sanitizedPath = itemData.mediaFile.trim();
                     if (sanitizedPath.startsWith('/')) {
                         sanitizedPath = './' + sanitizedPath.substring(1);
@@ -217,12 +233,12 @@
                 }
             }
 
-            // Order items by date hierarchy descending
+            // Sort chronology
             allMediaItems.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
             renderItems(allMediaItems);
 
         } catch (err) {
-            console.error(err);
+            console.error("Fetch failure error info: ", err);
             container.innerHTML = '<p class="text-slate-400 text-center col-span-full">Unable to load student life updates.</p>';
         }
     }
@@ -232,7 +248,7 @@
         container.innerHTML = '';
 
         if(items.length === 0) {
-            container.innerHTML = '<p class="text-slate-400 text-center col-span-full py-12 font-semibold">No highlights available for this selection.</p>';
+            container.innerHTML = '<p class="text-slate-400 text-center col-span-full py-12 font-semibold">No updates available for this layout.</p>';
             return;
         }
 
@@ -243,7 +259,7 @@
 
             let visualElement = '';
             if (item.mediaType === 'image') {
-                visualElement = `<img src="${item.mediaFile}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">`;
+                visualElement = `<img src="${item.mediaFile}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='./assets/logo.png'; this.className='w-full h-full object-contain p-8 bg-slate-100';">`;
             } else {
                 visualElement = `
                     <video src="${item.mediaFile}" muted loop playsinline class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
