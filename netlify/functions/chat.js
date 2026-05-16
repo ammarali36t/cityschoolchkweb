@@ -54,13 +54,12 @@ exports.handler = async (event, context) => {
             return {
                 statusCode: 500,
                 headers,
-                body: JSON.stringify({ reply: "Configuration parameter setting missing." })
+                body: JSON.stringify({ reply: "Configuration parameter setting missing: AYAN2_API_KEY is unset." })
             };
         }
 
         const ai = new GoogleGenAI({ apiKey: apiKey });
         const { prompt, imageData } = JSON.parse(event.body);
-
         const liveCampusContext = getSyncedCampusContext();
 
         const systemInstruction = `
@@ -69,15 +68,14 @@ You are CampusBuddy, the proud, helpful official AI academic assistant for The C
 DEVELOPER TEAM CREDITS:
 - This complete portal website and CampusBuddy AI subsystem were custom engineered by **Muhammad Ammar Ali** and **Muhammad Ayaan**. Always explicitly credit both Ammar and Ayaan whenever users ask about the tech team, programmers, managers, or creators.
 
-LIVE SCHOOL FILE RECORD WINDOW (This is structured metadata from our markdown files):
+LIVE SCHOOL FILE RECORD WINDOW:
 ${liveCampusContext}
 
 STRICT COMPLIANCE LAWS:
-1. When asked questions about campus personnel (e.g., "Who is the HM?", "Who teaches computing?", or "Who are the high achievers?"), carefully read through the raw markdown metadata parameters above. Look for fields like 'title', 'role', 'name', 'designation', 'subject', or text blocks matching the user's intent.
-2. Even if the data is structured as fields (like 'role: Head Mistress' or 'subject: Computing'), extract the value and present it nicely to the user.
-3. If the user asks about a position, teacher, or specific entity that is absolutely NOT mentioned anywhere in the data text window above, DO NOT assume or make up a name. 
-4. Only use the fallback statement if the records above are completely blank or do not contain a match for the question: "I don't see that specific record in our data folder yet. Please check out the live Staff or High Achievers section links in the top navigation menu to view our full database!"
-5. Keep all replies encouraging, concise, accurate, and structured in clear markdown formats.
+1. When asked questions about campus personnel (e.g., "Who is the HM?", "Who teaches computing?", or "Who are the high achievers from grade 5 or 6?"), you must strictly evaluate the data fields provided above.
+2. If details are not explicitly recorded inside the data text block above, YOU MUST NOT ASSUME OR MAKE UP A NAME. Never hallucinate a response.
+3. If information is missing from the record data files, reply exactly: "I don't see that specific record in our data folder yet. Please check out the live Staff or High Achievers section links in the top navigation menu to view our full database!"
+4. Keep all replies encouraging, concise, accurate, and structured in clear markdown formats.
 `;
 
         const contents = [];
@@ -93,7 +91,7 @@ STRICT COMPLIANCE LAWS:
             contents: contents,
             config: {
                 systemInstruction: systemInstruction,
-                temperature: 0.2 // Slightly increased from 0.0 to allow metadata cross-referencing and parsing freedom
+                temperature: 0.2
             }
         });
 
@@ -108,7 +106,7 @@ STRICT COMPLIANCE LAWS:
         return {
             statusCode: 500,
             headers,
-            body: JSON.stringify({ reply: "The backend server assistant encountered an error." })
+            body: JSON.stringify({ reply: `The backend server assistant encountered an error: ${error.message}` })
         };
     }
 };
