@@ -76,12 +76,9 @@
     </header>
 
     <main class="max-w-7xl mx-auto px-4 py-12">
-    <div id="head-section" class="flex justify-center mb-16">
-        </div>
-
-    <div id="faculty-grid" class="grid grid-cols-3 md:grid-cols-4 gap-4 md:gap-8">
-        </div>
-</main>
+        <div id="head-section" class="flex justify-center mb-16"></div>
+        <div id="faculty-grid" class="grid grid-cols-3 md:grid-cols-4 gap-4 md:gap-8"></div>
+    </main>
 
     <footer class="bg-[#1a4789] py-12 text-center border-t-4 border-[#ffed00]">
         <p class="text-[#ffed00] font-black tracking-[0.4em] uppercase italic">I AM - TO LEARN</p>
@@ -89,7 +86,6 @@
 
     <script>
     // --- MOBILE MENU LOGIC ---
-    // This part makes the hamburger bar responsive
     document.addEventListener('DOMContentLoaded', () => {
         const btn = document.getElementById('mobile-menu-button');
         const menu = document.getElementById('mobile-menu');
@@ -125,25 +121,28 @@
             }
 
             // 2. Sort: Headmistress first
-            facultyData.sort((a, b) => (b.is_head === true) - (a.is_head === true));
+            facultyData.sort((a, b) => (b.is_head === true || b.is_head === "true") - (a.is_head === true || a.is_head === "true"));
 
             grid.innerHTML = '';
             headSection.innerHTML = '';
 
             facultyData.forEach((member) => {
-                // 1. Clean the image path
-                let cleanPath = member.image.replace(/^(\.\/|\/)/, ''); 
+                // Parse clean image file coordinates
+                let rawPath = member.image || '';
+                let cleanPath = rawPath.replace(/^(\.\/|\/)/, ''); 
                 
-                // 2. CREATE A DIRECT GITHUB URL
-                const imgUrl = `https://raw.githubusercontent.com/${repoOwner}/${repoName}/main/${cleanPath}`;
+                // Primary: Try relative file structure first
+                const localUrl = `./${cleanPath}`;
+                // Fallback: Build the GitHub proxy mirror link
+                const githubBackupUrl = `https://raw.githubusercontent.com/${repoOwner}/${repoName}/main/${cleanPath}`;
                 
                 const cardHtml = `
                     <div class="staff-card bg-white rounded-2xl shadow-sm border border-slate-100 p-2 md:p-6 text-center hover:shadow-md transition">
                         <div class="relative mx-auto w-16 h-16 md:w-32 md:h-32 mb-3">
-                            <img src="${imgUrl}" alt="${member.title}" 
+                            <img src="${localUrl}" alt="${member.title}" 
                                  class="rounded-full w-full h-full object-cover border-2 md:border-4 border-[#ffed00] shadow-sm"
                                  style="aspect-ratio: 1/1;"
-                                 onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(member.title)}&background=f1f5f9&color=1a4789'">
+                                 onerror="if(this.src.indexOf('raw.githubusercontent.com') === -1) { this.src='${githubBackupUrl}'; } else { this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(member.title)}&background=f1f5f9&color=1a4789'; }">
                         </div>
                         <h3 class="text-[#1a4789] font-black text-[9px] md:text-lg uppercase leading-tight px-1">${member.title}</h3>
                         <p class="text-slate-400 font-bold text-[7px] md:text-xs uppercase mb-2">${member.role}</p>
@@ -153,7 +152,7 @@
                     </div>
                 `;
 
-                if (member.is_head) {
+                if (member.is_head === true || member.is_head === "true") {
                     headSection.innerHTML = cardHtml.replace('w-16 h-16 md:w-32 md:h-32', 'w-28 h-28 md:w-48 md:h-48');
                 } else {
                     grid.innerHTML += cardHtml;
@@ -166,7 +165,6 @@
     
     window.onload = loadFaculty;
 </script>
-
 
 </body>
 </html>
