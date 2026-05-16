@@ -60,7 +60,6 @@
         </div>
     </nav>
 
-
     <header class="py-16 bg-[#1a4789] text-center px-4">
         <h1 class="text-[#ffed00] font-black text-5xl md:text-6xl uppercase italic mb-2 tracking-tighter animate-fade-up">Your Voice Matters</h1>
         <p class="text-white opacity-80 uppercase tracking-[0.3em] text-[10px] font-bold animate-fade-up">Help us make TCS Chakwal even better</p>
@@ -101,28 +100,33 @@
                 </div>
 
                 <div class="md:col-span-3 p-12">
-                    <form action="https://formspree.io/f/maqvgebz" method="POST" class="space-y-6">
+                    <form id="feedback-form" class="space-y-6">
                         <div class="grid grid-cols-1 gap-6">
                             <div>
                                 <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">Full Name</label>
-                                <input type="text" name="name" required placeholder="Enter your name" class="form-input w-full px-6 py-4 rounded-2xl bg-slate-50 text-sm font-semibold">
+                                <input type="text" id="full-name" required placeholder="Enter your name" class="form-input w-full px-6 py-4 rounded-2xl bg-slate-50 text-sm font-semibold border border-transparent focus:outline-none focus:border-[#1a4789] transition">
                             </div>
                             <div>
-                                <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">Email Address</label>
-                                <input type="email" name="email" required placeholder="yourname@email.com" class="form-input w-full px-6 py-4 rounded-2xl bg-slate-50 text-sm font-semibold">
+                                <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">Email Address or Phone Number</label>
+                                <input type="text" id="contact-info" required placeholder="username@email.com or +92 3xx xxxxxxx" class="form-input w-full px-6 py-4 rounded-2xl bg-slate-50 text-sm font-semibold border border-transparent focus:outline-none focus:border-[#1a4789] transition">
                             </div>
                             <div>
                                 <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">Category</label>
-                                <select name="category" class="form-input w-full px-6 py-4 rounded-2xl bg-slate-50 text-sm font-semibold appearance-none">
-                                    <option value="General">General Feedback</option>
-                                    <option value="Suggestion">Suggestion</option>
-                                    <option value="Academic">Academic Inquiry</option>
-                                    <option value="Complaint">Complaint</option>
-                                </select>
+                                <div class="relative">
+                                    <select id="category" class="form-input w-full px-6 py-4 rounded-2xl bg-slate-50 text-sm font-semibold appearance-none focus:outline-none focus:border-[#1a4789] transition">
+                                        <option value="General">General Feedback</option>
+                                        <option value="Suggestion">Suggestion</option>
+                                        <option value="Academic">Academic Inquiry</option>
+                                        <option value="Complaint">Complaint</option>
+                                    </select>
+                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-6 text-slate-400">
+                                        <i class="fas fa-chevron-down text-xs"></i>
+                                    </div>
+                                </div>
                             </div>
                             <div>
                                 <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">Message</label>
-                                <textarea name="message" rows="4" required placeholder="How can we help you?" class="form-input w-full px-6 py-4 rounded-2xl bg-slate-50 text-sm font-semibold"></textarea>
+                                <textarea id="message" rows="4" required placeholder="How can we help you?" class="form-input w-full px-6 py-4 rounded-2xl bg-slate-50 text-sm font-semibold border border-transparent focus:outline-none focus:border-[#1a4789] transition"></textarea>
                             </div>
                         </div>
 
@@ -137,144 +141,145 @@
     </main>
 
     <footer id="contact" class="bg-[#1a4789] text-white pt-16 pb-8">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-            
-            <div class="mb-6">
-                <img src="./assets/logo.png" alt="The City School Logo" 
-                     class="h-16 w-auto mb-4" 
-                     style="filter: drop-shadow(0px 0px 8px rgba(255,255,255,0.4));">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
                 
-                <p class="text-blue-100 text-sm leading-relaxed">
-                    The City School Chakwal Campus is committed to providing a world-class education and fostering a spirit of lifelong learning.
-                </p>
-                <div class="flex space-x-4 mt-6">
-    <a href="https://www.facebook.com/share/18iyxkzn5S/?mibextid=wwXIfr" target="_blank" class="text-[#ffed00] hover:text-white transition-colors">
-        <i class="fab fa-facebook text-xl"></i>
-    </a>
+                <div class="mb-6">
+                    <img src="./assets/logo.png" alt="The City School Logo" 
+                         class="h-16 w-auto mb-4" 
+                         style="filter: drop-shadow(0px 0px 8px rgba(255,255,255,0.4));">
+                    
+                    <p class="text-blue-100 text-sm leading-relaxed">
+                        The City School Chakwal Campus is committed to providing a world-class education and fostering a spirit of lifelong learning.
+                    </p>
+                    <div class="flex space-x-4 mt-6">
+                        <a href="https://www.facebook.com/share/18iyxkzn5S/?mibextid=wwXIfr" target="_blank" class="text-[#ffed00] hover:text-white transition-colors">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/the_city_school_chakwal_campus/" target="_blank" class="text-[#ffed00] hover:text-white transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https://wa.me/923001234567" target="_blank" class="text-[#ffed00] hover:text-white transition-colors">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                        </a>
+                    </div>
+                </div>
 
-    <a href="https://www.instagram.com/the_city_school_chakwal_campus/" target="_blank" class="text-[#ffed00] hover:text-white transition-colors">
-        <i class="fab fa-instagram text-xl"></i>
-    </a>
+                <div>
+                    <h4 class="text-[#ffed00] font-black uppercase tracking-widest mb-6">Quick Links</h4>
+                    <ul class="space-y-3 text-sm text-blue-100">
+                        <li><a href="index.html" class="hover:text-[#ffed00] transition">Home</a></li>
+                        <li><a href="about.html" class="hover:text-[#ffed00] transition">About Our Campus</a></li>
+                        <li><a href="gallery.html" class="hover:text-[#ffed00] transition">Extra-Curricular Activities</a></li>
+                    </ul>
+                </div>
 
-    <a href="https://wa.me/923001234567" target="_blank" class="text-[#ffed00] hover:text-white transition-colors">
-        <i class="fab fa-whatsapp text-xl"></i>
-    </a>
-</div>
-            </div>
+                <div>
+                    <h4 class="text-[#ffed00] font-black uppercase tracking-widest mb-6">Find Us</h4>
+                    <div class="space-y-6 text-sm">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt text-[#ffed00] mt-1"></i>
+                            <div>
+                                <p class="font-bold text-white mb-1 uppercase text-xs">Chakwal Campus</p>
+                                <p class="text-blue-100 leading-relaxed">Bhoun Road, Chakwal</p>
+                                <a href="https://maps.app.goo.gl/YBuJFpBZV1sEkmEQ6" target="_blank" class="text-[#ffed00] text-[10px] font-bold uppercase mt-1 inline-block hover:underline">Open in Google Maps</a>
+                            </div>
+                        </div>
 
-            <div>
-                <h4 class="text-[#ffed00] font-black uppercase tracking-widest mb-6">Quick Links</h4>
-                <ul class="space-y-3 text-sm text-blue-100">
-                    <li><a href="index.html" class="hover:text-[#ffed00] transition">Home</a></li>
-                    <li><a href="about.html" class="hover:text-[#ffed00] transition">About Our Campus</a></li>
-                    <li><a href="gallery.html" class="hover:text-[#ffed00] transition">Extra-Curricular Activities</a></li>
-                </ul>
-            </div>
+                        <div class="flex items-start space-x-3 border-t border-white/10 pt-4">
+                            <i class="fas fa-map-marker-alt text-[#ffed00] mt-1"></i>
+                            <div>
+                                <p class="font-bold text-white mb-1 uppercase text-xs">Lake Valley Campus</p>
+                                <p class="text-blue-100 leading-relaxed">Chakwal, Punjab</p>
+                                <a href="https://maps.app.goo.gl/zMSfcE2nYFqqY4Jz7" target="_blank" class="text-[#ffed00] text-[10px] font-bold uppercase mt-1 inline-block hover:underline">Open in Google Maps</a>
+                            </div>
+                        </div>
 
-<div>
-    <h4 class="text-[#ffed00] font-black uppercase tracking-widest mb-6">Find Us</h4>
-    <div class="space-y-6 text-sm">
-        
-        <div class="flex items-start space-x-3">
-            <i class="fas fa-map-marker-alt text-[#ffed00] mt-1"></i>
-            <div>
-                <p class="font-bold text-white mb-1 uppercase text-xs">Chakwal Campus</p>
-                <p class="text-blue-100 leading-relaxed">Bhoun Road, Chakwal</p>
-                <a href="https://maps.app.goo.gl/YBuJFpBZV1sEkmEQ6" target="_blank" class="text-[#ffed00] text-[10px] font-bold uppercase mt-1 inline-block hover:underline">Open in Google Maps</a>
+                        <div class="space-y-2 border-t border-white/10 pt-4">
+                            <div class="flex items-center space-x-3 text-blue-100">
+                                <i class="fas fa-phone-alt text-[#ffed00]"></i>
+                                <span>+92 335 9579576</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-blue-100">
+                                <i class="fas fa-envelope text-[#ffed00]"></i>
+                                <span class="break-all">chakwal@tcs.edu.pk</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div> 
+            <div class="mt-16 pt-8 border-t border-white/10 w-full flex flex-col items-center justify-center text-center">
+                <div class="max-w-7xl mx-auto px-4">
+                    <h4 class="text-[#ffed00] font-black text-lg md:text-xl tracking-[0.4em] uppercase mb-2">
+                        I AM - TO LEARN
+                    </h4>
+                    <p class="text-blue-200/60 text-[10px] md:text-xs uppercase tracking-[0.2em]">
+                        © 2026 The City School Chakwal Campus. Designed with Excellence.
+                    </p>
+                </div>
             </div>
         </div>
-
-        <div class="flex items-start space-x-3 border-t border-white/10 pt-4">
-            <i class="fas fa-map-marker-alt text-[#ffed00] mt-1"></i>
-            <div>
-                <p class="font-bold text-white mb-1 uppercase text-xs">Lake Valley Campus</p>
-                <p class="text-blue-100 leading-relaxed">Chakwal, Punjab</p>
-                <a href="https://maps.app.goo.gl/zMSfcE2nYFqqY4Jz7" target="_blank" class="text-[#ffed00] text-[10px] font-bold uppercase mt-1 inline-block hover:underline">Open in Google Maps</a>
-            </div>
-        </div>
-
-        <div class="space-y-2 border-t border-white/10 pt-4">
-            <div class="flex items-center space-x-3 text-blue-100">
-                <i class="fas fa-phone-alt text-[#ffed00]"></i>
-                <span>+92 335 9579576</span>
-            </div>
-            <div class="flex items-center space-x-3 text-blue-100">
-                <i class="fas fa-envelope text-[#ffed00]"></i>
-                <span class="break-all">chakwal@tcs.edu.pk</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-       </div> <div class="mt-16 pt-8 border-t border-white/10 w-full flex flex-col items-center justify-center text-center">
-        <div class="max-w-7xl mx-auto px-4">
-            <h4 class="text-[#ffed00] font-black text-lg md:text-xl tracking-[0.4em] uppercase mb-2">
-                I AM - TO LEARN
-            </h4>
-            <p class="text-blue-200/60 text-[10px] md:text-xs uppercase tracking-[0.2em]">
-                © 2026 The City School Chakwal Campus. Designed with Excellence.
-            </p>
-        </div>
-    </div>
-
-</footer>
+    </footer>
 
     <script>
-    // Adjust these IDs to match the exact input attribute tags in your feedback.html form
-    const feedbackForm = document.querySelector('form') || document.getElementById('feedback-form');
-
-    if (feedbackForm) {
-        feedbackForm.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Stop the page from reloading or triggering old email parameters
-            
-            // Collect the inputs exactly matching your form elements
-            const fullName = document.getElementById('full-name')?.value || document.querySelector('input[placeholder*="name"]')?.value;
-            const emailAddress = document.getElementById('email-address')?.value || document.querySelector('input[type="email"]')?.value;
-            const category = document.getElementById('category')?.value || document.querySelector('select')?.value || 'General Feedback';
-            const message = document.getElementById('message')?.value || document.querySelector('textarea')?.value;
-            
-            // Visual feedback for users clicking submit
-            const submitBtn = feedbackForm.querySelector('button[type="submit"]');
-            const originalBtnHtml = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Storing feedback...';
-            submitBtn.disabled = true;
-
-            // Structure data payload matching the Apps Script JSON configuration
-            const payload = {
-                fullName: fullName,
-                emailAddress: emailAddress,
-                category: category,
-                message: message
-            };
-
-            // REPLACE THIS STRING WITH THE EXACT WEB APP URL COPIED FROM STEP 1
-            const googleScriptUrl = "https://script.google.com/macros/s/AKfycbzZDIkuLrx3B6cNTW-TF_C0vtk6PEbA8oVv2VtQ0j7HKY3ZLJF-6QPCNfBVBhP4eNI5sQ/exec";
-
-            try {
-                const response = await fetch(googleScriptUrl, {
-                    method: 'POST',
-                    mode: 'no-cors', // Bypasses security restrictions for client-side forms natively
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                // Clear input structures after successful operation logging
-                feedbackForm.reset();
-                alert("Thank you! Your feedback has been logged securely in our system.");
-                
-            } catch (error) {
-                console.error("Submission failed logs: ", error);
-                alert("Something went wrong. Please check your network connection and try again.");
-            } finally {
-                // Restore button states
-                submitBtn.innerHTML = originalBtnHtml;
-                submitBtn.disabled = false;
-            }
+        const btn = document.getElementById('mobile-menu-button');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
         });
-    }
-</script>
+    </script>
+
+    <script>
+        const feedbackForm = document.getElementById('feedback-form');
+
+        if (feedbackForm) {
+            feedbackForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                // Read clean updated component fields
+                const fullName = document.getElementById('full-name').value;
+                const contactInfo = document.getElementById('contact-info').value;
+                const category = document.getElementById('category').value;
+                const message = document.getElementById('message').value;
+                
+                const submitBtn = feedbackForm.querySelector('button[type="submit"]');
+                const originalBtnHtml = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Storing feedback...';
+                submitBtn.disabled = true;
+
+                const payload = {
+                    fullName: fullName,
+                    contactInfo: contactInfo, 
+                    category: category,
+                    message: message
+                };
+
+                // Explicit Google Apps Script Trigger URL Route
+                const googleScriptUrl = "https://script.google.com/macros/s/AKfycbzZDIkuLrx3B6cNTW-TF_C0vtk6PEbA8oVv2VtQ0j7HKY3ZLJF-6QPCNfBVBhP4eNI5sQ/exec";
+
+                try {
+                    await fetch(googleScriptUrl, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    feedbackForm.reset();
+                    alert("Thank you! Your feedback has been logged securely in our system.");
+                    
+                } catch (error) {
+                    console.error("Submission failed logs: ", error);
+                    alert("Something went wrong. Please check your network connection and try again.");
+                } finally {
+                    submitBtn.innerHTML = originalBtnHtml;
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+    </script>
 </body>
 </html>
