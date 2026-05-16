@@ -10,18 +10,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        #media-lightbox { transition: opacity 0.3s ease-in-out; }
     </style>
 </head>
 <body class="bg-slate-50 flex flex-col min-h-screen">
 
-<div id="media-lightbox" class="fixed inset-0 z-[100] hidden bg-black/95 flex flex-col items-center justify-center p-4 opacity-0">
+<div id="media-lightbox" class="fixed inset-0 z-[100] hidden bg-black/95 flex flex-col items-center justify-center p-4 base-transition opacity-0">
     <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white text-4xl hover:text-[#ffed00] transition z-[110]">
         <i class="fas fa-times"></i>
     </button>
     <div class="relative max-w-4xl max-h-[80vh] flex items-center justify-center">
-        <img id="lightbox-img" src="" class="hidden max-w-full max-h-[80vh] rounded-xl shadow-2xl transform scale-95 transition-all duration-300">
-        <video id="lightbox-video" src="" controls class="hidden max-w-full max-h-[80vh] rounded-xl shadow-2xl transform scale-95 transition-all duration-300"></video>
+        <img id="lightbox-img" src="" class="hidden max-w-full max-h-[80vh] rounded-xl shadow-2xl transition-all duration-300">
+        <video id="lightbox-video" src="" controls class="hidden max-w-full max-h-[80vh] rounded-xl shadow-2xl transition-all duration-300"></video>
     </div>
     <div class="text-center mt-4 px-4 max-w-xl">
         <span id="lightbox-category" class="text-[#ffed00] font-black uppercase text-xs tracking-widest block mb-1"></span>
@@ -38,32 +37,20 @@
                 <span class="text-[#1a4789] text-[8px] md:text-[10px] tracking-[0.2em] font-black uppercase">Chakwal Campus</span>
             </div>
         </div>
-        <div class="hidden lg:flex space-x-3 xl:space-x-5 items-center">
-            <a href="index.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase">Home</a>
-            <a href="achievers.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase">High Achievers</a>
-            <a href="gallery.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase">Gallery</a>
-            <a href="events.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase text-[#ffed00]">Events</a>
-            <a href="resources.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase">Resources</a>
-            <a href="calendar.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase">Calendar</a>
-            <a href="buddy.html" class="text-blue-600 font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase flex items-center bg-blue-50 px-2 py-1 rounded-full"><i class="fas fa-robot mr-1"></i>CampusBuddy</a>
-            <a href="staff.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase">Staff</a>
-            <a href="about.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase">About</a>
-            <a href="feedback.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase">Feedback</a>
+        <div class="hidden lg:flex space-x-4 items-center">
+            <a href="index.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">Home</a>
+            <a href="achievers.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">High Achievers</a>
+            <a href="gallery.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">Gallery</a>
+            <a href="events.html" class="font-black text-xs uppercase text-[#1a4789] hover:text-[#ffed00]">Events</a>
+            <a href="resources.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">Resources</a>
+            <a href="calendar.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">Calendar</a>
+            <a href="staff.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">Staff</a>
+            <a href="about.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">About</a>
+            <a href="feedback.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">Feedback</a>
         </div>
         <button id="mobile-menu-button" class="lg:hidden flex items-center justify-center w-12 h-10 bg-[#1a4789] rounded-lg">
             <i class="fas fa-bars text-white text-xl"></i>
         </button>
-    </div>
-
-    <div id="mobile-menu" class="hidden flex flex-col space-y-3 pt-4 pb-2 lg:hidden bg-white px-4 shadow-inner">
-        <a href="index.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Home</a>
-        <a href="achievers.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">High Achievers</a>
-        <a href="gallery.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Gallery</a>
-        <a href="events.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Events</a>
-        <a href="resources.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Resources</a>
-        <a href="buddy.html" class="text-blue-600 font-bold uppercase text-xs border-b pb-2 flex items-center">
-            <i class="fas fa-robot mr-2"></i> CampusBuddy
-        </a>
     </div>
 </nav>
 
@@ -85,13 +72,11 @@
         <div id="media-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             <div class="animate-pulse h-64 bg-slate-200 rounded-3xl"></div>
             <div class="animate-pulse h-64 bg-slate-200 rounded-3xl"></div>
-            <div class="animate-pulse h-64 bg-slate-200 rounded-3xl"></div>
-            <div class="animate-pulse h-64 bg-slate-200 rounded-3xl"></div>
         </div>
     </div>
 </main>
 
-<footer class="bg-[#1a4789] text-white pt-12 pb-6 border-t border-blue-900/40">
+<footer class="bg-[#1a4789] text-white pt-12 pb-6 border-t border-blue-900/40 mt-auto">
     <div class="max-w-7xl mx-auto px-4 text-center">
         <h4 class="text-[#ffed00] font-black text-sm tracking-[0.4em] uppercase mb-2">I AM - TO LEARN</h4>
         <p class="text-blue-200/50 text-[9px] uppercase tracking-[0.2em]">© 2026 TCS Chakwal Campus.</p>
@@ -99,14 +84,6 @@
 </footer>
 
 <script>
-    // Hamburger Handler
-    const mobileBtn = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    if(mobileBtn && mobileMenu) {
-        mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-    }
-
-    // Modal Variables
     const lightbox = document.getElementById('media-lightbox');
     const lbImg = document.getElementById('lightbox-img');
     const lbVideo = document.getElementById('lightbox-video');
@@ -132,18 +109,12 @@
         }
 
         lightbox.classList.remove('hidden');
-        setTimeout(() => {
-            lightbox.classList.add('opacity-100');
-            if(mediaType === 'image') lbImg.classList.replace('scale-95', 'scale-100');
-            if(mediaType === 'video') lbVideo.classList.replace('scale-100', 'scale-95');
-        }, 10);
+        setTimeout(() => lightbox.classList.add('opacity-100'), 10);
         document.body.style.overflow = 'hidden';
     }
 
     function closeLightbox() {
         lightbox.classList.remove('opacity-100');
-        lbImg.classList.replace('scale-100', 'scale-95');
-        lbVideo.classList.replace('scale-100', 'scale-95');
         setTimeout(() => {
             lightbox.classList.add('hidden');
             lbVideo.pause();
@@ -151,21 +122,16 @@
         document.body.style.overflow = 'auto';
     }
 
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox || e.target.parentElement === lightbox) closeLightbox();
-    });
-
-    // Flexible extraction function for Markdown Frontmatter
+    // Flexible extraction function for Markdown files
     function parseFrontmatter(text, keysArray) {
         for (let key of keysArray) {
-            const regex = new RegExp(`${key}:\\s*["']?([^"'\n\r]+)["']?`);
+            const regex = new RegExp(`^${key}:\\s*["']?([^"'\n\r]+)["']?`, 'm');
             const match = text.match(regex);
             if (match && match[1]) return match[1].trim();
         }
         return '';
     }
 
-    // Main Engine
     async function fetchStudentLifeMedia() {
         const container = document.getElementById('media-container');
         const repoOwner = "ammarali36t";
@@ -185,60 +151,65 @@
                 const dataResponse = await fetch(file.download_url);
                 let itemData = {};
 
+                // System accepts alternative slugs built by CMS dynamic configurations
+                const targetFields = [
+                    'upload_image_file', 'upload_image_file_optional', 'upload_video_file', 
+                    'upload_video_file_optional', 'image', 'image_file', 'imagefile', 
+                    'video', 'video_file', 'videofile', 'media_file', 'mediafile'
+                ];
+
                 if (file.name.endsWith('.json')) {
                     const parsedJson = await dataResponse.json();
                     
-                    // Fallbacks for variable names stored by the Decap CMS form fields
-                    const rawType = parsedJson.mediaType || parsedJson.media_type || 'image';
-                    const rawMedia = parsedJson.image || parsedJson.imageFile || parsedJson.image_file || 
-                                     parsedJson.upload_image_file_optional || parsedJson.videoFile || 
-                                     parsedJson.video_file || parsedJson.upload_video_file_optional || parsedJson.mediaFile;
+                    let foundMedia = '';
+                    for (let key of targetFields) {
+                        if (parsedJson[key]) {
+                            foundMedia = parsedJson[key];
+                            break;
+                        }
+                    }
+
+                    const rawType = parsedJson.media_type || parsedJson.mediaType || 'image';
 
                     itemData = {
-                        title: parsedJson.title || 'Untitled Activity',
+                        title: parsedJson.title || 'Untitled Update',
                         mediaType: rawType.toLowerCase().includes('video') ? 'video' : 'image',
-                        category: parsedJson.category || parsedJson.category_activity || 'Activity',
-                        mediaFile: rawMedia,
-                        date: parsedJson.date
+                        category: parsedJson.category || parsedJson.category_activity || parsedJson['category/activity'] || 'Activity',
+                        mediaFile: foundMedia,
+                        date: parsedJson.date || parsedJson.date_uploaded || ''
                     };
                 } else {
                     const textContent = await dataResponse.text();
-                    const computedType = parseFrontmatter(textContent, ['mediaType', 'media_type']) || 'image';
-                    
-                    const rawMedia = parseFrontmatter(textContent, [
-                        'image', 'imageFile', 'image_file', 'upload_image_file_optional',
-                        'videoFile', 'video_file', 'upload_video_file_optional', 'mediaFile'
-                    ]);
+                    const computedType = parseFrontmatter(textContent, ['media_type', 'mediaType']) || 'image';
+                    const foundMedia = parseFrontmatter(textContent, targetFields);
 
                     itemData = {
                         title: parseFrontmatter(textContent, ['title']),
                         mediaType: computedType.toLowerCase().includes('video') ? 'video' : 'image',
-                        category: parseFrontmatter(textContent, ['category', 'category_activity']),
-                        mediaFile: rawMedia,
-                        date: parseFrontmatter(textContent, ['date'])
+                        category: parseFrontmatter(textContent, ['category', 'category_activity', 'category/activity']) || 'Activity',
+                        mediaFile: foundMedia,
+                        date: parseFrontmatter(textContent, ['date', 'date_uploaded'])
                     };
                 }
 
-                // If media path string exists, sanitise for GitHub Pages routing structure
                 if (itemData.mediaFile) {
                     let sanitizedPath = itemData.mediaFile.trim();
                     if (sanitizedPath.startsWith('/')) {
-                        sanitizedPath = './' + sanitizedPath.substring(1);
-                    } else if (!sanitizedPath.startsWith('.')) {
+                        sanitizedPath = '.' + sanitizedPath;
+                    } else if (!sanitizedPath.startsWith('.') && !sanitizedPath.startsWith('http')) {
                         sanitizedPath = './' + sanitizedPath;
                     }
                     itemData.mediaFile = sanitizedPath;
-
                     allMediaItems.push(itemData);
                 }
             }
 
-            // Sort chronology
+            // Sort chronology pipeline
             allMediaItems.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
             renderItems(allMediaItems);
 
         } catch (err) {
-            console.error("Fetch failure error info: ", err);
+            console.error("Fetch operational failure details: ", err);
             container.innerHTML = '<p class="text-slate-400 text-center col-span-full">Unable to load student life updates.</p>';
         }
     }
@@ -248,7 +219,7 @@
         container.innerHTML = '';
 
         if(items.length === 0) {
-            container.innerHTML = '<p class="text-slate-400 text-center col-span-full py-12 font-semibold">No updates available for this layout.</p>';
+            container.innerHTML = '<p class="text-slate-400 text-center col-span-full py-12">No media items found.</p>';
             return;
         }
 
@@ -259,25 +230,25 @@
 
             let visualElement = '';
             if (item.mediaType === 'image') {
-                visualElement = `<img src="${item.mediaFile}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='./assets/logo.png'; this.className='w-full h-full object-contain p-8 bg-slate-100';">`;
+                visualElement = `<img src="${item.mediaFile}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='./assets/logo.png'; this.className='w-full h-full object-contain p-12 bg-slate-800';">`;
             } else {
                 visualElement = `
                     <video src="${item.mediaFile}" muted loop playsinline class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                            onmouseenter="this.play()" onmouseleave="this.pause(); this.currentTime = 0;"></video>
                     <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-white text-[10px] font-black uppercase tracking-widest flex items-center z-10">
-                        <i class="fas fa-play mr-1.5 text-[#ffed00]"></i> Video Clip
+                        <i class="fas fa-play mr-1.5 text-[#ffed00]"></i> Video
                     </div>
                 `;
             }
 
             card.innerHTML = `
                 ${visualElement}
-                <div class="absolute inset-0 bg-gradient-to-t from-[#1a4789]/95 via-[#1a4789]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                    <span class="text-[#ffed00] font-black uppercase text-[11px] tracking-[0.2em] mb-1 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 delay-75">
-                        ${item.category || 'Activity'}
+                <div class="absolute inset-0 bg-gradient-to-t from-[#1a4789]/95 via-[#1a4789]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <span class="text-[#ffed00] font-black uppercase text-[11px] tracking-wider mb-1">
+                        ${item.category}
                     </span>
-                    <h3 class="text-white font-black uppercase text-base tracking-tight leading-snug transform translate-y-3 group-hover:translate-y-0 transition-transform duration-300 delay-100">
-                        ${item.title || 'Untitled Update'}
+                    <h3 class="text-white font-bold text-base tracking-tight leading-snug">
+                        ${item.title}
                     </h3>
                 </div>
             `;
