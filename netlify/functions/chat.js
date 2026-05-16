@@ -42,7 +42,7 @@ exports.handler = async (event, context) => {
 
     try {
         // Double-check that your variable in the Netlify Dashboard matches AYAAN3_API_KEY perfectly!
-        const apiKey = process.env.AYAAN3_API_KEY;
+        const apiKey = process.env.AYAAN4_API_KEY;
         if (!apiKey) {
             return {
                 statusCode: 200, // Returning 200 lets the message show up directly in the chat bubble
