@@ -42,7 +42,7 @@ collections:
     label: "Course Syllabi"
     folder: "content/syllabi"
     extension: "json" 
-    create: false 
+    create: true 
     editor:
       preview: false
     description: >
@@ -51,7 +51,19 @@ collections:
       2. Upload the PDF file.
       3. IMPORTANT: The file MUST be named exactly like the grade (e.g., 'grade6.pdf', 'senior1.pdf') for the download button to work.
     fields:
-      - { label: "Grade Level", name: "title", widget: "string", readonly: true }
+      - label: "Grade Level"
+        name: "title"
+        widget: "select"
+        options:
+          - "Grade 3"
+          - "Grade 4"
+          - "Grade 5"
+          - "Grade 6"
+          - "Grade 7"
+          - "Grade 8"
+          - "Senior I"
+          - "Senior II"
+          - "Senior III"
       - label: "Syllabus PDF"
         name: "file"
         widget: "file"
