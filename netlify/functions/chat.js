@@ -9,7 +9,7 @@ function getDynamicCampusData() {
     
     try {
         // Adjust these folder names to match exactly where your CMS saves files
-        const staffDir = path.join(__dirname, '../../content/staff_members'); 
+        const staffDir = path.join(__dirname, '../../content/faculty'); 
         
         if (fs.existsSync(staffDir)) {
             const files = fs.readdirSync(staffDir);
