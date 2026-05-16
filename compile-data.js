@@ -23,10 +23,15 @@ function buildDatabase() {
         }
     });
 
-    // We write the compiled text data directly into the netlify functions folder before bundling
-    const targetPath = path.join(__dirname, 'netlify/functions/campus-data.json');
+    // Make sure the target directory exists before writing
+    const targetDir = path.join(__dirname, 'netlify', 'functions');
+    if (!fs.existsSync(targetDir)) {
+        fs.mkdirSync(targetDir, { recursive: true });
+    }
+
+    const targetPath = path.join(targetDir, 'campus-data.json');
     fs.writeFileSync(targetPath, JSON.stringify(database, null, 2));
-    console.log('✨ CampusBuddy Knowledge Matrix successfully built and synced!');
+    console.log('✨ CampusBuddy Knowledge Matrix successfully built and synced into netlify/functions!');
 }
 
 buildDatabase();
