@@ -172,9 +172,9 @@
             allMediaItems = [];
 
             const targetFields = [
-                'upload_image_file', 'upload_image_file_optional', 'upload_video_file', 
-                'upload_video_file_optional', 'image', 'image_file', 'imagefile', 
-                'video', 'video_file', 'videofile', 'media_file', 'mediafile'
+                'upload_video_file', 'upload_video_file_optional', 'video', 'video_file', 'videofile',
+                'upload_image_file', 'upload_image_file_optional', 'image', 'image_file', 'imagefile', 
+                'media_file', 'mediafile', 'mediaUrl'
             ];
 
             for (const file of validFiles) {
@@ -195,7 +195,13 @@
                     const rawType = parsedJson.media_type || parsedJson.mediaType || '';
                     let finalType = 'image';
                     
-                    if (rawType.toLowerCase().includes('video') || foundMedia.toLowerCase().endsWith('.mp4') || foundMedia.toLowerCase().endsWith('.webm') || foundMedia.toLowerCase().endsWith('.mov')) {
+                    // FIXED: Flexible case-insensitive parsing to catch all variations of video formats
+                    const lowerMedia = foundMedia.toLowerCase();
+                    if (rawType.toLowerCase().includes('video') || 
+                        lowerMedia.includes('.mp4') || 
+                        lowerMedia.includes('.webm') || 
+                        lowerMedia.includes('.mov') || 
+                        lowerMedia.includes('.m4v')) {
                         finalType = 'video';
                     }
 
@@ -212,7 +218,12 @@
                     const foundMedia = parseFrontmatter(textContent, targetFields);
 
                     let finalType = 'image';
-                    if (computedType.toLowerCase().includes('video') || foundMedia.toLowerCase().endsWith('.mp4') || foundMedia.toLowerCase().endsWith('.webm') || foundMedia.toLowerCase().endsWith('.mov')) {
+                    const lowerMedia = foundMedia.toLowerCase();
+                    if (computedType.toLowerCase().includes('video') || 
+                        lowerMedia.includes('.mp4') || 
+                        lowerMedia.includes('.webm') || 
+                        lowerMedia.includes('.mov') || 
+                        lowerMedia.includes('.m4v')) {
                         finalType = 'video';
                     }
 
