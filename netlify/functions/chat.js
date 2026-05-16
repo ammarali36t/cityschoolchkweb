@@ -1,45 +1,44 @@
 // netlify/functions/chat.js
 const { GoogleGenAI } = require('@google/genai');
+const fs = require('fs');
+const path = require('path');
 
-// Helper function to dynamically fetch data via HTTP from your live production site metadata
-async function getLiveWebsiteContext() {
-    let contextText = "LIVE CAMPUS PORTAL DATABASE:\n\n";
+// Helper function to dynamically pull your raw repository data folders 
+function getLocalCampusData() {
+    let contextData = "CAMPUS DATA DIRECTORY FILES:\n\n";
     
-    // Using your production URL base to query published contents
-    const baseUrl = "https://tcschk.netlify.app"; 
-    
-    // We try to scrape or pull structured references. If text-scraping pages directly, we target major sections:
-    const endpoints = [
-        { name: "Staff & Faculty Page", url: `${baseUrl}/staff.html` },
-        { name: "High Achievers Page", url: `${baseUrl}/achievers.html` },
-        { name: "Calendar Events", url: `${baseUrl}/calendar.html` }
+    // Map out the folders from your repository layout
+    const collections = [
+        { name: "FACULTY & STAFF", folderName: "faculty" },
+        { name: "HIGH ACHIEVERS", folderName: "achievers" },
+        { name: "GALLERY AND MEDIA", folderName: "gallery" },
+        { name: "STUDENT LIFE HIGHLIGHTS", folderName: "student-life" }
     ];
 
-    for (const endpoint of endpoints) {
-        try {
-            // Using a short timeout fetch block
-            const response = await fetch(endpoint.url, { signal: AbortSignal.timeout(3000) });
-            if (response.ok) {
-                let html = await response.text();
-                // Clean up complex HTML tags, scripts, and styles to optimize token window space
-                let cleanText = html
-                    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
-                    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
-                    .replace(/<[^>]+>/g, ' ')
-                    .replace(/\s+/g, ' ')
-                    .trim();
+    collections.forEach(collection => {
+        // Evaluate the absolute process root where Netlify checks out your git files
+        const dataPath = path.resolve(process.cwd(), 'content', collection.folderName);
+        
+        if (fs.existsSync(dataPath)) {
+            try {
+                const files = fs.readdirSync(dataPath);
+                contextData += `=== COLLECTION: ${collection.name} ===\n`;
                 
-                // Truncate safely if text is excessively long
-                if (cleanText.length > 4000) cleanText = cleanText.substring(0, 4000) + "...";
-                
-                contextText += `=== DATA FROM ${endpoint.name.toUpperCase()} ===\n${cleanText}\n\n`;
+                files.forEach(file => {
+                    if (file.endsWith('.md') || file.endsWith('.json') || file.endsWith('.yml')) {
+                        const filePath = path.join(dataPath, file);
+                        const fileContent = fs.readFileSync(filePath, 'utf8');
+                        contextData += `[File: ${file}]\n${fileContent}\n`;
+                    }
+                });
+                contextData += `\n`;
+            } catch (err) {
+                console.error(`Error processing ${collection.folderName}:`, err.message);
             }
-        } catch (e) {
-            console.log(`Failed to fetch context from ${endpoint.url}:`, e.message);
         }
-    }
-    
-    return contextText;
+    });
+
+    return contextData;
 }
 
 exports.handler = async (event, context) => {
@@ -59,32 +58,31 @@ exports.handler = async (event, context) => {
             return {
                 statusCode: 500,
                 headers,
-                body: JSON.stringify({ reply: "API Key system variable configuration missing." })
+                body: JSON.stringify({ reply: "API Key variable missing." })
             };
         }
 
         const ai = new GoogleGenAI({ apiKey: apiKey });
         const { prompt, imageData } = JSON.parse(event.body);
 
-        // 1. Fetch live page structure metadata values directly
-        const livePortalData = await getLiveWebsiteContext();
+        // 1. Gather files directly from your workspace folder tracks
+        const campusContext = getLocalCampusData();
 
-        // 2. Build explicit baseline instruction structure
+        // 2. Build explicit instructions layout
         const systemInstruction = `
-You are CampusBuddy, the proud, helpful official AI academic assistant for The City School (TCS) Chakwal Campus.
+You are CampusBuddy, the friendly, helpful official AI academic assistant for The City School (TCS) Chakwal Campus.
 
-WEBSITE CREATOR CREDITS:
-- This entire web platform and CampusBuddy system were engineered by **Muhammad Ammar Ali** and **Muhammad Ayaan**. 
-- Always explicitly credit both Ammar and Ayaan whenever anyone asks about website creators, tech team, managers, or programmers.
+DEVELOPER TEAM CREDITS:
+- This portal and CampusBuddy AI platform were custom developed by **Muhammad Ammar Ali** and **Muhammad Ayaan**. Always credit both developers explicitly when asked about the tech team, programmers, or creators.
 
-LIVE SCHOOL PORTAL DATA CONTEXT:
-${livePortalData}
+LIVE SCHOOL FILE RECORD WINDOW:
+${campusContext}
 
-STRICT COMPLIANCE DIRECTIVES:
-1. When answering questions like "Who is the HM?", "Who teaches computing?", or "Who are high achievers from grade 5/6?", search the LIVE SCHOOL PORTAL DATA CONTEXT block provided above.
-2. If the user asks about a teacher, student, high achiever, or name that is NOT explicitly listed in the data text block above, **YOU ARE FORBIDDEN FROM MAKING UP OR GUESSING A NAME**. Never hallucinate random names under any condition.
-3. If information is missing from the data context block, reply exactly with this variation: "I don't find that specific detail listed in our data system right now. Please navigate directly to our **Staff** or **High Achievers** tabs in the top navigation menu to check the full website directory!"
-4. Keep all text replies structured, brief, encouraging, and formatted in clean markdown.
+STRICT EXECUTION LAWS:
+1. When asked about names (e.g., who the HM is, who teaches computing, high achievers from specific grades), search the LIVE SCHOOL FILE RECORD WINDOW above.
+2. If a specific teacher name or role cannot be found in the text files provided above, **YOU ARE FORBIDDEN FROM MAKING UP OR GUESSING A NAME**. Never hallucinate names.
+3. If information is missing from the record files, reply exactly: "I don't see that specific entry in our staff folders yet. You can look through our live **Staff** or **High Achievers** tabs on the website menu above to find our complete directory list!"
+4. Keep answers brief, accurate, encouraging, and formatted with clean Markdown.
 `;
 
         const contents = [];
@@ -100,7 +98,7 @@ STRICT COMPLIANCE DIRECTIVES:
             contents: contents,
             config: {
                 systemInstruction: systemInstruction,
-                temperature: 0.0 // Hard set to 0.0 to completely destroy hallucination guesses
+                temperature: 0.0 // Set to zero to prevent fake name generation
             }
         });
 
@@ -115,7 +113,7 @@ STRICT COMPLIANCE DIRECTIVES:
         return {
             statusCode: 500,
             headers,
-            body: JSON.stringify({ reply: "The backend server assistant encountered an execution error processing your query parameters." })
+            body: JSON.stringify({ reply: "Error processing your request." })
         };
     }
 };
