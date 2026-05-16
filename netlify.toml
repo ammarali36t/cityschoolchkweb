@@ -1,5 +1,6 @@
 [build]
-  command = "npm install"
+  command = "node compile-data.js && npm install"
+  functions = "netlify/functions"
   publish = "."
 
 [functions]
