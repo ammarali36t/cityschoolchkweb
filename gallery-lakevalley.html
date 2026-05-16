@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        /* Smooth transition for the lightbox */
         #lightbox { transition: opacity 0.3s ease-in-out; }
     </style>
 </head>
@@ -117,7 +116,7 @@
             lightboxImg.classList.remove('scale-95');
             lightboxImg.classList.add('scale-100');
         }, 10);
-        document.body.style.overflow = 'hidden'; // Stop scrolling
+        document.body.style.overflow = 'hidden'; 
     }
 
     function closeLightbox() {
@@ -126,10 +125,9 @@
         setTimeout(() => {
             lightbox.classList.add('hidden');
         }, 300);
-        document.body.style.overflow = 'auto'; // Enable scrolling
+        document.body.style.overflow = 'auto'; 
     }
 
-    // Close on clicking background
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) closeLightbox();
     });
@@ -148,21 +146,37 @@
             if (!response.ok) throw new Error("Folder not found");
             
             const entries = await response.json();
-            const jsonFiles = entries.filter(file => file.name.endsWith('.json'));
+            const jsonFiles = entries.filter(file => file.name.endsWith('.json') || file.name.endsWith('.md'));
             
             counter.innerText = jsonFiles.length < 10 ? `0${jsonFiles.length}` : jsonFiles.length;
             container.innerHTML = '';
 
             for (const file of jsonFiles) {
                 const dataResponse = await fetch(file.download_url);
-                const contents = await dataResponse.json();
+                let contents;
+                
+                if (file.name.endsWith('.json')) {
+                    contents = await dataResponse.json();
+                } else {
+                    const text = await dataResponse.text();
+                    const match = text.match(/image:\s*["']?([^"'\n]+)["']?/);
+                    contents = match ? { image: match[1] } : {};
+                }
                 
                 if (contents.image) {
+                    // KEEP FIX: Converts root relative paths to relative syntax cleanly for production mobile engines
+                    let sanitizedImgPath = contents.image;
+                    if (sanitizedImgPath.startsWith('/')) {
+                        sanitizedImgPath = '.' + sanitizedImgPath;
+                    } else if (!sanitizedImgPath.startsWith('.')) {
+                        sanitizedImgPath = './' + sanitizedImgPath;
+                    }
+
                     const card = document.createElement('div');
                     card.className = "group relative aspect-square overflow-hidden rounded-3xl bg-slate-200 shadow-md cursor-pointer";
-                    card.onclick = () => openLightbox(contents.image);
+                    card.onclick = () => openLightbox(sanitizedImgPath);
                     card.innerHTML = `
-                        <img src="${contents.image}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <img src="${sanitizedImgPath}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         <div class="absolute inset-0 bg-[#1a4789]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <i class="fas fa-search-plus text-white text-2xl"></i>
                         </div>
