@@ -1,76 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student's Life | TCS Chakwal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>The City School | Chakwal Campus</title>
     <link rel="icon" type="image/png" href="./assets/favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style> html { scroll-behavior: smooth; } </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        /* Official TCS Colors based on your logo */
+        html {
+            scroll-behavior: smooth;
+        }
+        .bg-tcs-blue { background-color: #1a4789; }
+        .text-tcs-blue { color: #1a4789; }
+        .bg-tcs-yellow { background-color: #ffed00; }
+        .border-tcs-yellow { border-color: #ffed00; }
     </style>
 </head>
-<body class="bg-slate-50 flex flex-col min-h-screen">
+<body class="bg-gray-50 font-sans">
 
-<div id="media-lightbox" class="fixed inset-0 z-[100] hidden bg-black/95 flex flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-    <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white text-4xl hover:text-[#ffed00] transition z-[110]">
-        <i class="fas fa-times"></i>
-    </button>
-    <div class="relative max-w-4xl max-h-[80vh] flex items-center justify-center">
-        <img id="lightbox-img" src="" class="hidden max-w-full max-h-[80vh] rounded-xl shadow-2xl transition-all duration-300">
-        <video id="lightbox-video" src="" controls class="hidden max-w-full max-h-[80vh] rounded-xl shadow-2xl transition-all duration-300"></video>
-    </div>
-    <div class="text-center mt-4 px-4 max-w-xl">
-        <span id="lightbox-category" class="text-[#ffed00] font-black uppercase text-xs tracking-widest block mb-1"></span>
-        <h3 id="lightbox-title" class="text-white font-bold text-lg md:text-xl leading-tight"></h3>
-    </div>
-</div>
+    <div class="bg-tcs-yellow h-2 w-full"></div>
 
-<nav class="bg-white border-b-4 border-[#ffed00] sticky top-0 z-50 px-4 py-3">
-    <div class="max-w-7xl mx-auto flex justify-between items-center">
-        <div class="flex items-center space-x-3">
-            <img src="./assets/logo.png" alt="TCS Logo" class="h-10 md:h-16 w-auto">
-            <div class="flex flex-col">
-                <span class="text-[#1a4789] font-bold text-base md:text-xl leading-none">The City School</span>
-                <span class="text-[#1a4789] text-[8px] md:text-[10px] tracking-[0.2em] font-black uppercase">Chakwal Campus</span>
+    <nav class="bg-white border-b-4 border-[#ffed00] sticky top-0 z-50 px-4 py-3">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="block group">
+                    <img src="./assets/logo-official.png" alt="The City School" class="h-12 md:h-16 w-auto object-contain transition-transform group-hover:scale-[1.02]">
+                </a>
             </div>
-        </div>
-        <div class="hidden lg:flex space-x-4 items-center">
-            <a href="index.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">Home</a>
-            <a href="achievers.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">High Achievers</a>
-            <a href="gallery.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">Gallery</a>
-            <a href="events.html" class="font-black text-xs uppercase text-[#1a4789] hover:text-[#ffed00]">Events</a>
-            <a href="resources.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">Resources</a>
-            <a href="calendar.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">Calendar</a>
-            <a href="buddy.html" class="text-blue-600 font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest flex items-center bg-blue-50 px-2 py-1 rounded-full">
-               <i class="fas fa-robot mr-1"></i>CampusBuddy</a>
-            <a href="staff.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">Staff</a>
-            <a href="about.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">About</a>
-            <a href="feedback.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-xs uppercase">Feedback</a>
-        </div>
-        <button id="mobile-menu-button" class="lg:hidden flex items-center justify-center w-12 h-10 bg-[#1a4789] rounded-lg">
-            <i class="fas fa-bars text-white text-xl"></i>
-        </button>
-    </div>
-    
-    <div id="mobile-menu" class="hidden flex flex-col space-y-3 pt-4 pb-2 lg:hidden bg-white shadow-inner">
-        <a href="index.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2 px-2">Home</a>
-        <a href="achievers.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2 px-2">High Achievers</a>
-        <a href="gallery.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2 px-2">Gallery</a>
-        <a href="events.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2 px-2">Events</a>
-        <a href="resources.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2 px-2">Resources</a>
-        <a href="calendar.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2 px-2">Calendar</a>
-        <a href="buddy.html" class="text-blue-600 font-bold uppercase text-xs border-b pb-2 flex items-center">
-            <i class="fas fa-robot mr-2 text-blue-600"></i> CampusBuddy
-        </a>
-        <a href="staff.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2 px-2">Staff</a>
-        <a href="about.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2 px-2">About</a>
-        <a href="feedback.html" class="text-[#1a4789] font-bold uppercase text-xs pb-2 px-2">Feedback</a>
-    </div>
-</nav>
 
+            <div class="hidden lg:flex space-x-3 xl:space-x-5 items-center">
+                <a href="index.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Home</a>
+                <a href="achievers.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">High Achievers</a>
+                <a href="gallery.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Gallery</a>
+                <a href="events.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Events</a>
+                <a href="resources.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Resources</a>
+                <a href="calendar.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest text-nowrap">Calendar</a>
+                <a href="buddy.html" class="text-blue-600 font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest flex items-center bg-blue-50 px-2 py-1 rounded-full">
+                    <i class="fas fa-robot mr-1"></i>CampusBuddy
+                </a>
+                <a href="staff.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Staff</a>
+                <a href="about.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">About</a>
+                <a href="feedback.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Feedback</a>
+            </div>
+
+            <button id="mobile-menu-button" class="lg:hidden flex items-center justify-center w-12 h-10 bg-[#1a4789] rounded-lg shadow-md focus:outline-none active:scale-95 transition-all">
+                <i class="fas fa-bars text-white text-xl"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden flex flex-col space-y-3 pt-4 pb-2 lg:hidden bg-white px-4 shadow-inner">
+            <a href="index.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Home</a>
+            <a href="achievers.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">High Achievers</a>
+            <a href="gallery.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Gallery</a>
+            <a href="events.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Events</a>
+            <a href="resources.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Resources</a>
+            <a href="calendar.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">School Calendar</a>
+            <a href="buddy.html" class="text-blue-600 font-bold uppercase text-xs border-b pb-2 flex items-center">
+                <i class="fas fa-robot mr-2 text-blue-600"></i> CampusBuddy
+            </a>
+            <a href="staff.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Staff</a>
+            <a href="about.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">About</a>
+            <a href="feedback.html" class="text-[#1a4789] font-bold uppercase text-xs">Feedback</a>
+        </div>
+    </nav>
 <header class="bg-[#1a4789] text-white py-14 border-b-8 border-[#ffed00]">
     <div class="max-w-7xl mx-auto px-4 text-center">
         <h1 class="font-black text-4xl md:text-6xl uppercase tracking-tighter italic mb-2">Student's <span class="text-[#ffed00]">Life</span></h1>
