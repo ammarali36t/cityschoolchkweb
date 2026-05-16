@@ -4,4 +4,6 @@
 
 [functions]
   directory = "netlify/functions"
-  node_bundle = "esbuild"
+
+[functions.node_bundle]
+  # This matches the valid object syntax shown in your error log
