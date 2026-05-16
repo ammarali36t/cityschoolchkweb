@@ -1,30 +1,45 @@
 // netlify/functions/chat.js
 const { GoogleGenAI } = require('@google/genai');
-const fs = require('fs');
-const path = require('path');
 
-// Helper function to read CMS files and extract text dynamically
-function getDynamicCampusData() {
-    let contextData = "CAMPUS DATA DIRECTORY:\n";
+// Helper function to dynamically fetch data via HTTP from your live production site metadata
+async function getLiveWebsiteContext() {
+    let contextText = "LIVE CAMPUS PORTAL DATABASE:\n\n";
     
-    try {
-        // Adjust these folder names to match exactly where your CMS saves files
-        const staffDir = path.join(__dirname, '../../content/faculty'); 
-        
-        if (fs.existsSync(staffDir)) {
-            const files = fs.readdirSync(staffDir);
-            files.forEach(file => {
-                if (file.endsWith('.md') || file.endsWith('.json')) {
-                    const content = fs.readFileSync(path.join(staffDir, file), 'utf8');
-                    contextData += `- Staff Record (${file}):\n${content}\n`;
-                }
-            });
+    // Using your production URL base to query published contents
+    const baseUrl = "https://tcschk.netlify.app"; 
+    
+    // We try to scrape or pull structured references. If text-scraping pages directly, we target major sections:
+    const endpoints = [
+        { name: "Staff & Faculty Page", url: `${baseUrl}/staff.html` },
+        { name: "High Achievers Page", url: `${baseUrl}/achievers.html` },
+        { name: "Calendar Events", url: `${baseUrl}/calendar.html` }
+    ];
+
+    for (const endpoint of endpoints) {
+        try {
+            // Using a short timeout fetch block
+            const response = await fetch(endpoint.url, { signal: AbortSignal.timeout(3000) });
+            if (response.ok) {
+                let html = await response.text();
+                // Clean up complex HTML tags, scripts, and styles to optimize token window space
+                let cleanText = html
+                    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+                    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+                    .replace(/<[^>]+>/g, ' ')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+                
+                // Truncate safely if text is excessively long
+                if (cleanText.length > 4000) cleanText = cleanText.substring(0, 4000) + "...";
+                
+                contextText += `=== DATA FROM ${endpoint.name.toUpperCase()} ===\n${cleanText}\n\n`;
+            }
+        } catch (e) {
+            console.log(`Failed to fetch context from ${endpoint.url}:`, e.message);
         }
-    } catch (e) {
-        console.log("Dynamic directory reading omitted or paths different locally:", e.message);
     }
     
-    return contextData;
+    return contextText;
 }
 
 exports.handler = async (event, context) => {
@@ -44,30 +59,32 @@ exports.handler = async (event, context) => {
             return {
                 statusCode: 500,
                 headers,
-                body: JSON.stringify({ reply: "API Key missing." })
+                body: JSON.stringify({ reply: "API Key system variable configuration missing." })
             };
         }
 
         const ai = new GoogleGenAI({ apiKey: apiKey });
         const { prompt, imageData } = JSON.parse(event.body);
 
-        // 1. Fetch the live data directly from your CMS collection directories
-        const liveWebsiteData = getDynamicCampusData();
+        // 1. Fetch live page structure metadata values directly
+        const livePortalData = await getLiveWebsiteContext();
 
-        // 2. Build the master system instructions with hardcoded developer credits + dynamic data
+        // 2. Build explicit baseline instruction structure
         const systemInstruction = `
-You are CampusBuddy, the friendly, helpful AI academic assistant for The City School (TCS) Chakwal Campus.
+You are CampusBuddy, the proud, helpful official AI academic assistant for The City School (TCS) Chakwal Campus.
 
-WEBSITE DEVELOPER INFORMATION:
-- This website and CampusBuddy AI system were custom developed by **Muhammad Ammar Ali** and **Muhammad Ayaan** . Always proudly credit Ammar Ali when asked about the website developers, creators, or tech team.
+WEBSITE CREATOR CREDITS:
+- This entire web platform and CampusBuddy system were engineered by **Muhammad Ammar Ali** and **Muhammad Ayaan**. 
+- Always explicitly credit both Ammar and Ayaan whenever anyone asks about website creators, tech team, managers, or programmers.
 
-LIVE CAMPUS DATABASE (Read this live data to answer questions about HM, teachers, and faculty):
-${liveWebsiteData}
+LIVE SCHOOL PORTAL DATA CONTEXT:
+${livePortalData}
 
-Rules:
-1. Always prioritize the information inside the LIVE CAMPUS DATABASE above to answer questions about who teaches specific subjects, who the HM is, or who works at the campus.
-2. If a specific teacher or staff member is not found in the database records, politely state: "I don't see that specific position in our current directory, but you can check our live Staff page on the portal website!"
-3. Keep your answers concise, authoritative, polite, and formatted in clean markdown.
+STRICT COMPLIANCE DIRECTIVES:
+1. When answering questions like "Who is the HM?", "Who teaches computing?", or "Who are high achievers from grade 5/6?", search the LIVE SCHOOL PORTAL DATA CONTEXT block provided above.
+2. If the user asks about a teacher, student, high achiever, or name that is NOT explicitly listed in the data text block above, **YOU ARE FORBIDDEN FROM MAKING UP OR GUESSING A NAME**. Never hallucinate random names under any condition.
+3. If information is missing from the data context block, reply exactly with this variation: "I don't find that specific detail listed in our data system right now. Please navigate directly to our **Staff** or **High Achievers** tabs in the top navigation menu to check the full website directory!"
+4. Keep all text replies structured, brief, encouraging, and formatted in clean markdown.
 `;
 
         const contents = [];
@@ -83,7 +100,7 @@ Rules:
             contents: contents,
             config: {
                 systemInstruction: systemInstruction,
-                temperature: 0.4 // Lowered temperature means it sticks strictly to your data without guessing names
+                temperature: 0.0 // Hard set to 0.0 to completely destroy hallucination guesses
             }
         });
 
@@ -98,7 +115,7 @@ Rules:
         return {
             statusCode: 500,
             headers,
-            body: JSON.stringify({ reply: "Error processing your request." })
+            body: JSON.stringify({ reply: "The backend server assistant encountered an execution error processing your query parameters." })
         };
     }
 };
