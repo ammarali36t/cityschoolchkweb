@@ -1,5 +1,9 @@
 {
+  "name": "tcs-chakwal-portal",
+  "version": "1.0.0",
+  "description": "The City School Chakwal Campus Portal",
+  "main": "index.html",
   "dependencies": {
-    "@google/generative-ai": "^0.11.0"
+    "@google/genai": "^0.1.1"
   }
 }
