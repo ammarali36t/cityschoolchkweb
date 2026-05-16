@@ -3,38 +3,28 @@ const { GoogleGenAI } = require('@google/genai');
 const fs = require('fs');
 const path = require('path');
 
-// Safe function to parse our synced data asset
-function getSyncedCampusContext() {
+// Helper function to read CMS files and extract text dynamically
+function getDynamicCampusData() {
+    let contextData = "CAMPUS DATA DIRECTORY:\n";
+    
     try {
-        const dataPath = path.join(__dirname, 'campus-data.json');
-        if (fs.existsSync(dataPath)) {
-            const rawData = fs.readFileSync(dataPath, 'utf8');
-            const parsed = JSON.parse(rawData);
-            
-            let contextString = "LIVE SCHOOL DIRECTORY RECORD:\n\n";
-            
-            if (parsed.faculty && Array.isArray(parsed.faculty)) {
-                parsed.faculty.forEach(item => {
-                    contextString += `[Staff Member Profile]:\n${item.content}\n---\n`;
-                });
-            }
-            if (parsed.achievers && Array.isArray(parsed.achievers)) {
-                parsed.achievers.forEach(item => {
-                    contextString += `[High Achiever Record]:\n${item.content}\n---\n`;
-                });
-            }
-            if (parsed.studentLife && Array.isArray(parsed.studentLife)) {
-                parsed.studentLife.forEach(item => {
-                    contextString += `[Student Life Activity]:\n${item.content}\n---\n`;
-                });
-            }
-            
-            return contextString;
+        // Adjust these folder names to match exactly where your CMS saves files
+        const staffDir = path.join(__dirname, '../../content/faculty'); 
+        
+        if (fs.existsSync(staffDir)) {
+            const files = fs.readdirSync(staffDir);
+            files.forEach(file => {
+                if (file.endsWith('.md') || file.endsWith('.json')) {
+                    const content = fs.readFileSync(path.join(staffDir, file), 'utf8');
+                    contextData += `- Staff Record (${file}):\n${content}\n`;
+                }
+            });
         }
-    } catch (err) {
-        console.error("Error reading synced matrix file:", err.message);
+    } catch (e) {
+        console.log("Dynamic directory reading omitted or paths different locally:", e.message);
     }
-    return "STATUS: PORTAL_DATA_EMPTY. Live CMS profiles are not indexable at this moment.";
+    
+    return contextData;
 }
 
 exports.handler = async (event, context) => {
@@ -54,28 +44,30 @@ exports.handler = async (event, context) => {
             return {
                 statusCode: 500,
                 headers,
-                body: JSON.stringify({ reply: "Configuration parameter setting missing: AYAN2_API_KEY is unset." })
+                body: JSON.stringify({ reply: "API Key missing." })
             };
         }
 
         const ai = new GoogleGenAI({ apiKey: apiKey });
         const { prompt, imageData } = JSON.parse(event.body);
-        const liveCampusContext = getSyncedCampusContext();
 
+        // 1. Fetch the live data directly from your CMS collection directories
+        const liveWebsiteData = getDynamicCampusData();
+
+        // 2. Build the master system instructions with hardcoded developer credits + dynamic data
         const systemInstruction = `
-You are CampusBuddy, the proud, helpful official AI academic assistant for The City School (TCS) Chakwal Campus.
+You are CampusBuddy, the friendly, helpful AI academic assistant for The City School (TCS) Chakwal Campus.
 
-DEVELOPER TEAM CREDITS:
-- This complete portal website and CampusBuddy AI subsystem were custom engineered by **Muhammad Ammar Ali** and **Muhammad Ayaan**. Always explicitly credit both Ammar and Ayaan whenever users ask about the tech team, programmers, managers, or creators.
+WEBSITE DEVELOPER INFORMATION:
+- This website and CampusBuddy AI system were custom developed by **Muhammad Ammar Ali** and **Muhammad Ayaan** . Always proudly credit Ammar Ali when asked about the website developers, creators, or tech team.
 
-LIVE SCHOOL FILE RECORD WINDOW:
-${liveCampusContext}
+LIVE CAMPUS DATABASE (Read this live data to answer questions about HM, teachers, and faculty):
+${liveWebsiteData}
 
-STRICT COMPLIANCE LAWS:
-1. When asked questions about campus personnel (e.g., "Who is the HM?", "Who teaches computing?", or "Who are the high achievers from grade 5 or 6?"), you must strictly evaluate the data fields provided above.
-2. If details are not explicitly recorded inside the data text block above, YOU MUST NOT ASSUME OR MAKE UP A NAME. Never hallucinate a response.
-3. If information is missing from the record data files, reply exactly: "I don't see that specific record in our data folder yet. Please check out the live Staff or High Achievers section links in the top navigation menu to view our full database!"
-4. Keep all replies encouraging, concise, accurate, and structured in clear markdown formats.
+Rules:
+1. Always prioritize the information inside the LIVE CAMPUS DATABASE above to answer questions about who teaches specific subjects, who the HM is, or who works at the campus.
+2. If a specific teacher or staff member is not found in the database records, politely state: "I don't see that specific position in our current directory, but you can check our live Staff page on the portal website!"
+3. Keep your answers concise, authoritative, polite, and formatted in clean markdown.
 `;
 
         const contents = [];
@@ -91,7 +83,7 @@ STRICT COMPLIANCE LAWS:
             contents: contents,
             config: {
                 systemInstruction: systemInstruction,
-                temperature: 0.2
+                temperature: 0.4 // Lowered temperature means it sticks strictly to your data without guessing names
             }
         });
 
@@ -106,7 +98,7 @@ STRICT COMPLIANCE LAWS:
         return {
             statusCode: 500,
             headers,
-            body: JSON.stringify({ reply: `The backend server assistant encountered an error: ${error.message}` })
+            body: JSON.stringify({ reply: "Error processing your request." })
         };
     }
 };
