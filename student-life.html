@@ -71,7 +71,8 @@
 
 <main class="flex-grow py-12">
     <div class="max-w-7xl mx-auto px-4">
-        <div id="media-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div id="media-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div class="animate-pulse h-64 bg-slate-200 rounded-3xl"></div>
             <div class="animate-pulse h-64 bg-slate-200 rounded-3xl"></div>
             <div class="animate-pulse h-64 bg-slate-200 rounded-3xl"></div>
             <div class="animate-pulse h-64 bg-slate-200 rounded-3xl"></div>
@@ -176,7 +177,6 @@
                         title: parsedJson.title,
                         mediaType: parsedJson.mediaType,
                         category: parsedJson.category,
-                        // MODIFIED: Maps the renamed dashboard preview image field seamlessly with full compatibility fallback layers
                         mediaFile: parsedJson.mediaType === 'video' ? (parsedJson.videoFile || parsedJson.mediaFile) : (parsedJson.image || parsedJson.imageFile || parsedJson.mediaFile),
                         date: parsedJson.date
                     };
@@ -193,6 +193,15 @@
                 }
 
                 if (itemData.mediaFile) {
+                    // KEEP FIX: Sanitizes resource assets path dynamically for local engine engines
+                    let sanitizedPath = itemData.mediaFile;
+                    if (sanitizedPath.startsWith('/')) {
+                        sanitizedPath = '.' + sanitizedPath;
+                    } else if (!sanitizedPath.startsWith('.')) {
+                        sanitizedPath = './' + sanitizedPath;
+                    }
+                    itemData.mediaFile = sanitizedPath;
+
                     allMediaItems.push(itemData);
                 }
             }
