@@ -221,12 +221,60 @@
 </footer>
 
     <script>
-        const btn = document.getElementById('mobile-menu-button');
-        const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
-    </script>
+    // Adjust these IDs to match the exact input attribute tags in your feedback.html form
+    const feedbackForm = document.querySelector('form') || document.getElementById('feedback-form');
 
+    if (feedbackForm) {
+        feedbackForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Stop the page from reloading or triggering old email parameters
+            
+            // Collect the inputs exactly matching your form elements
+            const fullName = document.getElementById('full-name')?.value || document.querySelector('input[placeholder*="name"]')?.value;
+            const emailAddress = document.getElementById('email-address')?.value || document.querySelector('input[type="email"]')?.value;
+            const category = document.getElementById('category')?.value || document.querySelector('select')?.value || 'General Feedback';
+            const message = document.getElementById('message')?.value || document.querySelector('textarea')?.value;
+            
+            // Visual feedback for users clicking submit
+            const submitBtn = feedbackForm.querySelector('button[type="submit"]');
+            const originalBtnHtml = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Storing feedback...';
+            submitBtn.disabled = true;
+
+            // Structure data payload matching the Apps Script JSON configuration
+            const payload = {
+                fullName: fullName,
+                emailAddress: emailAddress,
+                category: category,
+                message: message
+            };
+
+            // REPLACE THIS STRING WITH THE EXACT WEB APP URL COPIED FROM STEP 1
+            const googleScriptUrl = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+            try {
+                const response = await fetch(googleScriptUrl, {
+                    method: 'POST',
+                    mode: 'no-cors', // Bypasses security restrictions for client-side forms natively
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                // Clear input structures after successful operation logging
+                feedbackForm.reset();
+                alert("Thank you! Your feedback has been logged securely in our system.");
+                
+            } catch (error) {
+                console.error("Submission failed logs: ", error);
+                alert("Something went wrong. Please check your network connection and try again.");
+            } finally {
+                // Restore button states
+                submitBtn.innerHTML = originalBtnHtml;
+                submitBtn.disabled = false;
+            }
+        });
+    }
+</script>
 </body>
 </html>
