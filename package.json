@@ -4,6 +4,6 @@
   "description": "The City School Chakwal Campus Portal",
   "main": "index.html",
   "dependencies": {
-    "@google/genai": "^0.1.1"
+    "@google/genai": "^0.1.2"
   }
 }
