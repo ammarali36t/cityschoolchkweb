@@ -39,7 +39,7 @@ exports.handler = async (event, context) => {
     }
 
     try {
-        const apiKey = process.env.AYYAN2_API_KEY;
+        const apiKey = process.env.AYAAN3_API_KEY;
         if (!apiKey) {
             return {
                 statusCode: 500,
