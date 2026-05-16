@@ -5,6 +5,10 @@ backend:
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
+# FIX: Injects global mobile-responsive overrides directly into the Decap CMS admin layout dashboard
+show_preview_links: false
+custom_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+
 collections:
   - name: "staff_members"
     label: "Our Faculty"
@@ -76,11 +80,11 @@ collections:
     folder: "content/gallery/chakwal"
     create: true
     extension: json
+    slug: "img-{{uuid}}"
     fields:
       - label: "Upload Image"
         name: "image"
         widget: "image"
-        # Explicit folder mapping:
         media_folder: "assets/images/gallery/chakwal"
         public_folder: "assets/images/gallery/chakwal"
       - { label: "Upload Date", name: "date", widget: "datetime", default: "", required: false }
@@ -90,11 +94,11 @@ collections:
     folder: "content/gallery/lakevalley"
     create: true
     extension: json
+    slug: "img-{{uuid}}"
     fields:
       - label: "Upload Image"
         name: "image"
         widget: "image"
-        # Explicit folder mapping:
         media_folder: "assets/images/gallery/lakevalley"
         public_folder: "assets/images/gallery/lakevalley"
       - { label: "Upload Date", name: "date", widget: "datetime", default: "", required: false }
@@ -107,7 +111,6 @@ collections:
     extension: "json"
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     
-    # FIX: Configures view filters to explicitly bind the image file object to the thumbnail container loop
     view_filters:
       - label: "Photos Only"
         field: mediaType
@@ -116,7 +119,6 @@ collections:
         field: mediaType
         pattern: "video"
     
-    # Explicit mapping syntax for card layouts
     summary: "{{title}}"
     view_groups:
       - label: "Media Type"
@@ -127,7 +129,6 @@ collections:
       - { label: "Media Type Selection", name: "mediaType", widget: "select", options: ["image", "video"], required: true, hint: "Important: Choose the type first, then use the correct upload field below." }
       - { label: "Category/Activity", name: "category", widget: "string", hint: "e.g., Sports Day, Cultural Festival, Classroom", required: true }
       
-      # FIX: Changed variable target name directly to 'image' so Decap picks it up for the dashboard view automatically
       - label: "Upload Image File"
         name: "image"
         widget: "image"
@@ -135,7 +136,6 @@ collections:
         hint: "Use ONLY for Photos."
         pattern: ['.*\.(jpg|jpeg|png|webp|gif)$', "ERROR: You selected a video file. Please use the Video field below for .mp4 files."]
 
-      # Video Field with Validation Guardrail
       - label: "Upload Video File"
         name: "videoFile"
         widget: "file"
