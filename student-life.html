@@ -63,8 +63,8 @@
         <a href="resources.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2 px-2">Resources</a>
         <a href="calendar.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2 px-2">Calendar</a>
         <a href="buddy.html" class="text-blue-600 font-bold uppercase text-xs border-b pb-2 flex items-center">
-    <i class="fas fa-robot mr-2 text-blue-600"></i> CampusBuddy
-</a>
+            <i class="fas fa-robot mr-2 text-blue-600"></i> CampusBuddy
+        </a>
         <a href="staff.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2 px-2">Staff</a>
         <a href="about.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2 px-2">About</a>
         <a href="feedback.html" class="text-[#1a4789] font-bold uppercase text-xs pb-2 px-2">Feedback</a>
@@ -174,10 +174,10 @@
             
             allMediaItems = [];
 
+            // MATCHES EXACT CASE & COMBINATIONS DEFINED IN CONFIG.YML
             const targetFields = [
-                'upload_video_file', 'upload_video_file_optional', 'video', 'video_file', 'videofile',
-                'upload_image_file', 'upload_image_file_optional', 'image', 'image_file', 'imagefile', 
-                'media_file', 'mediafile', 'mediaUrl'
+                'videoFile', 'video_file', 'videofile', 'video', 
+                'image', 'upload_image_file', 'media_file', 'mediafile'
             ];
 
             for (const file of validFiles) {
@@ -188,19 +188,27 @@
                     const parsedJson = await dataResponse.json();
                     
                     let foundMedia = '';
-                    for (let key of targetFields) {
-                        if (parsedJson[key]) {
-                            foundMedia = parsedJson[key];
-                            break;
+                    // Prioritize checking mediaType choice to understand which field should hold the real source file
+                    const rawType = parsedJson.mediaType || parsedJson.media_type || '';
+                    const isVideoType = rawType.toLowerCase().includes('video');
+
+                    if (isVideoType && parsedJson.videoFile) {
+                        foundMedia = parsedJson.videoFile;
+                    } else if (parsedJson.image) {
+                        foundMedia = parsedJson.image;
+                    } else {
+                        // Fallback search loop if files were configured manually outside of form rules
+                        for (let key of targetFields) {
+                            if (parsedJson[key] && parsedJson[key].trim() !== '') {
+                                foundMedia = parsedJson[key];
+                                break;
+                            }
                         }
                     }
 
-                    const rawType = parsedJson.media_type || parsedJson.mediaType || '';
                     let finalType = 'image';
-                    
-                    // FIXED: Flexible case-insensitive parsing to catch all variations of video formats
-                    const lowerMedia = foundMedia.toLowerCase();
-                    if (rawType.toLowerCase().includes('video') || 
+                    const lowerMedia = foundMedia ? foundMedia.toLowerCase() : '';
+                    if (isVideoType || 
                         lowerMedia.includes('.mp4') || 
                         lowerMedia.includes('.webm') || 
                         lowerMedia.includes('.mov') || 
@@ -211,13 +219,13 @@
                     itemData = {
                         title: parsedJson.title || 'Untitled Update',
                         mediaType: finalType,
-                        category: parsedJson.category || parsedJson.category_activity || parsedJson['category/activity'] || 'Activity',
+                        category: parsedJson.category || 'Activity',
                         mediaFile: foundMedia,
-                        date: parsedJson.date || parsedJson.date_uploaded || ''
+                        date: parsedJson.date || ''
                     };
                 } else {
                     const textContent = await dataResponse.text();
-                    const computedType = parseFrontmatter(textContent, ['media_type', 'mediaType']) || '';
+                    const computedType = parseFrontmatter(textContent, ['mediaType', 'media_type']) || '';
                     const foundMedia = parseFrontmatter(textContent, targetFields);
 
                     let finalType = 'image';
@@ -233,13 +241,13 @@
                     itemData = {
                         title: parseFrontmatter(textContent, ['title']) || 'Untitled Update',
                         mediaType: finalType,
-                        category: parseFrontmatter(textContent, ['category', 'category_activity', 'category/activity']) || 'Activity',
+                        category: parseFrontmatter(textContent, ['category']) || 'Activity',
                         mediaFile: foundMedia,
-                        date: parseFrontmatter(textContent, ['date', 'date_uploaded'])
+                        date: parseFrontmatter(textContent, ['date'])
                     };
                 }
 
-                if (itemData.mediaFile) {
+                if (itemData.mediaFile && itemData.mediaFile.trim() !== '') {
                     let sanitizedPath = itemData.mediaFile.trim();
                     if (sanitizedPath.startsWith('/')) {
                         sanitizedPath = '.' + sanitizedPath;
