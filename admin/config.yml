@@ -42,7 +42,7 @@ collections:
     label: "Course Syllabi"
     folder: "content/syllabi"
     extension: "json" 
-    create: true 
+    create: false 
     editor:
       preview: false
     description: >
