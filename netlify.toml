@@ -1,10 +1,8 @@
 [build]
   command = "node compile-data.js && npm install"
-  functions = "netlify/functions"
   publish = "."
 
 [functions]
   directory = "netlify/functions"
-
-[functions.node_bundle]
-  external_node_modules = []
+  node_bundle = true
+  external_node_modules = ["@google/genai"]
