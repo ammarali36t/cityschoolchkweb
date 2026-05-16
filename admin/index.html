@@ -11,6 +11,38 @@
        1. STYLES ONLY FOR MOBILE (UNDER 768px)
        ========================================== */
     @media (max-width: 768px) {
+      
+      /* FIX FOR THE TOP TOOLBAR (PUBLISH BUTTON CONTAINER) */
+      /* This breaks the rigid row layout and lets buttons wrap so they stay on screen */
+      div[class*="AppHeaderContent"],
+      div[class*="TopBarContainer"],
+      header div {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        height: auto !important;
+        padding: 8px !important;
+      }
+
+      /* Forces the action buttons container (Publish, Delete, Status dropdown) to fit inside the viewport */
+      div[class*="ToolbarContainer"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: flex-start !important;
+        gap: 6px !important;
+        position: relative !important;
+        left: 0 !important;
+      }
+
+      /* Adjusts individual buttons inside the header bar so they don't break look or flow */
+      div[class*="ToolbarContainer"] button,
+      div[class*="ToolbarContainer"] div[role="button"],
+      a[class*="AppHeaderButton"] {
+        padding: 6px 10px !important;
+        font-size: 12px !important;
+      }
+
       /* Stops the sidebar from floating rigidly over the input fields */
       div[class*="AppHeaderContainer"] + div {
         flex-direction: column !important;
@@ -33,7 +65,6 @@
       }
 
       /* FIX FOR THE IMAGE UPLOAD MODAL WINDOW */
-      /* This targets the white pop-up window container and shrinks it to fit your phone screen */
       div[class*="Modal-card"], 
       div[role="dialog"] {
         width: 95vw !important;
@@ -45,14 +76,12 @@
         transform: translateX(-50%) !important;
       }
 
-      /* Makes sure the top controls (Search, Copy, Delete, Upload) wrap onto new lines instead of running off-screen */
       div[class*="StyledModalCardBody"] > div,
       div[class*="Modal"] div {
         flex-wrap: wrap !important;
         gap: 8px !important;
       }
 
-      /* Ensures the grid list of images shrinks to fit neatly inside the screen boundaries */
       div[class*="CardGridContainer"] {
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important;
         gap: 8px !important;
