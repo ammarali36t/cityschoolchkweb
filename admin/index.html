@@ -7,14 +7,42 @@
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
   <style>
+    /* ==========================================
+       1. LAPTOP/PC STAYS UNTOUCHED - MOBILE-ONLY FIX 
+       ========================================== */
+    @media (max-width: 640px) {
+      /* Force the main outer Netlify container widget to drop full width */
+      iframe#netlify-identity-widget,
+      div[id*="netlify-identity-widget"] {
+        width: 100% !important;
+        height: 100% !important;
+        left: 0 !important;
+        top: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+      }
+
+      /* Force the dialog panel wrapper to fit within phone screen bounds */
+      div[id*="netlify-identity-widget"] .netlify-identity-menu,
+      iframe#netlify-identity-widget .netlify-identity-menu {
+        max-width: 92vw !important;
+        width: 92vw !important;
+        margin: 20px auto !important;
+        box-sizing: border-box !important;
+      }
+    }
+
+    /* ==========================================
+       2. YOUR EXISTING INTERNAL DASHBOARD REWRITES 
+       ========================================== */
     @media (max-width: 768px) {
-      /* 1. Stops the sidebar from floating rigidly over the input fields */
+      /* Stops the sidebar from floating rigidly over the input fields */
       div[class*="AppHeaderContainer"] + div {
         flex-direction: column !important;
         display: flex !important;
       }
       
-      /* 2. Flattens the collection layout box smoothly across the top of the mobile screen */
+      /* Flattens the collection layout box smoothly across the top of the mobile screen */
       aside[class*="SidebarContainer"] {
         width: 100% !important;
         position: relative !important;
@@ -24,7 +52,7 @@
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
       }
 
-      /* 3. Forces the menu items to flow responsively rather than cutting off */
+      /* Forces the menu items to flow responsively rather than cutting off */
       aside[class*="SidebarContainer"] nav {
         width: 100% !important;
       }
