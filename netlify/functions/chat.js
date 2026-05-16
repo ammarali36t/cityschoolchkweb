@@ -1,11 +1,12 @@
 // netlify/functions/chat.js
-const { GoogleGenAI } = require('@google/generative-ai');
+const { GoogleGenAI } = require('@google/genai');
 const fs = require('fs');
 const path = require('path');
 
-// Safe function to parse our synced data asset generated during build phase
+// Safe function to parse our synced data asset
 function getSyncedCampusContext() {
     try {
+        // Look directly inside the local function folder directory
         const dataPath = path.join(__dirname, 'campus-data.json');
         if (fs.existsSync(dataPath)) {
             const rawData = fs.readFileSync(dataPath, 'utf8');
@@ -58,10 +59,8 @@ exports.handler = async (event, context) => {
             };
         }
 
-        // Initialize with the standard, natively integrated SDK
-        const ai = new GoogleGenAI(apiKey);
-        const model = ai.getGenerativeModel({ model: 'gemini-2.5-flash' });
-        
+        // Using your valid, established package instantiation
+        const ai = new GoogleGenAI({ apiKey: apiKey });
         const { prompt, imageData } = JSON.parse(event.body);
 
         // Load the dynamically synced file context safely
@@ -91,12 +90,13 @@ STRICT COMPLIANCE LAWS:
         }
         contents.push(prompt || "Analyze this image.");
 
-        const response = await model.generateContent({
+        const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
             contents: contents,
-            generationConfig: {
-                temperature: 0.0 // Keep creative guessing completely turned off
-            },
-            systemInstruction: systemInstruction
+            config: {
+                systemInstruction: systemInstruction,
+                temperature: 0.0 // Set to zero to completely block creative guess hallucinations
+            }
         });
 
         return {
