@@ -3,42 +3,38 @@ const { GoogleGenAI } = require('@google/genai');
 const fs = require('fs');
 const path = require('path');
 
-// Helper function to dynamically pull your raw repository data folders 
-function getLocalCampusData() {
-    let contextData = "CAMPUS DATA DIRECTORY FILES:\n\n";
-    
-    // Map out the folders from your repository layout
-    const collections = [
-        { name: "FACULTY & STAFF", folderName: "faculty" },
-        { name: "HIGH ACHIEVERS", folderName: "achievers" },
-        { name: "GALLERY AND MEDIA", folderName: "gallery" },
-        { name: "STUDENT LIFE HIGHLIGHTS", folderName: "student-life" }
-    ];
-
-    collections.forEach(collection => {
-        // Evaluate the absolute process root where Netlify checks out your git files
-        const dataPath = path.resolve(process.cwd(), 'content', collection.folderName);
-        
+// Safe function to parse our synced data asset
+function getSyncedCampusContext() {
+    try {
+        const dataPath = path.join(__dirname, 'campus-data.json');
         if (fs.existsSync(dataPath)) {
-            try {
-                const files = fs.readdirSync(dataPath);
-                contextData += `=== COLLECTION: ${collection.name} ===\n`;
-                
-                files.forEach(file => {
-                    if (file.endsWith('.md') || file.endsWith('.json') || file.endsWith('.yml')) {
-                        const filePath = path.join(dataPath, file);
-                        const fileContent = fs.readFileSync(filePath, 'utf8');
-                        contextData += `[File: ${file}]\n${fileContent}\n`;
-                    }
+            const rawData = fs.readFileSync(dataPath, 'utf8');
+            const parsed = JSON.parse(rawData);
+            
+            let contextString = "LIVE SCHOOL DIRECTORY RECORD:\n\n";
+            
+            if (parsed.faculty) {
+                parsed.faculty.forEach(item => {
+                    contextString += `[Staff Member Profile]:\n${item.content}\n---\n`;
                 });
-                contextData += `\n`;
-            } catch (err) {
-                console.error(`Error processing ${collection.folderName}:`, err.message);
             }
+            if (parsed.achievers) {
+                parsed.achievers.forEach(item => {
+                    contextString += `[High Achiever Record]:\n${item.content}\n---\n`;
+                });
+            }
+            if (parsed.studentLife) {
+                parsed.studentLife.forEach(item => {
+                    contextString += `[Student Life Activity]:\n${item.content}\n---\n`;
+                });
+            }
+            
+            return contextString;
         }
-    });
-
-    return contextData;
+    } catch (err) {
+        console.error("Error reading synced matrix file:", err.message);
+    }
+    return "STATUS: PORTAL_DATA_EMPTY. Live CMS profiles are not indexable at this moment.";
 }
 
 exports.handler = async (event, context) => {
@@ -58,31 +54,30 @@ exports.handler = async (event, context) => {
             return {
                 statusCode: 500,
                 headers,
-                body: JSON.stringify({ reply: "API Key variable missing." })
+                body: JSON.stringify({ reply: "Configuration parameter setting missing." })
             };
         }
 
         const ai = new GoogleGenAI({ apiKey: apiKey });
         const { prompt, imageData } = JSON.parse(event.body);
 
-        // 1. Gather files directly from your workspace folder tracks
-        const campusContext = getLocalCampusData();
+        // Load the dynamically synced file context safely
+        const liveCampusContext = getSyncedCampusContext();
 
-        // 2. Build explicit instructions layout
         const systemInstruction = `
-You are CampusBuddy, the friendly, helpful official AI academic assistant for The City School (TCS) Chakwal Campus.
+You are CampusBuddy, the proud, helpful official AI academic assistant for The City School (TCS) Chakwal Campus.
 
 DEVELOPER TEAM CREDITS:
-- This portal and CampusBuddy AI platform were custom developed by **Muhammad Ammar Ali** and **Muhammad Ayaan**. Always credit both developers explicitly when asked about the tech team, programmers, or creators.
+- This complete portal website and CampusBuddy AI subsystem were custom engineered by **Muhammad Ammar Ali** and **Muhammad Ayaan**. Always explicitly credit both Ammar and Ayaan whenever users ask about the tech team, programmers, managers, or creators.
 
 LIVE SCHOOL FILE RECORD WINDOW:
-${campusContext}
+${liveCampusContext}
 
-STRICT EXECUTION LAWS:
-1. When asked about names (e.g., who the HM is, who teaches computing, high achievers from specific grades), search the LIVE SCHOOL FILE RECORD WINDOW above.
-2. If a specific teacher name or role cannot be found in the text files provided above, **YOU ARE FORBIDDEN FROM MAKING UP OR GUESSING A NAME**. Never hallucinate names.
-3. If information is missing from the record files, reply exactly: "I don't see that specific entry in our staff folders yet. You can look through our live **Staff** or **High Achievers** tabs on the website menu above to find our complete directory list!"
-4. Keep answers brief, accurate, encouraging, and formatted with clean Markdown.
+STRICT COMPLIANCE LAWS:
+1. When asked questions about campus personnel (e.g., "Who is the HM?", "Who teaches computing?", or "Who are the high achievers from grade 5 or 6?"), you must strictly evaluate the LIVE SCHOOL FILE RECORD WINDOW provided above.
+2. If the user asks about a specific position or person whose details are not explicitly recorded inside the data text block above, **YOU ARE FORBIDDEN FROM MAKING UP OR GUESSING A NAME**. Never hallucinate a response.
+3. If information is missing from the record data files, reply exactly: "I don't see that specific record in our data folder yet. Please check out the live **Staff** or **High Achievers** section links in the top navigation menu to view our full database!"
+4. Keep all replies encouraging, concise, accurate, and structured in clear markdown formats.
 `;
 
         const contents = [];
@@ -98,7 +93,7 @@ STRICT EXECUTION LAWS:
             contents: contents,
             config: {
                 systemInstruction: systemInstruction,
-                temperature: 0.0 // Set to zero to prevent fake name generation
+                temperature: 0.0 // Set to zero to completely block creative guess hallucinations
             }
         });
 
@@ -113,7 +108,7 @@ STRICT EXECUTION LAWS:
         return {
             statusCode: 500,
             headers,
-            body: JSON.stringify({ reply: "Error processing your request." })
+            body: JSON.stringify({ reply: "The backend server assistant encountered an error." })
         };
     }
 };
