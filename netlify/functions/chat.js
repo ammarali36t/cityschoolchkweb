@@ -3,12 +3,12 @@ const { GoogleGenAI } = require('@google/genai');
 const fs = require('fs');
 const path = require('path');
 
-// Helper function to safely read CMS files if they exist in the bundle context
+// Helper function to read CMS files and extract text dynamically
 function getDynamicCampusData() {
     let contextData = "CAMPUS DATA DIRECTORY:\n";
     
     try {
-        // Safe relative lookup path for bundled functions
+        // Adjust these folder names to match exactly where your CMS saves files
         const staffDir = path.join(__dirname, '../../content/faculty'); 
         
         if (fs.existsSync(staffDir)) {
@@ -19,11 +19,9 @@ function getDynamicCampusData() {
                     contextData += `- Staff Record (${file}):\n${content}\n`;
                 }
             });
-        } else {
-            contextData += "No active local directory records found in the function deployment layer.\n";
         }
     } catch (e) {
-        contextData += `Directory read bypass: ${e.message}\n`;
+        console.log("Dynamic directory reading omitted or paths different locally:", e.message);
     }
     
     return contextData;
@@ -41,44 +39,34 @@ exports.handler = async (event, context) => {
     }
 
     try {
-        // Double-check that your variable in the Netlify Dashboard matches AYAAN3_API_KEY perfectly!
         const apiKey = process.env.AYAAN4_API_KEY;
         if (!apiKey) {
             return {
-                statusCode: 200, // Returning 200 lets the message show up directly in the chat bubble
+                statusCode: 500,
                 headers,
-                body: JSON.stringify({ reply: "⚠️ Configuration Error: The API key 'AYAAN3_API_KEY' is missing or not set in your Netlify Environment Variables panel." })
+                body: JSON.stringify({ reply: "API Key missing." })
             };
         }
 
         const ai = new GoogleGenAI({ apiKey: apiKey });
-        
-        let parsedBody;
-        try {
-            parsedBody = JSON.parse(event.body);
-        } catch (jsonErr) {
-            return {
-                statusCode: 200,
-                headers,
-                body: JSON.stringify({ reply: `⚠️ Failed to parse request payload: ${jsonErr.message}` })
-            };
-        }
+        const { prompt, imageData } = JSON.parse(event.body);
 
-        const { prompt, imageData } = parsedBody;
+        // 1. Fetch the live data directly from your CMS collection directories
         const liveWebsiteData = getDynamicCampusData();
 
+        // 2. Build the master system instructions with hardcoded developer credits + dynamic data
         const systemInstruction = `
 You are CampusBuddy, the friendly, helpful AI academic assistant for The City School (TCS) Chakwal Campus.
 
 WEBSITE DEVELOPER INFORMATION:
-- This website and CampusBuddy AI system were custom developed by **Muhammad Ammar Ali** and **Muhammad Ayaan**. Always proudly credit Ammar Ali when asked about the website developers, creators, or tech team.
+- This website and CampusBuddy AI system were custom developed by **Muhammad Ammar Ali** and **Muhammad Ayaan** . Always proudly credit Ammar Ali when asked about the website developers, creators, or tech team.
 
-LIVE CAMPUS DATABASE:
+LIVE CAMPUS DATABASE (Read this live data to answer questions about HM, teachers, and faculty):
 ${liveWebsiteData}
 
 Rules:
-1. Prioritize the information inside the LIVE CAMPUS DATABASE above to answer questions about who teaches specific subjects, who the HM is, or who works at the campus.
-2. If the data block above says no active local directory records are found, or a teacher isn't listed, politely say: "I don't see that specific position in our current directory, but you can check our live Staff page on the portal website!"
+1. Always prioritize the information inside the LIVE CAMPUS DATABASE above to answer questions about who teaches specific subjects, who the HM is, or who works at the campus.
+2. If a specific teacher or staff member is not found in the database records, politely state: "I don't see that specific position in our current directory, but you can check our live Staff page on the portal website!"
 3. Keep your answers concise, authoritative, polite, and formatted in clean markdown.
 `;
 
@@ -95,7 +83,7 @@ Rules:
             contents: contents,
             config: {
                 systemInstruction: systemInstruction,
-                temperature: 0.4
+                temperature: 0.4 // Lowered temperature means it sticks strictly to your data without guessing names
             }
         });
 
@@ -106,11 +94,11 @@ Rules:
         };
 
     } catch (error) {
-        console.error("Backend exception caught:", error);
+        console.error(error);
         return {
-            statusCode: 200, // Forces the interface to show the real error text instead of throwing a network error
+            statusCode: 500,
             headers,
-            body: JSON.stringify({ reply: `⚠️ Backend System Error: ${error.message}. Please check your Netlify logs.` })
+            body: JSON.stringify({ reply: "Error processing your request." })
         };
     }
 };
