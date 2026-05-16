@@ -77,7 +77,12 @@ collections:
     create: true
     extension: json
     fields:
-      - { label: "Upload Image", name: "image", widget: "image", media_folder: "/assets/images/gallery/chakwal" }
+      - label: "Upload Image"
+        name: "image"
+        widget: "image"
+        # Explicit folder mapping:
+        media_folder: "assets/images/gallery/chakwal"
+        public_folder: "assets/images/gallery/chakwal"
       - { label: "Upload Date", name: "date", widget: "datetime", default: "", required: false }
 
   - name: "gallery_lakevalley"
@@ -86,7 +91,12 @@ collections:
     create: true
     extension: json
     fields:
-      - { label: "Upload Image", name: "image", widget: "image", media_folder: "/assets/images/gallery/lakevalley" }
+      - label: "Upload Image"
+        name: "image"
+        widget: "image"
+        # Explicit folder mapping:
+        media_folder: "assets/images/gallery/lakevalley"
+        public_folder: "assets/images/gallery/lakevalley"
       - { label: "Upload Date", name: "date", widget: "datetime", default: "", required: false }
 
   - name: "student_life"
