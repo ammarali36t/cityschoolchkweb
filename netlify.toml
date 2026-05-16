@@ -1,9 +1,11 @@
 [build]
-  command = "node compile-data.js && npm install"
+  command = "npm install"
   publish = "."
 
 [functions]
+  # This tells Netlify where the code is
   directory = "netlify/functions"
 
 [functions.node_bundle]
-  # This matches the valid object syntax shown in your error log
+  # This forces the AI library to be included in the bundle
+  external_node_modules = ["@google/generative-ai"]
