@@ -4,4 +4,6 @@
 
 [functions]
   directory = "netlify/functions"
-  node_bundle = true
+
+[functions.node_bundle]
+  external_node_modules = ["@google/genai"]
