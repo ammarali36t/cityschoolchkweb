@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The City School | Chakwal Campus</title>
-    <link rel="icon" type="image/png" href="./assets/favicon.png">
+    <link class="flex" rel="icon" type="image/png" href="./assets/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <style> html { scroll-behavior: smooth; } </style>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -20,9 +20,16 @@
         .text-tcs-blue { color: #1a4789; }
         .bg-tcs-yellow { background-color: #ffed00; }
         .border-tcs-yellow { border-color: #ffed00; }
+        
+        /* Level Card Active Style Mapping Toggle */
+        .active-card {
+            border-color: #1a4789 !important;
+            background-color: #f8fafc !important;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1) !important;
+        }
     </style>
 </head>
-<body class="bg-gray-50 font-sans">
+<body class="bg-gray-50 font-sans flex flex-col min-h-screen">
 
     <div class="bg-tcs-yellow h-2 w-full"></div>
 
@@ -75,7 +82,7 @@
         <p class="text-blue-100 uppercase tracking-[0.3em] text-[10px] md:text-xs font-bold">Past Papers & Syllabi Portal</p>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 py-12">
+    <main class="max-w-7xl mx-auto px-4 py-12 flex-grow">
         
         <section class="mb-12">
             <h2 class="text-[#1a4789] font-black text-xl uppercase mb-8 flex items-center">
@@ -125,7 +132,7 @@
             </div>
         </section>
 
-        <section id="resource-display" class="hidden animate-fade-up">
+        <section id="resource-display" class="hidden">
             <h2 id="display-title" class="text-[#1a4789] font-black text-2xl uppercase mb-8 italic border-b-4 border-slate-100 pb-4"></h2>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div class="bg-[#1a4789] p-10 rounded-[3rem] shadow-2xl flex flex-col justify-between">
@@ -157,11 +164,23 @@
         </section>
     </main>
 
-    <footer class="bg-[#1a4789] py-10 text-center">
-        <p class="text-[#ffed00] font-black tracking-widest italic uppercase">I Am - To Learn</p>
+    <footer class="bg-[#1a4789] py-10 text-center border-t-4 border-[#ffed00]">
+        <h4 class="text-[#ffed00] font-black tracking-[0.4em] uppercase italic text-sm mb-2">I AM - TO LEARN</h4>
+        <p class="text-white/40 text-[9px] uppercase tracking-widest">&copy; 2026 TCS Chakwal Campus.</p>
     </footer>
 
     <script>
+        // FIXED: Added Hamburger Navigation Toggle Controller Logic
+        document.addEventListener("DOMContentLoaded", () => {
+            const mobileBtn = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if(mobileBtn && mobileMenu) {
+                mobileBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+
         // Links to Google Drive folders
         const driveLinks = {
             "Grade 3": "YOUR_LINK_HERE",
@@ -175,7 +194,7 @@
             "Senior III": "https://drive.google.com/drive/folders/12lAHQqCqZTzBXOwseovF-NtqafP8gxHV?usp=drive_link"
         };
 
-        // File names for local syllabi (IT team just uploads these to /syllabi/ folder)
+        // File names for local syllabi
         const syllabusFiles = {
             "Grade 3": "./syllabi/grade3.pdf",
             "Grade 4": "./syllabi/grade4.pdf",
@@ -200,8 +219,6 @@
 
             title.innerText = level + " Resources";
             driveBtn.href = driveLinks[level] || "#";
-            
-            // This now points to the file path and uses the 'download' attribute
             syllabusBtn.href = syllabusFiles[level] || "#";
 
             display.classList.remove('hidden');
