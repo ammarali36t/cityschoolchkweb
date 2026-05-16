@@ -4,8 +4,7 @@
   publish = "."
 
 [functions]
-  # This tells Netlify where the code is
   directory = "netlify/functions"
-  node_bundle = true
-  # We clear this out so Netlify stops hunting for the old broken library
+
+[functions.node_bundle]
   external_node_modules = []
