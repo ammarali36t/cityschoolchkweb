@@ -1,9 +1,9 @@
 // netlify/functions/chat.js
-const { GoogleGenAI } = require('@google/genai');
+const { GoogleGenAI } = require('@google/generative-ai');
 const fs = require('fs');
 const path = require('path');
 
-// Safe function to parse our synced data asset
+// Safe function to parse our synced data asset generated during build phase
 function getSyncedCampusContext() {
     try {
         const dataPath = path.join(__dirname, 'campus-data.json');
@@ -13,17 +13,17 @@ function getSyncedCampusContext() {
             
             let contextString = "LIVE SCHOOL DIRECTORY RECORD:\n\n";
             
-            if (parsed.faculty) {
+            if (parsed.faculty && Array.isArray(parsed.faculty)) {
                 parsed.faculty.forEach(item => {
                     contextString += `[Staff Member Profile]:\n${item.content}\n---\n`;
                 });
             }
-            if (parsed.achievers) {
+            if (parsed.achievers && Array.isArray(parsed.achievers)) {
                 parsed.achievers.forEach(item => {
                     contextString += `[High Achiever Record]:\n${item.content}\n---\n`;
                 });
             }
-            if (parsed.studentLife) {
+            if (parsed.studentLife && Array.isArray(parsed.studentLife)) {
                 parsed.studentLife.forEach(item => {
                     contextString += `[Student Life Activity]:\n${item.content}\n---\n`;
                 });
@@ -58,7 +58,10 @@ exports.handler = async (event, context) => {
             };
         }
 
-        const ai = new GoogleGenAI({ apiKey: apiKey });
+        // Initialize with the standard, natively integrated SDK
+        const ai = new GoogleGenAI(apiKey);
+        const model = ai.getGenerativeModel({ model: 'gemini-2.5-flash' });
+        
         const { prompt, imageData } = JSON.parse(event.body);
 
         // Load the dynamically synced file context safely
@@ -75,8 +78,8 @@ ${liveCampusContext}
 
 STRICT COMPLIANCE LAWS:
 1. When asked questions about campus personnel (e.g., "Who is the HM?", "Who teaches computing?", or "Who are the high achievers from grade 5 or 6?"), you must strictly evaluate the LIVE SCHOOL FILE RECORD WINDOW provided above.
-2. If the user asks about a specific position or person whose details are not explicitly recorded inside the data text block above, **YOU ARE FORBIDDEN FROM MAKING UP OR GUESSING A NAME**. Never hallucinate a response.
-3. If information is missing from the record data files, reply exactly: "I don't see that specific record in our data folder yet. Please check out the live **Staff** or **High Achievers** section links in the top navigation menu to view our full database!"
+2. If the user asks about a specific position or person whose details are not explicitly recorded inside the data text block above, YOU MUST NOT ASSUME OR MAKE UP A NAME. Never hallucinate a response.
+3. If information is missing from the record data files, reply exactly: "I don't see that specific record in our data folder yet. Please check out the live Staff or High Achievers section links in the top navigation menu to view our full database!"
 4. Keep all replies encouraging, concise, accurate, and structured in clear markdown formats.
 `;
 
@@ -88,13 +91,12 @@ STRICT COMPLIANCE LAWS:
         }
         contents.push(prompt || "Analyze this image.");
 
-        const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
+        const response = await model.generateContent({
             contents: contents,
-            config: {
-                systemInstruction: systemInstruction,
-                temperature: 0.0 // Set to zero to completely block creative guess hallucinations
-            }
+            generationConfig: {
+                temperature: 0.0 // Keep creative guessing completely turned off
+            },
+            systemInstruction: systemInstruction
         });
 
         return {
