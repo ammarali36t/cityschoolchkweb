@@ -3,13 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback | TCS Chakwal</title>
+    <title>Resources | TCS Chakwal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/png" href="./assets/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; }
+        .animate-fade-up { animation: fadeUp 0.4s ease-out forwards; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .class-btn { -webkit-tap-highlight-color: transparent; outline: none; transition: all 0.3s ease; }
+        
+        /* Active State Classes */
+        .active-card { 
+            background-color: #1a4789 !important; 
+            border-color: #1a4789 !important;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1) !important;
+        }
+        .active-card span:first-child { color: #ffed00 !important; }
+        .active-card span:last-child { color: rgba(255, 255, 255, 0.6) !important; }
     </style>
 </head>
 <body class="bg-slate-50">
@@ -23,262 +35,150 @@
                     <span class="text-[#1a4789] text-[8px] md:text-[10px] tracking-[0.2em] font-black uppercase">Chakwal Campus</span>
                 </div>
             </div>
-
-            <div class="hidden lg:flex space-x-3 xl:space-x-5 items-center">
-                <a href="index.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Home</a>
-                <a href="achievers.html" class="text-[#ffed00] font-black transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">High Achievers</a>
-                <a href="gallery.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Gallery</a>
-                <a href="events.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Events</a>
-                <a href="resources.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Resources</a>
-                <a href="calendar.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest text-nowrap">Calendar</a>
-                <a href="buddy.html" class="text-blue-600 font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest flex items-center bg-blue-50 px-2 py-1 rounded-full">
-                    <i class="fas fa-robot mr-1"></i>CampusBuddy
-                </a>
-                <a href="staff.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Staff</a>
-                <a href="about.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">About</a>
-                <a href="feedback.html" class="text-[#1a4789] font-black hover:text-[#ffed00] transition text-[11px] xl:text-xs uppercase tracking-tighter xl:tracking-widest">Feedback</a>
-            </div>
-
-            <button id="mobile-menu-button" class="lg:hidden flex items-center justify-center w-12 h-10 bg-[#1a4789] rounded-lg shadow-md focus:outline-none active:scale-95 transition-all">
-                <i class="fas fa-bars text-white text-xl"></i>
-            </button>
-        </div>
-
-        <div id="mobile-menu" class="hidden flex flex-col space-y-3 pt-4 pb-2 lg:hidden bg-white px-4 shadow-inner">
-            <a href="index.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Home</a>
-            <a href="achievers.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">High Achievers</a>
-            <a href="gallery.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Gallery</a>
-            <a href="events.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Events</a>
-            <a href="resources.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Resources</a>
-            <a href="calendar.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">School Calendar</a>
-            <a href="buddy.html" class="text-blue-600 font-bold uppercase text-xs border-b pb-2 flex items-center">
-                <i class="fas fa-robot mr-2"></i> CampusBuddy
+            <a href="index.html" class="bg-[#1a4789] text-white px-5 py-2 rounded-full text-xs font-black uppercase tracking-widest hover:bg-[#ffed00] hover:text-[#1a4789] transition shadow-md">
+                <i class="fas fa-home mr-2"></i> Home
             </a>
-            <a href="staff.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">Staff</a>
-            <a href="about.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2">About</a>
-            <a href="feedback.html" class="text-[#1a4789] font-bold uppercase text-xs">Feedback</a>
         </div>
     </nav>
 
     <header class="py-16 bg-[#1a4789] text-center px-4">
-        <h1 class="text-[#ffed00] font-black text-5xl md:text-6xl uppercase italic mb-2 tracking-tighter animate-fade-up">Your Voice Matters</h1>
-        <p class="text-white opacity-80 uppercase tracking-[0.3em] text-[10px] font-bold animate-fade-up">Help us make TCS Chakwal even better</p>
+        <h1 class="text-[#ffed00] font-black text-4xl md:text-6xl uppercase tracking-tighter italic mb-4">Academic Resources</h1>
+        <p class="text-blue-100 uppercase tracking-[0.3em] text-[10px] md:text-xs font-bold">Past Papers & Syllabi Portal</p>
     </header>
 
-    <main class="max-w-5xl mx-auto px-6 py-16">
-        <div class="bg-white rounded-[3rem] shadow-2xl overflow-hidden border-2 border-slate-100 animate-fade-up">
-            <div class="grid grid-cols-1 md:grid-cols-5">
-                
-                <div class="md:col-span-2 bg-[#1a4789] p-12 text-white">
-                    <h2 class="font-black text-3xl uppercase tracking-tighter mb-8 text-[#ffed00]">Contact Info</h2>
-                    <div class="space-y-8">
-                        <div class="flex items-start space-x-4">
-                            <i class="fas fa-map-marker-alt mt-1 text-[#ffed00]"></i>
-                            <p class="text-sm opacity-90 font-medium leading-relaxed">Main Sargodha Road, <br>Chakwal, Punjab</p>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <i class="fas fa-phone mt-1 text-[#ffed00]"></i>
-                            <p class="text-sm opacity-90 font-medium">+92 (543) 123456</p>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <i class="fas fa-envelope mt-1 text-[#ffed00]"></i>
-                            <p class="text-sm opacity-90 font-medium">chakwal@tcs.edu.pk</p>
-                        </div>
-                    </div>
+    <main class="max-w-7xl mx-auto px-4 py-12">
+        
+        <section class="mb-12">
+            <h2 class="text-[#1a4789] font-black text-xl uppercase mb-8 flex items-center">
+                <span class="bg-[#ffed00] w-8 h-8 rounded-lg flex items-center justify-center mr-3 text-sm">1</span>
+                Select Your Level
+            </h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <button onclick="updateResources('Grade 3', this)" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
+                    <span class="block text-[#1a4789] font-black text-2xl">Grade 3</span>
+                    <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Primary School</span>
+                </button>
+                <button onclick="updateResources('Grade 4', this)" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
+                    <span class="block text-[#1a4789] font-black text-2xl">Grade 4</span>
+                    <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Primary School</span>
+                </button>
+                <button onclick="updateResources('Grade 5', this)" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
+                    <span class="block text-[#1a4789] font-black text-2xl">Grade 5</span>
+                    <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Primary School</span>
+                </button>
 
-                    <div class="mt-12 pt-12 border-t border-white/10">
-                        <p class="text-[10px] font-black uppercase tracking-[0.2em] opacity-50 mb-6">Follow Us</p>
-                        <div class="flex space-x-4">
-                            <a href="https://www.facebook.com/share/18iyxkzn5S/?mibextid=wwXIfr" target="_blank" class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-[#ffed00] hover:text-[#1a4789] transition shadow-lg group">
-                                <i class="fab fa-facebook-f text-lg group-hover:scale-110 transition"></i>
-                            </a>
-                            <a href="https://www.instagram.com/the_city_school_chakwal_campus/" target="_blank" class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-[#ffed00] hover:text-[#1a4789] transition shadow-lg group">
-                                <i class="fab fa-instagram text-lg group-hover:scale-110 transition"></i>
-                            </a>
+                <button onclick="updateResources('Grade 6', this)" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
+                    <span class="block text-[#1a4789] font-black text-2xl">Grade 6</span>
+                    <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Middle School</span>
+                </button>
+                <button onclick="updateResources('Grade 7', this)" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
+                    <span class="block text-[#1a4789] font-black text-2xl">Grade 7</span>
+                    <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Middle School</span>
+                </button>
+                <button onclick="updateResources('Grade 8', this)" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
+                    <span class="block text-[#1a4789] font-black text-2xl">Grade 8</span>
+                    <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Middle School</span>
+                </button>
+
+                <button onclick="updateResources('Senior I', this)" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
+                    <span class="block text-[#1a4789] font-black text-2xl">Senior I</span>
+                    <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">O Levels Year 1</span>
+                </button>
+                <button onclick="updateResources('Senior II', this)" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
+                    <span class="block text-[#1a4789] font-black text-2xl">Senior II</span>
+                    <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">O Levels Year 2</span>
+                </button>
+                <button onclick="updateResources('Senior III', this)" class="class-btn group p-8 bg-white border-2 border-slate-100 rounded-[2rem] hover:border-[#1a4789] hover:shadow-xl transition-all">
+                    <span class="block text-[#1a4789] font-black text-2xl">Senior III</span>
+                    <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">O Levels Year 3</span>
+                </button>
+            </div>
+        </section>
+
+        <section id="resource-display" class="hidden animate-fade-up">
+            <h2 id="display-title" class="text-[#1a4789] font-black text-2xl uppercase mb-8 italic border-b-4 border-slate-100 pb-4"></h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-[#1a4789] p-10 rounded-[3rem] shadow-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center mb-8">
+                            <i class="fab fa-google-drive text-[#ffed00] text-3xl mr-4"></i>
+                            <h3 class="text-white font-black uppercase tracking-widest text-sm">Past Papers Repository</h3>
                         </div>
+                        <p class="text-blue-100 font-medium mb-10">Access the full archive of exam papers for this grade.</p>
                     </div>
+                    <a id="drive-button" href="#" target="_blank" class="flex items-center justify-center gap-4 bg-[#ffed00] text-[#1a4789] py-6 rounded-2xl font-black uppercase text-sm tracking-widest hover:scale-[1.02] transition-all shadow-lg">
+                        Open Drive Folder <i class="fas fa-external-link-alt"></i>
+                    </a>
                 </div>
 
-                <div class="md:col-span-3 p-12">
-                    <form id="feedback-form" class="space-y-6">
-                        <div class="grid grid-cols-1 gap-6">
-                            <div>
-                                <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">Full Name</label>
-                                <input type="text" id="full-name" required placeholder="Enter your name" class="form-input w-full px-6 py-4 rounded-2xl bg-slate-50 text-sm font-semibold border border-transparent focus:outline-none focus:border-[#1a4789] transition">
-                            </div>
-                            <div>
-                                <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">Email Address or Phone Number</label>
-                                <input type="text" id="contact-info" required placeholder="username@email.com or +92 3xx xxxxxxx" class="form-input w-full px-6 py-4 rounded-2xl bg-slate-50 text-sm font-semibold border border-transparent focus:outline-none focus:border-[#1a4789] transition">
-                            </div>
-                            <div>
-                                <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">Category</label>
-                                <div class="relative">
-                                    <select id="category" class="form-input w-full px-6 py-4 rounded-2xl bg-slate-50 text-sm font-semibold appearance-none focus:outline-none focus:border-[#1a4789] transition">
-                                        <option value="General">General Feedback</option>
-                                        <option value="Suggestion">Suggestion</option>
-                                        <option value="Academic">Academic Inquiry</option>
-                                        <option value="Complaint">Complaint</option>
-                                    </select>
-                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-6 text-slate-400">
-                                        <i class="fas fa-chevron-down text-xs"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">Message</label>
-                                <textarea id="message" rows="4" required placeholder="How can we help you?" class="form-input w-full px-6 py-4 rounded-2xl bg-slate-50 text-sm font-semibold border border-transparent focus:outline-none focus:border-[#1a4789] transition"></textarea>
-                            </div>
+                <div class="bg-white p-10 rounded-[3rem] border-2 border-slate-100 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center mb-8">
+                            <i class="fas fa-file-invoice text-[#1a4789] text-3xl mr-4"></i>
+                            <h3 class="text-[#1a4789] font-black uppercase tracking-widest text-sm">Course Syllabus</h3>
                         </div>
-
-                        <button type="submit" class="w-full bg-[#1a4789] text-[#ffed00] font-black uppercase tracking-widest py-5 rounded-2xl hover:scale-[1.02] transition shadow-xl active:scale-95 flex items-center justify-center group">
-                            Submit Message 
-                            <i class="fas fa-paper-plane ml-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition"></i>
-                        </button>
-                    </form>
+                        <p class="text-slate-500 font-medium mb-10">Download official course outlines and curriculum guides for this level.</p>
+                    </div>
+                    <a id="syllabus-download" href="#" download class="w-full text-center bg-slate-100 text-[#1a4789] py-6 rounded-2xl font-black uppercase text-sm tracking-widest hover:bg-[#1a4789] hover:text-white transition-all">
+                        Download Syllabi <i class="fas fa-download ml-2"></i>
+                    </a>
                 </div>
             </div>
-        </div>
+        </section>
     </main>
 
-    <footer id="contact" class="bg-[#1a4789] text-white pt-16 pb-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-                
-                <div class="mb-6">
-                    <img src="./assets/logo.png" alt="The City School Logo" 
-                         class="h-16 w-auto mb-4" 
-                         style="filter: drop-shadow(0px 0px 8px rgba(255,255,255,0.4));">
-                    
-                    <p class="text-blue-100 text-sm leading-relaxed">
-                        The City School Chakwal Campus is committed to providing a world-class education and fostering a spirit of lifelong learning.
-                    </p>
-                    <div class="flex space-x-4 mt-6">
-                        <a href="https://www.facebook.com/share/18iyxkzn5S/?mibextid=wwXIfr" target="_blank" class="text-[#ffed00] hover:text-white transition-colors">
-                            <i class="fab fa-facebook text-xl"></i>
-                        </a>
-                        <a href="https://www.instagram.com/the_city_school_chakwal_campus/" target="_blank" class="text-[#ffed00] hover:text-white transition-colors">
-                            <i class="fab fa-instagram text-xl"></i>
-                        </a>
-                        <a href="https://wa.me/923001234567" target="_blank" class="text-[#ffed00] hover:text-white transition-colors">
-                            <i class="fab fa-whatsapp text-xl"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div>
-                    <h4 class="text-[#ffed00] font-black uppercase tracking-widest mb-6">Quick Links</h4>
-                    <ul class="space-y-3 text-sm text-blue-100">
-                        <li><a href="index.html" class="hover:text-[#ffed00] transition">Home</a></li>
-                        <li><a href="about.html" class="hover:text-[#ffed00] transition">About Our Campus</a></li>
-                        <li><a href="gallery.html" class="hover:text-[#ffed00] transition">Extra-Curricular Activities</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-[#ffed00] font-black uppercase tracking-widest mb-6">Find Us</h4>
-                    <div class="space-y-6 text-sm">
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-map-marker-alt text-[#ffed00] mt-1"></i>
-                            <div>
-                                <p class="font-bold text-white mb-1 uppercase text-xs">Chakwal Campus</p>
-                                <p class="text-blue-100 leading-relaxed">Bhoun Road, Chakwal</p>
-                                <a href="https://maps.app.goo.gl/YBuJFpBZV1sEkmEQ6" target="_blank" class="text-[#ffed00] text-[10px] font-bold uppercase mt-1 inline-block hover:underline">Open in Google Maps</a>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start space-x-3 border-t border-white/10 pt-4">
-                            <i class="fas fa-map-marker-alt text-[#ffed00] mt-1"></i>
-                            <div>
-                                <p class="font-bold text-white mb-1 uppercase text-xs">Lake Valley Campus</p>
-                                <p class="text-blue-100 leading-relaxed">Chakwal, Punjab</p>
-                                <a href="https://maps.app.goo.gl/zMSfcE2nYFqqY4Jz7" target="_blank" class="text-[#ffed00] text-[10px] font-bold uppercase mt-1 inline-block hover:underline">Open in Google Maps</a>
-                            </div>
-                        </div>
-
-                        <div class="space-y-2 border-t border-white/10 pt-4">
-                            <div class="flex items-center space-x-3 text-blue-100">
-                                <i class="fas fa-phone-alt text-[#ffed00]"></i>
-                                <span>+92 335 9579576</span>
-                            </div>
-                            <div class="flex items-center space-x-3 text-blue-100">
-                                <i class="fas fa-envelope text-[#ffed00]"></i>
-                                <span class="break-all">chakwal@tcs.edu.pk</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div> 
-            <div class="mt-16 pt-8 border-t border-white/10 w-full flex flex-col items-center justify-center text-center">
-                <div class="max-w-7xl mx-auto px-4">
-                    <h4 class="text-[#ffed00] font-black text-lg md:text-xl tracking-[0.4em] uppercase mb-2">
-                        I AM - TO LEARN
-                    </h4>
-                    <p class="text-blue-200/60 text-[10px] md:text-xs uppercase tracking-[0.2em]">
-                        © 2026 The City School Chakwal Campus. Designed with Excellence.
-                    </p>
-                </div>
-            </div>
-        </div>
+    <footer class="bg-[#1a4789] py-10 text-center">
+        <p class="text-[#ffed00] font-black tracking-widest italic uppercase">I Am - To Learn</p>
     </footer>
 
     <script>
-        const btn = document.getElementById('mobile-menu-button');
-        const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
-    </script>
+        // Links to Google Drive folders
+        const driveLinks = {
+            "Grade 3": "YOUR_LINK_HERE",
+            "Grade 4": "YOUR_LINK_HERE",
+            "Grade 5": "YOUR_LINK_HERE",
+            "Grade 6": "YOUR_LINK_HERE",
+            "Grade 7": "YOUR_LINK_HERE",
+            "Grade 8": "YOUR_LINK_HERE",
+            "Senior I": "https://drive.google.com/drive/folders/1NyQhLbA-QcMHjklpZdXg-yGO7OOygA2o?usp=drive_link",
+            "Senior II": "https://drive.google.com/drive/folders/1_tx5CoPbJrdPoWevSY3BlQCUVWbd79Aw?usp=drive_link",
+            "Senior III": "https://drive.google.com/drive/folders/12lAHQqCqZTzBXOwseovF-NtqafP8gxHV?usp=drive_link"
+        };
 
-    <script>
-        const feedbackForm = document.getElementById('feedback-form');
+        // File names for local syllabi (IT team just uploads these to /syllabi/ folder)
+        const syllabusFiles = {
+            "Grade 3": "./syllabi/grade3.pdf",
+            "Grade 4": "./syllabi/grade4.pdf",
+            "Grade 5": "./syllabi/grade5.pdf",
+            "Grade 6": "./syllabi/grade6.pdf",
+            "Grade 7": "./syllabi/grade7.pdf",
+            "Grade 8": "./syllabi/grade8.pdf",
+            "Senior I": "./syllabi/senior1.pdf",
+            "Senior II": "./syllabi/senior2.pdf",
+            "Senior III": "./syllabi/senior3.pdf"
+        };
 
-        if (feedbackForm) {
-            feedbackForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                
-                // Read clean updated component fields
-                const fullName = document.getElementById('full-name').value;
-                const contactInfo = document.getElementById('contact-info').value;
-                const category = document.getElementById('category').value;
-                const message = document.getElementById('message').value;
-                
-                const submitBtn = feedbackForm.querySelector('button[type="submit"]');
-                const originalBtnHtml = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Storing feedback...';
-                submitBtn.disabled = true;
+        function updateResources(level, clickedBtn) {
+            const allBtns = document.querySelectorAll('.class-btn');
+            allBtns.forEach(btn => btn.classList.remove('active-card'));
+            clickedBtn.classList.add('active-card');
 
-                const payload = {
-                    fullName: fullName,
-                    contactInfo: contactInfo, 
-                    category: category,
-                    message: message
-                };
+            const display = document.getElementById('resource-display');
+            const title = document.getElementById('display-title');
+            const driveBtn = document.getElementById('drive-button');
+            const syllabusBtn = document.getElementById('syllabus-download');
 
-                // Explicit Google Apps Script Trigger URL Route
-                const googleScriptUrl = "https://script.google.com/macros/s/AKfycbzZDIkuLrx3B6cNTW-TF_C0vtk6PEbA8oVv2VtQ0j7HKY3ZLJF-6QPCNfBVBhP4eNI5sQ/exec";
+            title.innerText = level + " Resources";
+            driveBtn.href = driveLinks[level] || "#";
+            
+            // This now points to the file path and uses the 'download' attribute
+            syllabusBtn.href = syllabusFiles[level] || "#";
 
-                try {
-                    await fetch(googleScriptUrl, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(payload)
-                    });
-
-                    feedbackForm.reset();
-                    alert("Thank you! Your feedback has been logged securely in our system.");
-                    
-                } catch (error) {
-                    console.error("Submission failed logs: ", error);
-                    alert("Something went wrong. Please check your network connection and try again.");
-                } finally {
-                    submitBtn.innerHTML = originalBtnHtml;
-                    submitBtn.disabled = false;
-                }
-            });
+            display.classList.remove('hidden');
+            setTimeout(() => {
+                display.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
         }
     </script>
 </body>
