@@ -14,7 +14,7 @@
 </head>
 <body class="bg-slate-50 flex flex-col min-h-screen">
 
-<div id="media-lightbox" class="fixed inset-0 z-[100] hidden bg-black/95 flex flex-col items-center justify-center p-4 base-transition opacity-0">
+<div id="media-lightbox" class="fixed inset-0 z-[100] hidden bg-black/95 flex flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-300">
     <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white text-4xl hover:text-[#ffed00] transition z-[110]">
         <i class="fas fa-times"></i>
     </button>
@@ -52,6 +52,18 @@
             <i class="fas fa-bars text-white text-xl"></i>
         </button>
     </div>
+    
+    <div id="mobile-menu" class="hidden flex flex-col space-y-3 pt-4 pb-2 lg:hidden bg-white shadow-inner">
+        <a href="index.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2 px-2">Home</a>
+        <a href="achievers.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2 px-2">High Achievers</a>
+        <a href="gallery.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2 px-2">Gallery</a>
+        <a href="events.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2 px-2">Events</a>
+        <a href="resources.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2 px-2">Resources</a>
+        <a href="calendar.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2 px-2">Calendar</a>
+        <a href="staff.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2 px-2">Staff</a>
+        <a href="about.html" class="text-[#1a4789] font-bold uppercase text-xs border-b pb-2 px-2">About</a>
+        <a href="feedback.html" class="text-[#1a4789] font-bold uppercase text-xs pb-2 px-2">Feedback</a>
+    </div>
 </nav>
 
 <header class="bg-[#1a4789] text-white py-14 border-b-8 border-[#ffed00]">
@@ -84,6 +96,15 @@
 </footer>
 
 <script>
+    // Mobile Hamburger Menu Setup
+    const mobileBtn = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if(mobileBtn && mobileMenu) {
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
+
     const lightbox = document.getElementById('media-lightbox');
     const lbImg = document.getElementById('lightbox-img');
     const lbVideo = document.getElementById('lightbox-video');
@@ -122,8 +143,9 @@
         document.body.style.overflow = 'auto';
     }
 
-    // Flexible extraction function for Markdown files
-    function parseFrontmatter(text, keysArray) {
+    // SAFELY evaluates key definitions whether passed as an Array or single string
+    function parseFrontmatter(text, keys) {
+        const keysArray = Array.isArray(keys) ? keys : [keys];
         for (let key of keysArray) {
             const regex = new RegExp(`^${key}:\\s*["']?([^"'\n\r]+)["']?`, 'm');
             const match = text.match(regex);
@@ -147,16 +169,15 @@
             
             allMediaItems = [];
 
+            const targetFields = [
+                'upload_image_file', 'upload_image_file_optional', 'upload_video_file', 
+                'upload_video_file_optional', 'image', 'image_file', 'imagefile', 
+                'video', 'video_file', 'videofile', 'media_file', 'mediafile'
+            ];
+
             for (const file of validFiles) {
                 const dataResponse = await fetch(file.download_url);
                 let itemData = {};
-
-                // System accepts alternative slugs built by CMS dynamic configurations
-                const targetFields = [
-                    'upload_image_file', 'upload_image_file_optional', 'upload_video_file', 
-                    'upload_video_file_optional', 'image', 'image_file', 'imagefile', 
-                    'video', 'video_file', 'videofile', 'media_file', 'mediafile'
-                ];
 
                 if (file.name.endsWith('.json')) {
                     const parsedJson = await dataResponse.json();
@@ -204,7 +225,6 @@
                 }
             }
 
-            // Sort chronology pipeline
             allMediaItems.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
             renderItems(allMediaItems);
 
