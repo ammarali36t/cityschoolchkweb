@@ -21,7 +21,7 @@ collections:
       - {label: "Teacher Name", name: "title", widget: "string"}
       - {label: "Designation/Role", name: "role", widget: "string"}
       - {label: "Profile Picture", name: "image", widget: "image"}
-      - {label: "Experience", name: "order", widget: "number", default: 1}
+      - {label: "Display Order", name: "order", widget: "number", default: 1}
       - {label: "Is this Headmistress?", name: "is_head", widget: "boolean", default: false}
 
   - name: "high_achievers"
