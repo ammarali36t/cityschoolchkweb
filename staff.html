@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The City School | Chakwal Campus</title>
-    <link rel="icon" type="image/png" href="./assets/favicon.png">
+    <link class="icon" type="image/png" href="./assets/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <style> html { scroll-behavior: smooth; } </style>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -120,8 +120,20 @@
                 }
             }
 
-            // 2. Sort: Headmistress first
-            facultyData.sort((a, b) => (b.is_head === true || b.is_head === "true") - (a.is_head === true || a.is_head === "true"));
+            // 2. Sort: Headmistress locked at the top, then sort sequentially by "order" field value ascendingly (1, 2, 3...)
+            facultyData.sort((a, b) => {
+                const aHead = a.is_head === true || a.is_head === "true";
+                const bHead = b.is_head === true || b.is_head === "true";
+                
+                if (aHead !== bHead) {
+                    return bHead - aHead; // True values go to top
+                }
+                
+                // If both are normal faculty or both are heads, sort by order number field cleanly
+                const orderA = parseInt(a.order) || 999;
+                const orderB = parseInt(b.order) || 999;
+                return orderA - orderB;
+            });
 
             grid.innerHTML = '';
             headSection.innerHTML = '';
@@ -147,7 +159,7 @@
                         <h3 class="text-[#1a4789] font-black text-[9px] md:text-lg uppercase leading-tight px-1">${member.title}</h3>
                         <p class="text-slate-400 font-bold text-[7px] md:text-xs uppercase mb-2">${member.role}</p>
                         <div class="bg-slate-50 rounded-lg py-1">
-                            <p class="text-[#1a4789] text-[7px] md:text-[10px] font-bold">${member.order} Years Experience</p>
+                            <p class="text-[#1a4789] text-[7px] md:text-[10px] font-bold">Position: ${member.order}</p>
                         </div>
                     </div>
                 `;
