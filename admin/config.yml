@@ -21,9 +21,10 @@ collections:
       - {label: "Teacher Name", name: "title", widget: "string"}
       - {label: "Designation/Role", name: "role", widget: "string"}
       - {label: "Profile Picture", name: "image", widget: "image"}
-      - {label: "Display Order", name: "order", widget: "number", default: 1}
+      - {label: "Years Experience", name: "experience", widget: "number", default: 1}
+      - {label: "Display Order", name: "order", widget: "number", default: 1, hint: "Controls the card position grid. Smaller numbers (e.g. 1, 2, 3) appear first."}
       - {label: "Is this Headmistress?", name: "is_head", widget: "boolean", default: false}
-
+      
   - name: "high_achievers"
     label: "High Achievers"
     folder: "content/achievers"
