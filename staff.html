@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght=400;700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The City School | Chakwal Campus</title>
-    <link rel="icon" type="image/png" href="./assets/favicon.png">
+    <link class="icon" type="image/png" href="./assets/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <style> html { scroll-behavior: smooth; } </style>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     
     <style>
-        /* Official TCS Colors based on your logo */
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
         .bg-tcs-blue { background-color: #1a4789; }
         .text-tcs-blue { color: #1a4789; }
         .bg-tcs-yellow { background-color: #ffed00; }
@@ -77,7 +74,7 @@
 
     <main class="max-w-7xl mx-auto px-4 py-12">
         <div id="head-section" class="flex justify-center mb-16"></div>
-        <div id="faculty-grid" class="grid grid-cols-3 md:grid-cols-4 gap-4 md:gap-8"></div>
+        <div id="faculty-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8"></div>
     </main>
 
     <footer class="bg-[#1a4789] py-12 text-center border-t-4 border-[#ffed00]">
@@ -85,19 +82,14 @@
     </footer>
 
     <script>
-    // --- MOBILE MENU LOGIC ---
     document.addEventListener('DOMContentLoaded', () => {
         const btn = document.getElementById('mobile-menu-button');
         const menu = document.getElementById('mobile-menu');
-
         if (btn && menu) {
-            btn.addEventListener('click', () => {
-                menu.classList.toggle('hidden');
-            });
+            btn.addEventListener('click', () => { menu.classList.toggle('hidden'); });
         }
     });
 
-    // --- FACULTY LOADER LOGIC ---
     async function loadFaculty() {
         const headSection = document.getElementById('head-section');
         const grid = document.getElementById('faculty-grid');
@@ -111,26 +103,23 @@
             
             let facultyData = [];
 
-            // 1. Fetch all data first
             for (const file of files) {
                 if (file.name.endsWith('.json')) {
-                    const contentRes = await fetch(file.download_url);
+                    const contentRes = await fetch(`${file.download_url}?t=${new Date().getTime()}`);
                     const member = await contentRes.json();
                     facultyData.push(member);
                 }
             }
 
-            // 2. Sort: Headmistress stays first, rest ordered by numeric input value safely
+            // Handles sequence sorting logic via Display Order field safely
             facultyData.sort((a, b) => {
                 const aHead = a.is_head === true || a.is_head === "true";
                 const bHead = b.is_head === true || b.is_head === "true";
                 
-                if (aHead !== bHead) {
-                    return bHead - aHead;
-                }
+                if (aHead !== bHead) return bHead - aHead;
                 
-                const orderA = parseInt(a.order) || 999;
-                const orderB = parseInt(b.order) || 999;
+                const orderA = parseInt(a.order) !== undefined && !isNaN(parseInt(a.order)) ? parseInt(a.order) : 999;
+                const orderB = parseInt(b.order) !== undefined && !isNaN(parseInt(b.order)) ? parseInt(b.order) : 999;
                 return orderA - orderB;
             });
 
@@ -138,15 +127,15 @@
             headSection.innerHTML = '';
 
             facultyData.forEach((member) => {
-                // Parse clean image file coordinates
                 let rawPath = member.image || '';
                 let cleanPath = rawPath.replace(/^(\.\/|\/)/, ''); 
                 
-                // Primary: Try relative file structure first
                 const localUrl = `./${cleanPath}`;
-                // Fallback: Build the GitHub proxy mirror link
                 const githubBackupUrl = `https://raw.githubusercontent.com/${repoOwner}/${repoName}/main/${cleanPath}`;
                 
+                // Fallback structure to safely pull custom text input if older records haven't saved an experience value yet
+                const experienceValue = member.experience !== undefined ? member.experience : (member.order || '1');
+
                 const cardHtml = `
                     <div class="staff-card bg-white rounded-2xl shadow-sm border border-slate-100 p-2 md:p-6 text-center hover:shadow-md transition">
                         <div class="relative mx-auto w-16 h-16 md:w-32 md:h-32 mb-3">
@@ -155,22 +144,22 @@
                                  style="aspect-ratio: 1/1;"
                                  onerror="if(this.src.indexOf('raw.githubusercontent.com') === -1) { this.src='${githubBackupUrl}'; } else { this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(member.title)}&background=f1f5f9&color=1a4789'; }">
                         </div>
-                        <h3 class="text-[#1a4789] font-black text-[9px] md:text-lg uppercase leading-tight px-1">${member.title}</h3>
-                        <p class="text-slate-400 font-bold text-[7px] md:text-xs uppercase mb-2">${member.role}</p>
+                        <h3 class="text-[#1a4789] font-black text-[11px] md:text-lg uppercase leading-tight px-1">${member.title}</h3>
+                        <p class="text-slate-400 font-bold text-[8px] md:text-xs uppercase mb-2">${member.role || ''}</p>
                         <div class="bg-slate-50 rounded-lg py-1">
-                            <p class="text-[#1a4789] text-[7px] md:text-[10px] font-bold">${member.order} Years Experience</p>
+                            <p class="text-[#1a4789] text-[8px] md:text-[10px] font-bold">${experienceValue} Years Experience</p>
                         </div>
                     </div>
                 `;
 
                 if (member.is_head === true || member.is_head === "true") {
-                    headSection.innerHTML = cardHtml.replace('w-16 h-16 md:w-32 md:h-32', 'w-28 h-28 md:w-48 md:h-48');
+                    headSection.innerHTML = cardHtml.replace('w-16 h-16 md:w-32 md:h-32', 'w-24 h-24 md:w-40 md:h-40');
                 } else {
                     grid.innerHTML += cardHtml;
                 }
             });
         } catch (error) {
-            console.error("Error:", error);
+            console.error("Error loading faculty members:", error);
         }
     }
     
